@@ -53,7 +53,7 @@ public class Lector {
                     String img_color = (String) clienteActual.get("img_color");
                     String img_bw = (String) clienteActual.get("img_bw");
 
-                    Cliente nuevo = new Cliente(nombre_cliente, Integer.parseInt(id_cliente), false, Integer.parseInt(img_color), Integer.parseInt(img_bw));
+                    Cliente nuevo = new Cliente(nombre_cliente, Integer.parseInt(id_cliente), false, Integer.parseInt(img_color), Integer.parseInt(img_bw),1);
 
                     colaRecepcion.enqueue(nuevo);
                 }

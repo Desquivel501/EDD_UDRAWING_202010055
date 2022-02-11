@@ -8,17 +8,27 @@ public class Cliente {
     boolean terminado;
     int img_color;
     int img_bw;
-    int tiempoEspera;
+    int tiempoEntrada;
+    int tiempoSalida;
+
+    public int getTiempoSalida() {
+        return this.tiempoSalida;
+    }
+
+    public void setTiempoSalida(int tiempoSalida) {
+        this.tiempoSalida = tiempoSalida;
+    }
     PilaImagenes imagenes;
 
 
-    public Cliente(String nombre, int id, boolean terminado, int img_color, int img_bw) {
+    public Cliente(String nombre, int id, boolean terminado, int img_color, int img_bw, int tiempo) {
         this.nombre = nombre;
         this.id = id;
         this.terminado = terminado;
         this.img_color = img_color;
         this.img_bw = img_bw;
-        this.tiempoEspera = 0;
+        this.tiempoEntrada = tiempo;
+        tiempoSalida = 0;
         this.imagenes = new PilaImagenes();
         crearImagenes();
     }
@@ -68,12 +78,12 @@ public class Cliente {
         this.img_bw = img_bw;
     }
 
-    public int getTiempoEspera() {
-        return this.tiempoEspera;
+    public int getTiempoEntrada() {
+        return this.tiempoEntrada;
     }
 
-    public void setTiempoEspera(int tiempoEspera) {
-        this.tiempoEspera = tiempoEspera;
+    public void setTiempoEntrada(int tiempoEntrada) {
+        this.tiempoEntrada = tiempoEntrada;
     }
 
     public PilaImagenes getImagenes() {
@@ -107,7 +117,7 @@ public class Cliente {
         imagenes.stack(nueva);
     }
 
-    public void aumentarTiempo(){
-        tiempoEspera++;
+    public int getTiempo(){
+        return tiempoSalida - tiempoEntrada;
     }
 }

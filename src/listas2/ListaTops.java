@@ -3,13 +3,13 @@ package listas2;
 import Models.Cliente;
 import Nodos.NodoCliente;
 
-public class ListaAtendidos{
+public class ListaTops{
 
     private NodoCliente head;
     private int largo;
     private NodoCliente tail;
 
-    public ListaAtendidos() {
+    public ListaTops() {
         this.head = null;
         this.largo = 0;
         this.tail = null;
@@ -23,32 +23,59 @@ public class ListaAtendidos{
         return this.largo;
     }
 
-    public NodoCliente getHead(){
-        return this.head;
-    }
+    public void ordenTiempo(Cliente nuevo){
+        NodoCliente nodoNuevo = new NodoCliente(nuevo);
+        int tiempoNuevo = nuevo.getTiempo();
+        int tiempoHead = 0;
 
-    public void imprimir(){
-        if (!vacia()){
-            String cadena = "";
-            NodoCliente aux = this.head;
-            while(aux != null){
-                cadena += aux.getValor() + ", ";
-                aux = aux.getSiguiente();
-            }
-            System.out.print(cadena);
-        }
-    }
-
-    public void insertarFinal(Cliente valorNuevo){
-        NodoCliente nuevo = new NodoCliente(valorNuevo);
-        if (this.head == null){
-            this.head = nuevo;
-            this.tail = nuevo;
+        if(this.head == null){
+            this.head = nodoNuevo;
+            this.tail = nodoNuevo;
             this.largo++;
             return;
+        }else{
+            tiempoHead = this.head.getValor().getTiempo();
         }
-        this.tail.setSiguiente(nuevo);
-        this.tail = nuevo;
+        NodoCliente pre = this.head;
+
+        if(pre.getSiguiente() == null){
+        
+            if(tiempoHead < tiempoNuevo){
+                nodoNuevo.setSiguiente(this.head);
+                this.head = nodoNuevo;
+                largo++;
+                return;
+            }else{
+                this.tail.setSiguiente(nodoNuevo);
+                this.tail = nodoNuevo;
+                this.largo++;
+                return;
+            }
+        }
+        int i = 0;
+        while(pre.getSiguiente() != null){
+            int tiempoPre = pre.getValor().getTiempo();
+            int tiempoSig = pre.getSiguiente().getValor().getTiempo();
+
+            if(tiempoHead < tiempoNuevo){
+                nodoNuevo.setSiguiente(this.head);
+                this.head = nodoNuevo;
+                largo++;
+                return;
+            }
+            else if(tiempoPre > tiempoNuevo && tiempoSig < tiempoNuevo){
+                nodoNuevo.setSiguiente(pre.getSiguiente());
+                pre.setSiguiente(nodoNuevo);
+                largo++;
+                return;
+            }
+            pre = pre.getSiguiente();
+            System.out.println("Here");
+            i++;
+            if (i > largo){break;}
+        }
+        this.tail.setSiguiente(nodoNuevo);
+        this.tail = nodoNuevo;
         this.largo++;
     }
 
@@ -70,23 +97,8 @@ public class ListaAtendidos{
         this.largo--;
     }
 
-    public NodoCliente buscar(int indice){
-        NodoCliente aux = this.head;
-        int k = 0;
-        while(k < indice){
-            aux = aux.getSiguiente();
-            k++;
-            if(aux == null){
-                System.out.print("Error: Indice no encontrado");
-                return null;
-            }
-        }
-        return aux;
-    } 
-
     public String graficar(){
         StringBuilder dot = new StringBuilder();
-        dot.append("subgraph cluster_5{\n");
 
         StringBuilder nombresNodos = new StringBuilder();
         StringBuilder conexiones = new StringBuilder();
@@ -96,34 +108,35 @@ public class ListaAtendidos{
         dot.append("node [fontname = \"Bitstream Vera Sans\"fontsize = 8shape = \"record\"]\n");
 
         NodoCliente aux = this.head;
+        int i = 0;
         while(aux != null){
-            // nombresNodos.append("Nodo" + aux.hashCode() + "[label=\"" + aux.getValor().getNombre() +"\"];\n");
+            if(i > 5){break;}
             Cliente actual = aux.getValor();
             
-            nombresNodos.append("Nodo" + aux.hashCode() + "[label=" + buidNodo(actual) +"];\n");
+            nombresNodos.append("Nodo" + aux.hashCode() + "[label=" + buidNodo(actual, i+1) +"];\n");
             if(aux.getSiguiente() != null){
                 conexiones.append(String.format("Nodo%d -> Nodo%d;\n", aux.hashCode(), aux.getSiguiente().hashCode()));
             }
             aux = aux.getSiguiente();
+            i++;
         }
         
         dot.append(nombresNodos);
         dot.append(conexiones);
         dot.append("label = \"Listado Atendidos\";");
         dot.append("rankdir=TB;\n");
-        dot.append("}\n");
 
         return dot.toString();
     }
 
-    public String buidNodo(Cliente actual){
+    public String buidNodo(Cliente actual, int rank){
         String nombre = actual.getNombre();
         String id = Integer.toString(actual.getId());
         String img_color = Integer.toString(actual.getImg_color());
         String img_bw = Integer.toString(actual.getImg_bw());
         int tiempo = actual.getTiempoSalida() - actual.getTiempoEntrada();
-        String label = String.format("\"{Cliente %s | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l| Tiempo en el Sistema: %d\\l}\"", 
-                                        id,nombre,img_color,img_bw,tiempo);
+        String label = String.format("\"{#%d | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l| Tiempo en el Sistema: %d\\l}\"", 
+                                    rank,id,nombre,img_color,img_bw,tiempo);
 
         return label;
     }

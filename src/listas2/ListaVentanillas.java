@@ -90,6 +90,7 @@ public class ListaVentanillas{
         ranks.append("{rank=\"same\"; ");
 
         NodoVentanilla aux = this.head;
+
         while(aux != null){
             // nombresNodos.append("Nodo" + aux.hashCode() + "[label=\"" + aux.getValor().getNombre() +"\"];\n");
             String groupName = "g" + aux.getId();
@@ -98,13 +99,13 @@ public class ListaVentanillas{
 
             int nodoVentanilla = aux.hashCode();
             nombresNodos.append("Nodo" + nodoVentanilla + "[label= \"Ventanilla " + aux.getId() +"\"; shape=Msquare];\n");
-            nombresNodos.append("Nodo" + nodoVentanilla + "[group=" + groupName +"]");
+            nombresNodos.append("Nodo" + nodoVentanilla + "[group=" + groupName +"]\n");
 
             int nodoCliente = actual.hashCode();
             String label = String.format("\"{Cliente %d | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l}\"", 
             actual.getId(),actual.getNombre(),actual.getImg_color(), actual.getImg_bw());
             nombresNodos.append("Nodo" + nodoCliente + "[label=" + label +"];\n");
-            nombresNodos.append("Nodo" + nodoCliente + "[group=" + groupName +"]");
+            nombresNodos.append("Nodo" + nodoCliente + "[group=" + groupName +"]\n");
             
 
             nombresNodos.append(String.format("Nodo%d -> Nodo%d;\n", nodoCliente, nodoVentanilla));
@@ -113,11 +114,16 @@ public class ListaVentanillas{
             
             if(imagen != null){
                 conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoVentanilla, + imagen.hashCode()));
-                int i = 1;
+
                 while(imagen != null){
-                    nombresNodos.append("Nodo" + imagen.hashCode() + "[label= \"Imagen " + i +"\"];\n");
-                    nombresNodos.append("Nodo" + imagen.hashCode() + "[group=" + groupName +"]");
-                    i++;
+                    String tipo = imagen.getValor().getTipo();
+                    if(tipo == "bw"){
+                        tipo="en Blanco y Negro";
+                    }else{
+                        tipo="a Color";
+                    }
+                    nombresNodos.append("Nodo" + imagen.hashCode() + "[label= \"Imagen " + tipo +"\"];\n");
+                    nombresNodos.append("Nodo" + imagen.hashCode() + "[group=" + groupName +"]\n");
                     
                     if(imagen.getSiguiente() != null){
                         conexiones.append(String.format("Nodo%d -> Nodo%d;\n", imagen.hashCode(), + imagen.getSiguiente().hashCode()));
@@ -132,7 +138,8 @@ public class ListaVentanillas{
                 conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoVentanilla, aux.getSiguiente().hashCode()));
                 ranks.append("Nodo" + nodoVentanilla + ",");
             }else{
-                ranks.append("Nodo" + nodoVentanilla + "}");
+                ranks.append("Nodo" + nodoVentanilla + "}\n");
+
             }
             aux = aux.getSiguiente();
         }
@@ -140,7 +147,7 @@ public class ListaVentanillas{
         dot.append(nombresNodos);
         dot.append(conexiones);
         dot.append(ranks);
-        dot.append("label = \"Lista de Ventanillas\";");
+        dot.append("label = \"Lista de Ventanillas\";\n");
         dot.append("rankdir=TB;\n");
         dot.append("}\n");
 
@@ -152,9 +159,8 @@ public class ListaVentanillas{
         String id = Integer.toString(actual.getId());
         String img_color = Integer.toString(actual.getImg_color());
         String img_bw = Integer.toString(actual.getImg_bw());
-        String tiempo = Integer.toString(actual.getTiempoEspera());
-        String label = String.format("\"{Cliente %s | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l| Tiempo Espera: %s\\l}\"", 
-                                        id,nombre,img_color,img_bw,tiempo);
+        String label = String.format("\"{Cliente %s | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l}\"", 
+                                        id,nombre,img_color,img_bw);
 
         return label;
     }

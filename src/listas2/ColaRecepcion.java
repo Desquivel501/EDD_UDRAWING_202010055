@@ -2,7 +2,6 @@ package listas2;
 
 import Models.Cliente;
 import Nodos.NodoCliente;
-import proyecto1.ClienteRandom;
 
 public class ColaRecepcion {
     private NodoCliente head;
@@ -27,17 +26,17 @@ public class ColaRecepcion {
         return this.largo;
     }
 
-    public void imprimir(){
-        if (!vacia()){
-            NodoCliente aux = this.head;
-            while(aux != null){
-                System.out.println("Cliete " + aux.getValor().getId());
-                System.out.println(aux.getValor().getNombre());
-                System.out.println("Tiempo: " + aux.getValor().getTiempoEspera());
-                aux = aux.getSiguiente();
-            }
-        }
-    }
+    // public void imprimir(){
+    //     if (!vacia()){
+    //         NodoCliente aux = this.head;
+    //         while(aux != null){
+    //             System.out.println("Cliete " + aux.getValor().getId());
+    //             System.out.println(aux.getValor().getNombre());
+    //             System.out.println("Tiempo: " + aux.getValor().getTiempoEspera());
+    //             aux = aux.getSiguiente();
+    //         }
+    //     }
+    // }
 
     public void enqueue(Cliente valorNuevo){
         NodoCliente nuevo = new NodoCliente(valorNuevo);
@@ -68,19 +67,19 @@ public class ColaRecepcion {
         return this.head;
     }
 
-    public void crearRandom(){
-        ClienteRandom rand = new ClienteRandom();
-        int numClientes = rand.numClientes();
+    // public void crearRandom(){
+    //     ClienteRandom rand = new ClienteRandom();
+    //     int numClientes = rand.numClientes();
 
-        for(int i = 0; i<numClientes; i++){
-            String nombre = rand.nombre() + " " + rand.apellido();
-            int img_color = rand.numImagenes();
-            int img_bw = rand.numImagenes();
-            if(img_bw==0 && img_color==0){img_bw=1;}
-            Cliente nuevo = new Cliente(nombre, this.largo + 1, false, img_color, img_bw);
-            this.enqueue(nuevo);
-        }
-    }
+    //     for(int i = 0; i<numClientes; i++){
+    //         String nombre = rand.nombre() + " " + rand.apellido();
+    //         int img_color = rand.numImagenes();
+    //         int img_bw = rand.numImagenes();
+    //         if(img_bw==0 && img_color==0){img_bw=1;}
+    //         Cliente nuevo = new Cliente(nombre, this.largo + 1, false, img_color, img_bw);
+    //         this.enqueue(nuevo);
+    //     }
+    // }
 
     public ListaUsuarios dump(){
         ListaUsuarios nuevaLista = new ListaUsuarios();
@@ -118,7 +117,7 @@ public class ColaRecepcion {
         
         dot.append(nombresNodos);
         dot.append(conexiones);
-        dot.append("label = \"Cola de Recepcion\";");
+        dot.append("label = \"Cola de Recepcion\";\n");
         dot.append("rankdir=TB;\n");
         dot.append("}\n");
 
@@ -130,9 +129,8 @@ public class ColaRecepcion {
         String id = Integer.toString(actual.getId());
         String img_color = Integer.toString(actual.getImg_color());
         String img_bw = Integer.toString(actual.getImg_bw());
-        String tiempo = Integer.toString(actual.getTiempoEspera());
-        String label = String.format("\"{Cliente %s | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l| Tiempo Espera: %s\\l}\"", 
-                                        id,nombre,img_color,img_bw,tiempo);
+        String label = String.format("\"{Cliente %s | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l}\"", 
+                                        id,nombre,img_color,img_bw);
 
         return label;
     }

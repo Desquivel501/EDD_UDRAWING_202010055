@@ -1,33 +1,25 @@
 package proyecto1;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import Models.Cliente;
+import Models.ClienteRandom;
 import Nodos.NodoCliente;
 import Nodos.NodoClienteD;
 import Nodos.NodoImagen;
 import Nodos.NodoVentanilla;
-// import Listas.Cliente;
-// import Listas.ColaImpresion;
-// import Listas.ColaRecepcion;
-// import Listas.Imagen;
-// import Listas.ListaAtendidos;
-// import Listas.ListaEspera;
-// import Listas.ListaUsuarios;
-// import Listas.ListaVentanillas;
-// import Listas.PilaImagenes;
-// import Listas.Ventanilla;
 import lector.Lector;
 import listas2.ColaImpresion;
 import listas2.ColaRecepcion;
 import listas2.ListaAtendidos;
 import listas2.ListaEspera;
+import listas2.ListaTops;
 import listas2.ListaUsuarios;
 import listas2.ListaVentanillas;
 import listas2.PilaImagenes;
-
-
-
 
 public class Controller {
 
@@ -74,6 +66,11 @@ public class Controller {
                 case "3":
                     graficar();
                     break;
+                
+                case "4":
+                    Tops listaTop = new Tops();
+                    listaTop.topTiempo(listaUsuarios);
+                    break;
             }
         }
         scan.close();
@@ -83,15 +80,15 @@ public class Controller {
         System.out.println("---------------PASO " + contadorPasos + "---------------");
 
         //Añade un paso a todos los Usuarios
-        if(!listaUsuarios.vacia()){
-            NodoCliente aux = listaUsuarios.getHead();
-            while(aux != null){
-                if(!aux.getValor().isTerminado()){
-                    aux.getValor().aumentarTiempo();
-                }
-                aux = aux.getSiguiente();
-            }
-        }
+        // if(!listaUsuarios.vacia()){
+        //     NodoCliente aux = listaUsuarios.getHead();
+        //     while(aux != null){
+        //         if(!aux.getValor().isTerminado()){
+        //             aux.getValor().aumentarTiempo();
+        //         }
+        //         aux = aux.getSiguiente();
+        //     }
+        // }
 
         //Mira si ya hay un  cliente al que ya se le entregaron todas sus imagenes
         if(!listaEspera.vacia()){
@@ -104,13 +101,13 @@ public class Controller {
                     listaEspera.remover(clienteEspera.getValor().getId());
                     listaAtendidos.insertarFinal(clienteEspera.getValor()); 
                     clienteEspera.getValor().setTerminado(true);
+                    clienteEspera.getValor().setTiempoSalida(contadorPasos);
                     System.out.println("Ya se le han entregado todas las imagenes a " + clienteEspera.getValor().getNombre() + " por lo que deja el establecimiento");
                 
                 }
                 clienteEspera = clienteEspera.getSiguiente();
             }
         }
-
 
         //Imprmime imagenes en blanco y negro
         if(!colaImpresionBW.vacia()){
@@ -264,14 +261,12 @@ public class Controller {
         for(int i = 0; i<numClientes;i++){
             String nombre = rand.nombre()+ " " + rand.apellido();
             int img_color = rand.numImagenes();
-            int img_bw = rand.numImagenes();
-            if(img_bw == 0 && img_color == 0){img_bw=1;}
-            Cliente nuevo = new Cliente(nombre, id, false, img_color, img_bw);
+            int img_bw = 4-img_color;
+            Cliente nuevo = new Cliente(nombre, id, false, img_color, img_bw, contadorPasos);
             listaUsuarios.insertar(nuevo);
             colaRecepcion.enqueue(nuevo);
             id++;
         }
-        
     }
 
     public void graficar(){
@@ -280,10 +275,29 @@ public class Controller {
 
         dot.append(colaRecepcion.graficar());
         dot.append(listaVentanillas.graficar());
+        dot.append(listaEspera.graficar());
+        dot.append(colaImpresionBW.graficar("Impresora Blanco y Negro", 1));
+        dot.append(colaImpresionColor.graficar("Impresora a Color", 2));
+        dot.append(listaAtendidos.graficar());
 
         dot.append("}");
 
-        System.out.println(dot);
+        try {
+            generarArchivo(dot.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void generarArchivo(String dot) throws IOException {
+        FileWriter fileWriter = new FileWriter("grafico.dot");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.print(dot);
+        printWriter.close();
+
+        String[] command = {"dot", "-Tsvg", "grafico.dot", "-o", "grafico.svg" };
+        new ProcessBuilder(command).start();
+
     }
 
 }

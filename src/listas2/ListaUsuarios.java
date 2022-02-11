@@ -103,9 +103,8 @@ public class ListaUsuarios{
         String id = Integer.toString(actual.getId());
         String img_color = Integer.toString(actual.getImg_color());
         String img_bw = Integer.toString(actual.getImg_bw());
-        String tiempo = Integer.toString(actual.getTiempoEspera());
-        String label = String.format("\"{Cliente %s | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l| Tiempo Espera: %s\\l}\"", 
-                                        id,nombre,img_color,img_bw,tiempo);
+        String label = String.format("\"{Cliente %s | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l}\"", 
+                                        id,nombre,img_color,img_bw);
 
         return label;
     }

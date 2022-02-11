@@ -72,4 +72,54 @@ public class ColaImpresion {
     public NodoImagen getHead(){
         return this.head;
     }
+
+    public String graficar(String nombre, int id){
+        StringBuilder dot = new StringBuilder();
+        dot.append("subgraph cluster_3{\n");
+
+        StringBuilder nombresNodos = new StringBuilder();
+        StringBuilder conexiones = new StringBuilder();
+
+        dot.append("fontname = \"Bitstream Vera Sans\"\n");
+        dot.append("fontsize = 8\n");
+        dot.append("node [fontname = \"Bitstream Vera Sans\"fontsize = 8 shape = \"square\"]\n");
+
+        int nodoImpresora = this.hashCode();
+
+        nombresNodos.append("Nodo" + nodoImpresora + "[label= \"" + nombre +"\"; shape=Msquare];\n");
+        nombresNodos.append("Nodo" + nodoImpresora + "[group=" + id +"]\n");
+
+        NodoImagen imagen = this.head;
+            
+        if(imagen != null){
+            conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoImpresora, + imagen.hashCode()));
+
+            while(imagen != null){
+                String tipo = imagen.getValor().getTipo();
+                if(tipo == "bw"){
+                    tipo="en Blanco y Negro";
+                }else{
+                    tipo="a Color";
+                }
+
+                nombresNodos.append("Nodo" + imagen.hashCode() + "[label= \"Imagen " + tipo +"\"];\n");
+                nombresNodos.append("Nodo" + imagen.hashCode() + "[group=" + id +"]\n");
+                    
+                if(imagen.getSiguiente() != null){
+                        conexiones.append(String.format("Nodo%d -> Nodo%d;\n", imagen.hashCode(), + imagen.getSiguiente().hashCode()));
+                }    
+                imagen = imagen.getSiguiente();
+            }
+        }
+        
+        dot.append(nombresNodos);
+        dot.append(conexiones);
+        dot.append("label = \"Cola de Impresion\";\n");
+        dot.append("rankdir=TB;\n");
+        dot.append("}\n");
+
+        return dot.toString();
+    }
+
+
 }
