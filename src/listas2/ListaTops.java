@@ -23,61 +23,63 @@ public class ListaTops{
         return this.largo;
     }
 
-    public void ordenTiempo(Cliente nuevo){
-        NodoCliente nodoNuevo = new NodoCliente(nuevo);
-        int tiempoNuevo = nuevo.getTiempo();
-        int tiempoHead = 0;
+    // public void ordenTiempo(Cliente nuevo){
+    //     NodoCliente nodoNuevo = new NodoCliente(nuevo);
+    //     int tiempoNuevo = nuevo.getTiempo();
+    //     int tiempoHead = 0;
 
-        if(this.head == null){
-            this.head = nodoNuevo;
-            this.tail = nodoNuevo;
-            this.largo++;
-            return;
-        }else{
-            tiempoHead = this.head.getValor().getTiempo();
-        }
-        NodoCliente pre = this.head;
+    //     if(this.head == null){
+    //         this.head = nodoNuevo;
+    //         this.tail = nodoNuevo;
+    //         this.largo++;
+    //         return;
+    //     }else{
+    //         tiempoHead = this.head.getValor().getTiempo();
+    //     }
+    //     NodoCliente pre = this.head;
 
-        if(pre.getSiguiente() == null){
+    //     if(pre.getSiguiente() == null){
         
-            if(tiempoHead < tiempoNuevo){
-                nodoNuevo.setSiguiente(this.head);
-                this.head = nodoNuevo;
-                largo++;
-                return;
-            }else{
-                this.tail.setSiguiente(nodoNuevo);
-                this.tail = nodoNuevo;
-                this.largo++;
-                return;
-            }
-        }
-        int i = 0;
-        while(pre.getSiguiente() != null){
-            int tiempoPre = pre.getValor().getTiempo();
-            int tiempoSig = pre.getSiguiente().getValor().getTiempo();
+    //         if(tiempoHead < tiempoNuevo){
+    //             nodoNuevo.setSiguiente(this.head);
+    //             this.head = nodoNuevo;
+    //             largo++;
+    //             return;
+    //         }else{
+    //             this.tail.setSiguiente(nodoNuevo);
+    //             this.tail = nodoNuevo;
+    //             this.largo++;
+    //             return;
+    //         }
+    //     }
+    //     int i = 0;
+    //     while(pre.getSiguiente() != null){
+    //         int tiempoPre = pre.getValor().getTiempo();
+    //         int tiempoSig = pre.getSiguiente().getValor().getTiempo();
 
-            if(tiempoHead < tiempoNuevo){
-                nodoNuevo.setSiguiente(this.head);
-                this.head = nodoNuevo;
-                largo++;
-                return;
-            }
-            else if(tiempoPre > tiempoNuevo && tiempoSig < tiempoNuevo){
-                nodoNuevo.setSiguiente(pre.getSiguiente());
-                pre.setSiguiente(nodoNuevo);
-                largo++;
-                return;
-            }
-            pre = pre.getSiguiente();
-            System.out.println("Here");
-            i++;
-            if (i > largo){break;}
-        }
-        this.tail.setSiguiente(nodoNuevo);
-        this.tail = nodoNuevo;
-        this.largo++;
-    }
+    //         if(tiempoHead < tiempoNuevo){
+    //             nodoNuevo.setSiguiente(this.head);
+    //             this.head = nodoNuevo;
+    //             largo++;
+    //             return;
+    //         }
+    //         else if(tiempoPre > tiempoNuevo && tiempoSig < tiempoNuevo){
+    //             nodoNuevo.setSiguiente(pre.getSiguiente());
+    //             pre.setSiguiente(nodoNuevo);
+    //             largo++;
+    //             return;
+    //         }
+    //         pre = pre.getSiguiente();
+    //         System.out.println("Here");
+    //         i++;
+    //         if (i > largo){break;}
+    //     }
+    //     this.tail.setSiguiente(nodoNuevo);
+    //     this.tail = nodoNuevo;
+    //     this.largo++;
+    // }
+
+
 
     public void remover(int indice){
         NodoCliente pre = this.head;
@@ -109,6 +111,7 @@ public class ListaTops{
 
         NodoCliente aux = this.head;
         int i = 0;
+
         while(aux != null){
             if(i > 5){break;}
             Cliente actual = aux.getValor();

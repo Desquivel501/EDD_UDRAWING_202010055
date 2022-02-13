@@ -16,59 +16,59 @@ public class Tops {
     public Tops() {
     }
 
-    public void topTiempo(ListaUsuarios listaUsuarios){
-        ListaTops nuevaLista = new ListaTops();
+    // public void topTiempo(ListaUsuarios listaUsuarios){
+    //     ListaTops nuevaLista = new ListaTops();
         
-        NodoCliente aux = listaUsuarios.getHead();
+    //     NodoCliente aux = listaUsuarios.getHead();
         
-        for(int i=0;i<5;i++){
-            if(aux==null){break;}
-            if(aux.getValor().isTerminado()){
-                nuevaLista.ordenTiempo(aux.getValor());
-            }else{
-                i--;
-            }
-            aux = aux.getSiguiente();
-        }
+    //     for(int i=0;i<5;i++){
+    //         if(aux==null){break;}
+    //         if(aux.getValor().isTerminado()){
+    //             nuevaLista.ordenTiempo(aux.getValor());
+    //         }else{
+    //             i--;
+    //         }
+    //         aux = aux.getSiguiente();
+    //     }
 
-        StringBuilder dot = new StringBuilder();
-        dot.append("digraph G{\n");
-        dot.append(nuevaLista.graficar());
-        dot.append("}");
+    //     StringBuilder dot = new StringBuilder();
+    //     dot.append("digraph G{\n");
+    //     dot.append(nuevaLista.graficar());
+    //     dot.append("}");
 
-        try {
-            generarArchivo(dot.toString(),"TopTiempo");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    //     try {
+    //         generarArchivo(dot.toString(),"TopTiempo");
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
-    public void topImgC(ListaUsuarios listaUsuarios){
-        ListaTops nuevaLista = new ListaTops();
+    // public void topImgC(ListaUsuarios listaUsuarios){
+    //     ListaTops nuevaLista = new ListaTops();
         
-        NodoCliente aux = listaUsuarios.getHead();
+    //     NodoCliente aux = listaUsuarios.getHead();
         
-        for(int i=0;i<5;i++){
-            if(aux==null){break;}
-            if(aux.getValor().isTerminado()){
-                nuevaLista.ordenTiempo(aux.getValor());
-            }else{
-                i--;
-            }
-            aux = aux.getSiguiente();
-        }
+    //     for(int i=0;i<5;i++){
+    //         if(aux==null){break;}
+    //         if(aux.getValor().isTerminado()){
+    //             nuevaLista.ordenTiempo(aux.getValor());
+    //         }else{
+    //             i--;
+    //         }
+    //         aux = aux.getSiguiente();
+    //     }
 
-        StringBuilder dot = new StringBuilder();
-        dot.append("digraph G{\n");
-        dot.append(nuevaLista.graficar());
-        dot.append("}");
+    //     StringBuilder dot = new StringBuilder();
+    //     dot.append("digraph G{\n");
+    //     dot.append(nuevaLista.graficar());
+    //     dot.append("}");
 
-        try {
-            generarArchivo(dot.toString(),"TopImagenesColor");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    //     try {
+    //         generarArchivo(dot.toString(),"TopImagenesColor");
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
 
 

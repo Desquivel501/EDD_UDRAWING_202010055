@@ -44,7 +44,7 @@ public class Controller {
             System.out.println("|| 1. PARAMETROS INICIALES             ||");
             System.out.println("|| 2. EJECUTAR PASO                    ||");
             System.out.println("|| 3. ESTADO EN MEMORIA                ||"); 
-            System.out.println("|| 4. REPARTO                          ||");
+            System.out.println("|| 4. REPORTE                          ||");
             System.out.println("|| 5. ACERCA DE...                     ||");
             System.out.println("|| 6. SALIR                            ||");
             System.out.println("=========================================");
@@ -68,9 +68,18 @@ public class Controller {
                     break;
                 
                 case "4":
-                    Tops listaTop = new Tops();
-                    listaTop.topTiempo(listaUsuarios);
-                    break;
+                    // Tops listaTop = new Tops();
+                    listaUsuarios.ordenarTiempo();
+                    listaUsuarios.graficar("Clientes con mas tiempo en el sistema","TopTiempo","t");
+
+                    listaUsuarios.ordenarImagen("c");
+                    listaUsuarios.graficar("Clientes con mas imagenes a color","TopColor","c");
+
+                    listaUsuarios.ordenarImagen("bw");
+                    listaUsuarios.graficar("Clientes con mas imagenes en blanco y negro","TopBW","bw");
+
+
+
             }
         }
         scan.close();
@@ -295,7 +304,7 @@ public class Controller {
         printWriter.print(dot);
         printWriter.close();
 
-        String[] command = {"dot", "-Tsvg", "grafico.dot", "-o", "grafico.svg" };
+        String[] command = {"dot", "-Tpng", "grafico.dot", "-o", "grafico.png" };
         new ProcessBuilder(command).start();
 
     }

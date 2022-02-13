@@ -1,0 +1,15 @@
+digraph G{
+fontname = "Bitstream Vera Sans"
+fontsize = 8
+node [fontname = "Bitstream Vera Sans"fontsize = 8shape = "record"]
+Nodo1762902523[label="{#1 | Nombre: Maria Aguilar\l| Imagenes a Color: 5\l}"];
+Nodo1313916817[label="{#2 | Nombre: Solaire Vargas\l| Imagenes a Color: 4\l}"];
+Nodo1966124444[label="{#3 | Nombre: Sarah Domminguez\l| Imagenes a Color: 4\l}"];
+Nodo1487500813[label="{#4 | Nombre: Rose Hawkins\l| Imagenes a Color: 4\l}"];
+Nodo1911152052[label="{#5 | Nombre: Gael Snow\l| Imagenes a Color: 4\l}"];
+Nodo1762902523 -> Nodo1313916817;
+Nodo1313916817 -> Nodo1966124444;
+Nodo1966124444 -> Nodo1487500813;
+Nodo1487500813 -> Nodo1911152052;
+label = "Clientes con mas imagenes a color";rankdir=TB;
+}
