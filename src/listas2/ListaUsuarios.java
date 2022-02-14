@@ -1,8 +1,10 @@
 package listas2;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.awt.Desktop;
 
 import Models.Cliente;
 import Nodos.NodoCliente;
@@ -12,6 +14,7 @@ public class ListaUsuarios{
     private NodoCliente head;
     private int largo;
     private NodoCliente tail;
+    private int tiempoActual;
 
     public ListaUsuarios() {
         this.head = null;
@@ -49,18 +52,28 @@ public class ListaUsuarios{
         this.largo++;
     }
 
-    public NodoCliente buscar(int indice){
+    public void buscar(int id, int tiempoActual){
+        this.tiempoActual = tiempoActual;
         NodoCliente aux = this.head;
-        int k = 0;
-        while(k < indice){
-            aux = aux.getSiguiente();
-            k++;
-            if(aux == null){
-                System.out.print("Error: Indice no encontrado");
-                return null;
+        while(aux != null){
+            if(aux.getValor().getId() == id){
+                break;
             }
+            aux = aux.getSiguiente();
         }
-        return aux;
+        StringBuilder dot = new StringBuilder();
+        dot.append("digraph G{\n");
+        dot.append("fontname = \"Bitstream Vera Sans\"\n");
+        dot.append("fontsize = 8\n");
+        dot.append("node [fontname = \"Bitstream Vera Sans\"fontsize = 8shape = \"record\"]\n");
+        dot.append("Nodo" + aux.hashCode() + "[label=" + buidNodo(aux.getValor(), 1,"cl") +"];\n");
+        dot.append("}");
+
+        try {
+            generarArchivo(dot.toString(), "Usuario");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     } 
 
     public void ordenarTiempo(){
@@ -124,6 +137,8 @@ public class ListaUsuarios{
 
         NodoCliente aux = this.head;
         System.out.println(aux.getValor().getNombre());
+
+
         for(int i = 0; i < 5;i++){
             if(aux == null){break;}
             Cliente actual = aux.getValor();
@@ -133,6 +148,7 @@ public class ListaUsuarios{
                     System.out.println("OUT");
                     continue;
                 }
+                i = 4;
             }
 
             nombresNodos.append("Nodo" + aux.hashCode() + "[label=" + buidNodo(actual, i+1,tipo) +"];\n");
@@ -151,22 +167,22 @@ public class ListaUsuarios{
         try {
             generarArchivo(dot.toString(), archivo);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     public String buidNodo(Cliente actual, int rank, String tipo){
         String nombre = actual.getNombre();
-        String id = Integer.toString(actual.getId());
+        int id = actual.getId();
         int img_color = actual.getImg_color();
         int img_bw = actual.getImg_bw();
         int tiempo = actual.getTiempoSalida() - actual.getTiempoEntrada();
+        int tiempoT = this.tiempoActual - actual.getTiempoEntrada();
 
         switch(tipo){
             case "t":
-                String labelT = String.format("\"{#%d | Nombre: %s\\l| Tiempo en el Sistema: %d\\l}\"", 
-                                    rank,nombre,tiempo);
+                String labelT = String.format("\"{Cliente #%d | Nombre: %s\\l| Tiempo en el Sistema: %d\\l}\"", 
+                                    id,nombre,tiempo);
                 return labelT;
             case "c":
                 String labelC = String.format("\"{#%d | Nombre: %s\\l| Imagenes a Color: %d\\l}\"", 
@@ -176,6 +192,10 @@ public class ListaUsuarios{
                 String labelBW = String.format("\"{#%d | Nombre: %s\\l| Imagenes en Blanco y Negro: %d\\l}\"", 
                                     rank,nombre,img_bw);
                 return labelBW;
+            case "cl":
+                String labelCl = String.format("\"{Cliente #%d | Nombre: %s\\l| Imagenes a Color: %d\\l Imagenes en Blanco y Negro: %d\\l Tiempo en el Sistema: %d\\l}\"", 
+                                    id,nombre,img_color,img_bw,tiempoT);
+                return labelCl;
         }
         return null;  
     }
@@ -188,6 +208,10 @@ public class ListaUsuarios{
 
         String[] command = {"dot", "-Tpng", nombre + ".dot", "-o", nombre + ".png" };
         new ProcessBuilder(command).start();
+
+        File file = new File(nombre + ".png");
+        Desktop desktop = Desktop.getDesktop();
+        if(file.exists()) desktop.open(file);
 
     }
 

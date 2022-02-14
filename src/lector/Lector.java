@@ -24,30 +24,28 @@ public class Lector {
     }
 
     public ColaRecepcion abrir(){
-        JFrame frame = new JFrame();
-        frame.setSize(0,0);//400 width and 500 height  
-        frame.setVisible(true);
-
+        // JFrame frame = new JFrame();
+        // frame.setSize(0,0);//400 width and 500 height  
+        // frame.setVisible(true);
+        System.out.println("here");
         try{
-            JFileChooser chooser = new JFileChooser();
-            chooser.setDialogTitle("Ingrese la lista de Clientes");
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
-            chooser.setFileFilter(filter);
+            // JFileChooser chooser = new JFileChooser();
+            // chooser.setDialogTitle("Ingrese la lista de Clientes");
+            // FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
+            // chooser.setFileFilter(filter);
             
-            chooser.showOpenDialog(frame);
-            File file = chooser.getSelectedFile();
-
-            if(file != null){
+            // chooser.showOpenDialog(frame);
+            // File file = chooser.getSelectedFile();
+            File file = new File("D:\\Documents\\clientes2.json");
+            if(file != null){;
                 ColaRecepcion colaRecepcion = new ColaRecepcion();
-                Reader reader = new FileReader(file);
-                JSONArray listaRecepcion = (JSONArray) parser.parse(reader);
-                
-                
-            
-                for(int i = 0; i < listaRecepcion.size() ;i++ ){
-                    JSONObject listaClientes = (JSONObject) listaRecepcion.get(i);
+                Reader reader = new FileReader(file);                
+                JSONParser parser = new JSONParser();
+                Object obj  = parser.parse(reader);
+                JSONObject listaClientes = (JSONObject) obj;
+
+                for(int i = 0; i < listaClientes.size(); i++){
                     JSONObject clienteActual = (JSONObject) listaClientes.get("Cliente" + (i+1));
-                    
                     String id_cliente = (String) clienteActual.get("id_cliente");
                     String nombre_cliente = (String) clienteActual.get("nombre_cliente");
                     String img_color = (String) clienteActual.get("img_color");
@@ -57,18 +55,17 @@ public class Lector {
 
                     colaRecepcion.enqueue(nuevo);
                 }
-                // colaRecepcion.imprimir();
                 System.out.println("Archivo JSON leido exitosamente");
                 return colaRecepcion;
             }
 
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null,
-                "No se ha podido abrir el archivo",
-                    "Advertencia",JOptionPane.WARNING_MESSAGE);
+            // JOptionPane.showMessageDialog(null,
+            //     "No se ha podido abrir el archivo",
+            //         "Advertencia",JOptionPane.WARNING_MESSAGE);
             ex.printStackTrace();
         }
-        frame.dispose();
+        // frame.dispose();
         return null;
     }
 

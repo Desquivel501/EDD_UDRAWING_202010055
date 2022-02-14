@@ -1,0 +1,6 @@
+digraph G{
+fontname = "Bitstream Vera Sans"
+fontsize = 8
+node [fontname = "Bitstream Vera Sans"fontsize = 8shape = "record"]
+Nodo75457651[label="{Cliente #3 | Nombre: Luisa Higueros\l| Imagenes a Color: 2\l Imagenes en Blanco y Negro: 1\l Tiempo en el Sistema: 11\l}"];
+}

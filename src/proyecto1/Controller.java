@@ -68,18 +68,56 @@ public class Controller {
                     break;
                 
                 case "4":
-                    // Tops listaTop = new Tops();
-                    listaUsuarios.ordenarTiempo();
-                    listaUsuarios.graficar("Clientes con mas tiempo en el sistema","TopTiempo","t");
+                    boolean run2 = true;
 
-                    listaUsuarios.ordenarImagen("c");
-                    listaUsuarios.graficar("Clientes con mas imagenes a color","TopColor","c");
+                    while(run2){
+                        System.out.println("===============================REPORTES===============================");
+                        System.out.println("|| 1. TOP CLIENTES CON MAYOR CANTIDAD DE IMÁGENES A COLOR            ||");
+                        System.out.println("|| 2. TOP CLIENTES CON MENOR CANTIDAD DE IMÁGENES EN BLANCO Y NEGRO  ||");
+                        System.out.println("|| 3. INFORMACIÓN DEL CLIENTE QUE MÁS PASOS ESTUVO EN EL SISTEMA     ||"); 
+                        System.out.println("|| 4. DATOS DE UN CLIENTE EN ESPECÍFICO                              ||");
+                        System.out.println("|| 5. REGRESAR                                                       ||");
+                        System.out.println("=======================================================================");
+                        String menu2 = scan.nextLine();
+                        switch(menu2){
+                            case "1":
+                                listaUsuarios.ordenarImagen("c");
+                                listaUsuarios.graficar("Clientes con mas imagenes a color","TopColor","c");
+                                System.out.println("Reporte generado.");
+                                break;
+                                
+                            case "2":
+                                listaUsuarios.ordenarImagen("bw");
+                                listaUsuarios.graficar("Clientes con mas imagenes en blanco y negro","TopBW","bw");
+                                System.out.println("Reporte generado.");
+                                break;
+                                
+                            case "3":
+                                listaUsuarios.ordenarTiempo();
+                                listaUsuarios.graficar("Clientes con mas tiempo en el sistema","TopTiempo","t");
+                                System.out.println("Reporte generado.");
+                                break;
+                            case "4":
+                                System.out.println("Ingrese el ID del cliente a buscar:");
+                                String id = scan.nextLine();
+                                listaUsuarios.buscar(Integer.parseInt(id),this.contadorPasos);
+                            case "5":
+                                run2 = false;
+                        }
+                    }
 
-                    listaUsuarios.ordenarImagen("bw");
-                    listaUsuarios.graficar("Clientes con mas imagenes en blanco y negro","TopBW","bw");
+                case "5":
+                    System.out.println("Nombre: Derek Esquivel Diaz");
+                    System.out.println("Carnet: 202010055");
+                    System.out.println("Laboratorio Estructura de Datos - Seccion A");
+                    break;
+                    
+                case "6":
+                    run2 = false;
 
-
-
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
             }
         }
         scan.close();
@@ -87,17 +125,6 @@ public class Controller {
 
     public void Algoritmo(){
         System.out.println("---------------PASO " + contadorPasos + "---------------");
-
-        //Añade un paso a todos los Usuarios
-        // if(!listaUsuarios.vacia()){
-        //     NodoCliente aux = listaUsuarios.getHead();
-        //     while(aux != null){
-        //         if(!aux.getValor().isTerminado()){
-        //             aux.getValor().aumentarTiempo();
-        //         }
-        //         aux = aux.getSiguiente();
-        //     }
-        // }
 
         //Mira si ya hay un  cliente al que ya se le entregaron todas sus imagenes
         if(!listaEspera.vacia()){
@@ -260,7 +287,6 @@ public class Controller {
             }
             aux = aux.getSiguiente();
         }
-
     }
 
     public void agregarUsuarios(){
