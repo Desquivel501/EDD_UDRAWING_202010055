@@ -1,7 +1,0 @@
-digraph G{
-fontname = "Bitstream Vera Sans"
-fontsize = 8
-node [fontname = "Bitstream Vera Sans"fontsize = 8shape = "record"]
-Nodo75457651[label="{#5 | Nombre: Gwynevere Moran\l| Tiempo en el Sistema: 45\l}"];
-label = "Clientes con mas tiempo en el sistema";rankdir=TB;
-}

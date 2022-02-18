@@ -1,15 +1,281 @@
 digraph G{
+subgraph cluster_0{
 fontname = "Bitstream Vera Sans"
 fontsize = 8
 node [fontname = "Bitstream Vera Sans"fontsize = 8shape = "record"]
-Nodo769798433[label="{#1 | Nombre: Tony Peralta\l| Tiempo en el Sistema: 44\l}"];
-Nodo361398902[label="{#2 | Nombre: Sarah Marston\l| Tiempo en el Sistema: 42\l}"];
-Nodo1010670443[label="{#3 | Nombre: Johnny Livingston\l| Tiempo en el Sistema: 35\l}"];
-Nodo2044215423[label="{#4 | Nombre: Francis Castro\l| Tiempo en el Sistema: 33\l}"];
-Nodo1606304070[label="{#5 | Nombre: Maria Aguilar\l| Tiempo en el Sistema: 26\l}"];
-Nodo769798433 -> Nodo361398902;
-Nodo361398902 -> Nodo1010670443;
-Nodo1010670443 -> Nodo2044215423;
-Nodo2044215423 -> Nodo1606304070;
+Nodo1387228415[label="{Cliente 12 | Nombre: Alyce Alford\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 0\l}"];
+Nodo120960120[label="{Cliente 13 | Nombre: Haley Rosario\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 4\l}"];
+Nodo748658608[label="{Cliente 14 | Nombre: Durham Logan\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 2\l}"];
+Nodo546718765[label="{Cliente 15 | Nombre: Elinor Ford\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 0\l}"];
+Nodo167185492[label="{Cliente 16 | Nombre: Noelle Morse\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 1\l}"];
+Nodo592179046[label="{Cliente 17 | Nombre: Gutierrez Casey\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 4\l}"];
+Nodo1937348256[label="{Cliente 18 | Nombre: Long Meyer\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 0\l}"];
+Nodo1641808846[label="{Cliente 19 | Nombre: Geraldine Pierce\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 1\l}"];
+Nodo1358444045[label="{Cliente 20 | Nombre: Roman Branch\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 2\l}"];
+Nodo750044075[label="{Cliente 21 | Nombre: Pruitt Perez\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 2\l}"];
+Nodo331844619[label="{Cliente 22 | Nombre: Nola Winters\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 1\l}"];
+Nodo310656974[label="{Cliente 23 | Nombre: Gay Mcmillan\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 1\l}"];
+Nodo64830413[label="{Cliente 24 | Nombre: Carolyn Harmon\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 2\l}"];
+Nodo159259014[label="{Cliente 25 | Nombre: Jolene Mccall\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 0\l}"];
+Nodo653687670[label="{Cliente 26 | Nombre: Evelyn Fitzgerald\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 1\l}"];
+Nodo356473385[label="{Cliente 27 | Nombre: Hudson Lancaster\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 1\l}"];
+Nodo2136344592[label="{Cliente 28 | Nombre: Ellison Hood\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 0\l}"];
+Nodo110992469[label="{Cliente 29 | Nombre: Whitney Clayton\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 4\l}"];
+Nodo329611835[label="{Cliente 30 | Nombre: Moore Horton\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 4\l}"];
+Nodo2091156596[label="{Cliente 31 | Nombre: Maggie Levine\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 2\l}"];
+Nodo863831416[label="{Cliente 32 | Nombre: Andrews Vance\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 1\l}"];
+Nodo1508395126[label="{Cliente 33 | Nombre: Dixie Howard\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 4\l}"];
+Nodo1638172114[label="{Cliente 34 | Nombre: Heidi Lowery\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 2\l}"];
+Nodo972765878[label="{Cliente 35 | Nombre: Bennett Malone\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 2\l}"];
+Nodo1651945012[label="{Cliente 36 | Nombre: Witt Forbes\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 0\l}"];
+Nodo2034688500[label="{Cliente 37 | Nombre: Erma Barron\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 4\l}"];
+Nodo1007251739[label="{Cliente 38 | Nombre: Mabel Nicholson\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 0\l}"];
+Nodo1556595366[label="{Cliente 39 | Nombre: Maddox Frazier\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 1\l}"];
+Nodo194494468[label="{Cliente 40 | Nombre: Brigitte Wheeler\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 3\l}"];
+Nodo1167116739[label="{Cliente 41 | Nombre: Christa Mendoza\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 3\l}"];
+Nodo853993923[label="{Cliente 42 | Nombre: Etta Blake\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 0\l}"];
+Nodo1347870667[label="{Cliente 43 | Nombre: Macdonald Murray\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 1\l}"];
+Nodo1702146597[label="{Cliente 44 | Nombre: Garza York\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 0\l}"];
+Nodo644460953[label="{Cliente 45 | Nombre: Hatfield Sykes\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 0\l}"];
+Nodo591723622[label="{Cliente 46 | Nombre: Washington Dickerson\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 0\l}"];
+Nodo1166726978[label="{Cliente 47 | Nombre: Ethel Cortez\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 2\l}"];
+Nodo95395916[label="{Cliente 48 | Nombre: Vicky Jimenez\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 4\l}"];
+Nodo1856056345[label="{Cliente 49 | Nombre: Romero Sanders\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 0\l}"];
+Nodo1778535015[label="{Cliente 50 | Nombre: Shana Burke\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 4\l}"];
+Nodo2032251042[label="{Cliente 51 | Nombre: Francis Domminguez\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 1\l}"];
+Nodo24433162[label="{Cliente 52 | Nombre: Karina  Milton\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 0\l}"];
+Nodo1725097945[label="{Cliente 53 | Nombre: Logan Snow\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 3\l}"];
+Nodo519821334[label="{Cliente 54 | Nombre: Rosaria Spears\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 0\l}"];
+Nodo1781256139[label="{Cliente 55 | Nombre: Tony Guzman\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 3\l}"];
+Nodo1307096070[label="{Cliente 56 | Nombre: Laylah Rocha\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 2\l}"];
+Nodo1014328909[label="{Cliente 57 | Nombre: Karina  Aguilar\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 0\l}"];
+Nodo1630521067[label="{Cliente 58 | Nombre: Friede Rojas\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 1\l}"];
+Nodo274773041[label="{Cliente 59 | Nombre: Rose Livingston\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 2\l}"];
+Nodo1970881185[label="{Cliente 60 | Nombre: Yoel  Morgan\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 3\l}"];
+Nodo1250391581[label="{Cliente 61 | Nombre: Alexandra  Bravo\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 3\l}"];
+Nodo1725017993[label="{Cliente 62 | Nombre: Logan Herrera\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 3\l}"];
+Nodo140799417[label="{Cliente 63 | Nombre: Sarah Garza\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 0\l}"];
+Nodo926370398[label="{Cliente 64 | Nombre: Ilia Kim\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 2\l}"];
+Nodo1181869371[label="{Cliente 65 | Nombre: Andre  Diaz\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 1\l}"];
+Nodo767010715[label="{Cliente 66 | Nombre: Mercedes Ali\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 0\l}"];
+Nodo712025048[label="{Cliente 67 | Nombre: Olivia de Astora\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 1\l}"];
+Nodo681384962[label="{Cliente 68 | Nombre: Santiago Castillo\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 2\l}"];
+Nodo586084331[label="{Cliente 69 | Nombre: Paige Marston\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 3\l}"];
+Nodo399534175[label="{Cliente 70 | Nombre: Gwynevere Livingston\l| Imagenes a Color: 4\l Imagenes en blanco y negro: 0\l}"];
+Nodo949057310[label="{Cliente 71 | Nombre: Solaire Miranda\l| Imagenes a Color: 2\l Imagenes en blanco y negro: 2\l}"];
+Nodo1387228415 -> Nodo120960120;
+Nodo120960120 -> Nodo748658608;
+Nodo748658608 -> Nodo546718765;
+Nodo546718765 -> Nodo167185492;
+Nodo167185492 -> Nodo592179046;
+Nodo592179046 -> Nodo1937348256;
+Nodo1937348256 -> Nodo1641808846;
+Nodo1641808846 -> Nodo1358444045;
+Nodo1358444045 -> Nodo750044075;
+Nodo750044075 -> Nodo331844619;
+Nodo331844619 -> Nodo310656974;
+Nodo310656974 -> Nodo64830413;
+Nodo64830413 -> Nodo159259014;
+Nodo159259014 -> Nodo653687670;
+Nodo653687670 -> Nodo356473385;
+Nodo356473385 -> Nodo2136344592;
+Nodo2136344592 -> Nodo110992469;
+Nodo110992469 -> Nodo329611835;
+Nodo329611835 -> Nodo2091156596;
+Nodo2091156596 -> Nodo863831416;
+Nodo863831416 -> Nodo1508395126;
+Nodo1508395126 -> Nodo1638172114;
+Nodo1638172114 -> Nodo972765878;
+Nodo972765878 -> Nodo1651945012;
+Nodo1651945012 -> Nodo2034688500;
+Nodo2034688500 -> Nodo1007251739;
+Nodo1007251739 -> Nodo1556595366;
+Nodo1556595366 -> Nodo194494468;
+Nodo194494468 -> Nodo1167116739;
+Nodo1167116739 -> Nodo853993923;
+Nodo853993923 -> Nodo1347870667;
+Nodo1347870667 -> Nodo1702146597;
+Nodo1702146597 -> Nodo644460953;
+Nodo644460953 -> Nodo591723622;
+Nodo591723622 -> Nodo1166726978;
+Nodo1166726978 -> Nodo95395916;
+Nodo95395916 -> Nodo1856056345;
+Nodo1856056345 -> Nodo1778535015;
+Nodo1778535015 -> Nodo2032251042;
+Nodo2032251042 -> Nodo24433162;
+Nodo24433162 -> Nodo1725097945;
+Nodo1725097945 -> Nodo519821334;
+Nodo519821334 -> Nodo1781256139;
+Nodo1781256139 -> Nodo1307096070;
+Nodo1307096070 -> Nodo1014328909;
+Nodo1014328909 -> Nodo1630521067;
+Nodo1630521067 -> Nodo274773041;
+Nodo274773041 -> Nodo1970881185;
+Nodo1970881185 -> Nodo1250391581;
+Nodo1250391581 -> Nodo1725017993;
+Nodo1725017993 -> Nodo140799417;
+Nodo140799417 -> Nodo926370398;
+Nodo926370398 -> Nodo1181869371;
+Nodo1181869371 -> Nodo767010715;
+Nodo767010715 -> Nodo712025048;
+Nodo712025048 -> Nodo681384962;
+Nodo681384962 -> Nodo586084331;
+Nodo586084331 -> Nodo399534175;
+Nodo399534175 -> Nodo949057310;
+label = "Cola de Recepcion";
+rankdir=TB;
+}
+subgraph cluster_1{
+fontname = "Bitstream Vera Sans"
+fontsize = 8
+node [fontname = "Bitstream Vera Sans"fontsize = 8shape = "record"]
+Nodo2081303229[label= "Ventanilla 1"; shape=Msquare];
+Nodo2081303229[group=g1]
+Nodo2024542466[label="{Cliente 11 | Nombre: Leigh Bright\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 4\l}"];
+Nodo2024542466[group=g1]
+Nodo2024542466 -> Nodo2081303229;
+Nodo1525262377[label= "Ventanilla 2"; shape=Msquare];
+Nodo1525262377[group=g2]
+Nodo2092769598[label="{Cliente 8 | Nombre: Tabatha Pickett\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 2\l}"];
+Nodo2092769598[group=g2]
+Nodo2092769598 -> Nodo1525262377;
+Nodo770189387[label= "Imagen a Color"];
+Nodo770189387[group=g2]
+Nodo963522361[label= "Imagen a Color"];
+Nodo963522361[group=g2]
+Nodo175408781[label= "Imagen en Blanco y Negro"];
+Nodo175408781[group=g2]
+Nodo315138752[label= "Imagen en Blanco y Negro"];
+Nodo315138752[group=g2]
+Nodo2059904228[label= "Ventanilla 3"; shape=Msquare];
+Nodo2059904228[group=g3]
+Nodo422392391[label="{Cliente 7 | Nombre: Leach Ross\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 4\l}"];
+Nodo422392391[group=g3]
+Nodo422392391 -> Nodo2059904228;
+Nodo2114874018[label= "Imagen a Color"];
+Nodo2114874018[group=g3]
+Nodo911312317[label= "Imagen en Blanco y Negro"];
+Nodo911312317[group=g3]
+Nodo415186196[label= "Imagen en Blanco y Negro"];
+Nodo415186196[group=g3]
+Nodo1337344609[label= "Imagen en Blanco y Negro"];
+Nodo1337344609[group=g3]
+Nodo1053631449[label= "Imagen en Blanco y Negro"];
+Nodo1053631449[group=g3]
+Nodo1355316001[label= "Ventanilla 4"; shape=Msquare];
+Nodo1355316001[group=g4]
+Nodo2081303229 -> Nodo1525262377;
+Nodo1525262377 -> Nodo770189387;
+Nodo770189387 -> Nodo963522361;
+Nodo963522361 -> Nodo175408781;
+Nodo175408781 -> Nodo315138752;
+Nodo1525262377 -> Nodo2059904228;
+Nodo2059904228 -> Nodo2114874018;
+Nodo2114874018 -> Nodo911312317;
+Nodo911312317 -> Nodo415186196;
+Nodo415186196 -> Nodo1337344609;
+Nodo1337344609 -> Nodo1053631449;
+Nodo2059904228 -> Nodo1355316001;
+{rank="same"; Nodo2081303229,Nodo1525262377,Nodo2059904228,Nodo1355316001}
+label = "Lista de Ventanillas";
+rankdir=TB;
+}
+subgraph cluster_2{
+fontname = "Bitstream Vera Sans"
+fontsize = 8
+node [fontname = "Bitstream Vera Sans"fontsize = 8shape = "record"]
+Nodo1113619023[label="{Cliente 5 | Nombre: Sandy Mason\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 4\l}"];
+Nodo1113619023[group=g5]
+Nodo1485955886[label="{Cliente 2 | Nombre: Yang Wiggins\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 4\l}"];
+Nodo1485955886[group=g2]
+Nodo2015781843[label= "Imagen bw"];
+Nodo2015781843[group=g2]
+Nodo428910174[label= "Imagen bw"];
+Nodo428910174[group=g2]
+Nodo212921632[label="{Cliente 4 | Nombre: Faith Hopkins\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 3\l}"];
+Nodo212921632[group=g4]
+Nodo149047107[label="{Cliente 6 | Nombre: Stefanie Wise\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 0\l}"];
+Nodo149047107[group=g6]
+Nodo1682463303[label="{Cliente 10 | Nombre: Shannon Johnston\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 0\l}"];
+Nodo1682463303[group=g10]
+Nodo633075331[label="{Cliente 9 | Nombre: Tommie Mcpherson\l| Imagenes a Color: 1\l Imagenes en blanco y negro: 1\l}"];
+Nodo633075331[group=g9]
+Nodo1485955886 -> Nodo2015781843;
+Nodo2015781843 -> Nodo428910174;
+{rank="same";Nodo1113619023,Nodo1485955886,Nodo212921632,Nodo149047107,Nodo1682463303,Nodo633075331}
+label = "Lista Espera";
+rankdir=TB;
+}
+subgraph cluster_3{
+fontname = "Bitstream Vera Sans"
+fontsize = 8
+node [fontname = "Bitstream Vera Sans"fontsize = 8 shape = "square"]
+Nodo1597462040[label= "Impresora Blanco y Negro"; shape=Msquare];
+Nodo1597462040[group=1]
+Nodo1316061703[label= "Imagen en Blanco y Negro"];
+Nodo1316061703[group=1]
+Nodo490150701[label= "Imagen en Blanco y Negro"];
+Nodo490150701[group=1]
+Nodo1413246829[label= "Imagen en Blanco y Negro"];
+Nodo1413246829[group=1]
+Nodo334203599[label= "Imagen en Blanco y Negro"];
+Nodo334203599[group=1]
+Nodo1372082959[label= "Imagen en Blanco y Negro"];
+Nodo1372082959[group=1]
+Nodo1858609436[label= "Imagen en Blanco y Negro"];
+Nodo1858609436[group=1]
+Nodo1920387277[label= "Imagen en Blanco y Negro"];
+Nodo1920387277[group=1]
+Nodo1414147750[label= "Imagen en Blanco y Negro"];
+Nodo1414147750[group=1]
+Nodo775931202[label= "Imagen en Blanco y Negro"];
+Nodo775931202[group=1]
+Nodo22069592[label= "Imagen en Blanco y Negro"];
+Nodo22069592[group=1]
+Nodo1597462040 -> Nodo1316061703;
+Nodo1316061703 -> Nodo490150701;
+Nodo490150701 -> Nodo1413246829;
+Nodo1413246829 -> Nodo334203599;
+Nodo334203599 -> Nodo1372082959;
+Nodo1372082959 -> Nodo1858609436;
+Nodo1858609436 -> Nodo1920387277;
+Nodo1920387277 -> Nodo1414147750;
+Nodo1414147750 -> Nodo775931202;
+Nodo775931202 -> Nodo22069592;
+label = "Cola de Impresion";
+rankdir=TB;
+}
+subgraph cluster_3{
+fontname = "Bitstream Vera Sans"
+fontsize = 8
+node [fontname = "Bitstream Vera Sans"fontsize = 8 shape = "square"]
+Nodo403716510[label= "Impresora a Color"; shape=Msquare];
+Nodo403716510[group=2]
+Nodo209833425[label= "Imagen a Color"];
+Nodo209833425[group=2]
+Nodo532854629[label= "Imagen a Color"];
+Nodo532854629[group=2]
+Nodo1971851377[label= "Imagen a Color"];
+Nodo1971851377[group=2]
+Nodo1160003871[label= "Imagen a Color"];
+Nodo1160003871[group=2]
+Nodo1075738627[label= "Imagen a Color"];
+Nodo1075738627[group=2]
+Nodo403716510 -> Nodo209833425;
+Nodo209833425 -> Nodo532854629;
+Nodo532854629 -> Nodo1971851377;
+Nodo1971851377 -> Nodo1160003871;
+Nodo1160003871 -> Nodo1075738627;
+label = "Cola de Impresion";
+rankdir=TB;
+}
+subgraph cluster_5{
+fontname = "Bitstream Vera Sans"
+fontsize = 8
+node [fontname = "Bitstream Vera Sans"fontsize = 8shape = "record"]
+Nodo282828951[label="{Cliente 3 | Nombre: Douglas Dominguez\l| Imagenes a Color: 0\l Imagenes en blanco y negro: 3\l| Tiempo en el Sistema: 12\l}"];
+Nodo394721749[label="{Cliente 1 | Nombre: Polly Rodriguez\l| Imagenes a Color: 3\l Imagenes en blanco y negro: 2\l| Tiempo en el Sistema: 13\l}"];
+Nodo282828951 -> Nodo394721749;
 label = "Listado Atendidos";rankdir=TB;
+}
 }

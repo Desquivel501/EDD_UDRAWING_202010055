@@ -15,6 +15,7 @@ import org.json.simple.parser.JSONParser;
 
 import Models.Cliente;
 import listas2.ColaRecepcion;
+import proyecto1.Controller;
 
 public class Lector {
     JSONParser parser = new JSONParser();
@@ -36,7 +37,7 @@ public class Lector {
             
             // chooser.showOpenDialog(frame);
             // File file = chooser.getSelectedFile();
-            File file = new File("D:\\Documents\\clientes2.json");
+            File file = new File("D:\\Documents\\Entrada.json");
             if(file != null){;
                 ColaRecepcion colaRecepcion = new ColaRecepcion();
                 Reader reader = new FileReader(file);                
@@ -46,16 +47,16 @@ public class Lector {
 
                 for(int i = 0; i < listaClientes.size(); i++){
                     JSONObject clienteActual = (JSONObject) listaClientes.get("Cliente" + (i+1));
-                    String id_cliente = (String) clienteActual.get("id_cliente");
+                    long id_cliente = (long) clienteActual.get("id_cliente");
                     String nombre_cliente = (String) clienteActual.get("nombre_cliente");
-                    String img_color = (String) clienteActual.get("img_color");
-                    String img_bw = (String) clienteActual.get("img_bw");
+                    long img_color = (long) clienteActual.get("img_color");
+                    long img_bw = (long) clienteActual.get("img_bw");
 
-                    Cliente nuevo = new Cliente(nombre_cliente, Integer.parseInt(id_cliente), false, Integer.parseInt(img_color), Integer.parseInt(img_bw),1);
-
+                    Cliente nuevo = new Cliente(nombre_cliente, (int)id_cliente, false,(int)img_color, (int)img_bw,1);
                     colaRecepcion.enqueue(nuevo);
                 }
                 System.out.println("Archivo JSON leido exitosamente");
+                Controller.archivoValido = true;
                 return colaRecepcion;
             }
 

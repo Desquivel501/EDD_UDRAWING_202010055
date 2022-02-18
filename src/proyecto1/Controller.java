@@ -1,5 +1,6 @@
 package proyecto1;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,12 +17,15 @@ import listas2.ColaImpresion;
 import listas2.ColaRecepcion;
 import listas2.ListaAtendidos;
 import listas2.ListaEspera;
-import listas2.ListaTops;
 import listas2.ListaUsuarios;
 import listas2.ListaVentanillas;
 import listas2.PilaImagenes;
 
+import java.awt.Desktop;
+
 public class Controller {
+
+    public static boolean archivoValido = false;
 
     ColaRecepcion colaRecepcion = new ColaRecepcion();
     ListaUsuarios listaUsuarios = new ListaUsuarios();
@@ -52,11 +56,26 @@ public class Controller {
 
             switch(menu){
                 case "1":
-                    colaRecepcion = lector.abrir();
-                    listaUsuarios = colaRecepcion.dump();
-                    System.out.println("Ingrese el numero de ventanillas a utilizar:");
-                    String num_ventanillas = scan.nextLine();
-                    listaVentanillas.crearVentanillas(Integer.parseInt(num_ventanillas));
+                    while(true){
+                        colaRecepcion = lector.abrir();
+                        listaUsuarios = colaRecepcion.dump();
+                        if(archivoValido){
+                            break;
+                        }else{
+                            System.out.println("Archivo no valido; pruebe otra vez");
+                        }
+                    }
+
+                    boolean ventValido = false;
+                    while(!ventValido){
+                        System.out.println("Ingrese el numero de ventanillas a utilizar:");
+                        String num_ventanillas = scan.nextLine();
+                        if(Integer.parseInt(num_ventanillas)>0){
+                            listaVentanillas.crearVentanillas(Integer.parseInt(num_ventanillas));
+                            ventValido = true;
+                        }
+                    }
+
                     break;
                 
                 case "2":
@@ -72,10 +91,10 @@ public class Controller {
 
                     while(run2){
                         System.out.println("===============================REPORTES===============================");
-                        System.out.println("|| 1. TOP CLIENTES CON MAYOR CANTIDAD DE IMÁGENES A COLOR            ||");
-                        System.out.println("|| 2. TOP CLIENTES CON MENOR CANTIDAD DE IMÁGENES EN BLANCO Y NEGRO  ||");
-                        System.out.println("|| 3. INFORMACIÓN DEL CLIENTE QUE MÁS PASOS ESTUVO EN EL SISTEMA     ||"); 
-                        System.out.println("|| 4. DATOS DE UN CLIENTE EN ESPECÍFICO                              ||");
+                        System.out.println("|| 1. TOP CLIENTES CON MAYOR CANTIDAD DE IMAGENES A COLOR            ||");
+                        System.out.println("|| 2. TOP CLIENTES CON MENOR CANTIDAD DE IMAGENES EN BLANCO Y NEGRO  ||");
+                        System.out.println("|| 3. INFORMACION DEL CLIENTE QUE MAS PASOS ESTUVO EN EL SISTEMA     ||"); 
+                        System.out.println("|| 4. DATOS DE UN CLIENTE EN ESPECIFICO                              ||");
                         System.out.println("|| 5. REGRESAR                                                       ||");
                         System.out.println("=======================================================================");
                         String menu2 = scan.nextLine();
@@ -330,8 +349,12 @@ public class Controller {
         printWriter.print(dot);
         printWriter.close();
 
-        String[] command = {"dot", "-Tpng", "grafico.dot", "-o", "grafico.png" };
+        String[] command = {"dot", "-Tsvg", "grafico.dot", "-o", "grafico.svg" };
         new ProcessBuilder(command).start();
+
+        File file = new File("grafico.svg");
+        Desktop desktop = Desktop.getDesktop();
+        if(file.exists()) desktop.open(file);
 
     }
 

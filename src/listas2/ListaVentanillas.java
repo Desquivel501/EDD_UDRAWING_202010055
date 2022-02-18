@@ -101,35 +101,36 @@ public class ListaVentanillas{
             nombresNodos.append("Nodo" + nodoVentanilla + "[label= \"Ventanilla " + aux.getId() +"\"; shape=Msquare];\n");
             nombresNodos.append("Nodo" + nodoVentanilla + "[group=" + groupName +"]\n");
 
-            int nodoCliente = actual.hashCode();
-            String label = String.format("\"{Cliente %d | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l}\"", 
-            actual.getId(),actual.getNombre(),actual.getImg_color(), actual.getImg_bw());
-            nombresNodos.append("Nodo" + nodoCliente + "[label=" + label +"];\n");
-            nombresNodos.append("Nodo" + nodoCliente + "[group=" + groupName +"]\n");
-            
+            if(actual != null){
+                int nodoCliente = actual.hashCode();
+                String label = String.format("\"{Cliente %d | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l}\"", 
+                actual.getId(),actual.getNombre(),actual.getImg_color(), actual.getImg_bw());
+                nombresNodos.append("Nodo" + nodoCliente + "[label=" + label +"];\n");
+                nombresNodos.append("Nodo" + nodoCliente + "[group=" + groupName +"]\n");
 
-            nombresNodos.append(String.format("Nodo%d -> Nodo%d;\n", nodoCliente, nodoVentanilla));
+                nombresNodos.append(String.format("Nodo%d -> Nodo%d;\n", nodoCliente, nodoVentanilla));
 
-            NodoImagen imagen = aux.getImagenes().peek();
-            
-            if(imagen != null){
-                conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoVentanilla, + imagen.hashCode()));
+                NodoImagen imagen = aux.getImagenes().peek();
+                
+                if(imagen != null){
+                    conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoVentanilla, + imagen.hashCode()));
 
-                while(imagen != null){
-                    String tipo = imagen.getValor().getTipo();
-                    if(tipo == "bw"){
-                        tipo="en Blanco y Negro";
-                    }else{
-                        tipo="a Color";
-                    }
-                    nombresNodos.append("Nodo" + imagen.hashCode() + "[label= \"Imagen " + tipo +"\"];\n");
-                    nombresNodos.append("Nodo" + imagen.hashCode() + "[group=" + groupName +"]\n");
-                    
-                    if(imagen.getSiguiente() != null){
-                        conexiones.append(String.format("Nodo%d -> Nodo%d;\n", imagen.hashCode(), + imagen.getSiguiente().hashCode()));
-                    }
+                    while(imagen != null){
+                        String tipo = imagen.getValor().getTipo();
+                        if(tipo == "bw"){
+                            tipo="en Blanco y Negro";
+                        }else{
+                            tipo="a Color";
+                        }
+                        nombresNodos.append("Nodo" + imagen.hashCode() + "[label= \"Imagen " + tipo +"\"];\n");
+                        nombresNodos.append("Nodo" + imagen.hashCode() + "[group=" + groupName +"]\n");
                         
-                    imagen = imagen.getSiguiente();
+                        if(imagen.getSiguiente() != null){
+                            conexiones.append(String.format("Nodo%d -> Nodo%d;\n", imagen.hashCode(), + imagen.getSiguiente().hashCode()));
+                        }
+                            
+                        imagen = imagen.getSiguiente();
+                    }
                 }
             }
 

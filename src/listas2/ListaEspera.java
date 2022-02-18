@@ -93,11 +93,11 @@ public class ListaEspera {
         dot.append("fontsize = 8\n");
         dot.append("node [fontname = \"Bitstream Vera Sans\"fontsize = 8shape = \"record\"]\n");
 
-        ranks.append("{rank=\"same\"; \n");
+        ranks.append("{rank=\"same\";");
 
         NodoClienteD aux = this.head;
         for(int i = 0; i < this.largo; i++){
-
+            
             Cliente actual = aux.getValor();
             String groupName = "g" + actual.getId();
 
@@ -129,13 +129,13 @@ public class ListaEspera {
                 // conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoCliente, aux.getSiguiente().hashCode()));
                 ranks.append("Nodo" + nodoCliente + ",");
             }else{
-                ranks.append("Nodo" + nodoCliente + "}\n");
+                ranks.append("Nodo" + nodoCliente);
                 // conexiones.append(String.format("Nodo%d -> Nodo%d;\n",nodoInicial, nodoCliente));
 
             }
             aux = aux.getSiguiente();
         }
-
+        ranks.append("}\n");
         dot.append(nombresNodos);
         dot.append(conexiones);
         dot.append(ranks);
