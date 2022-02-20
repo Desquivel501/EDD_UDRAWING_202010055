@@ -44,7 +44,6 @@ public class ListaEspera {
 
     }
 
- 
 
     public void remover(int indice){
         NodoClienteD nodo = this.head;
@@ -91,7 +90,7 @@ public class ListaEspera {
 
         dot.append("fontname = \"Bitstream Vera Sans\"\n");
         dot.append("fontsize = 8\n");
-        dot.append("node [fontname = \"Bitstream Vera Sans\"fontsize = 8shape = \"record\"]\n");
+        dot.append("node [fontname = \"Bitstream Vera Sans\"fontsize = 8 shape=\"box\"]\n");
 
         ranks.append("{rank=\"same\";");
 
@@ -103,7 +102,7 @@ public class ListaEspera {
 
             int nodoCliente = aux.hashCode();
 
-            String label = String.format("\"{Cliente %d | Nombre: %s\\l| Imagenes a Color: %s\\l Imagenes en blanco y negro: %s\\l}\"", 
+            String label = String.format("\"Cliente %d \n Nombre: %s \n Imagenes a Color: %s \n Imagenes en blanco y negro: %s\"", 
             actual.getId(),actual.getNombre(),actual.getImg_color(), actual.getImg_bw());
             nombresNodos.append("Nodo" + nodoCliente + "[label=" + label +"];\n");
             nombresNodos.append("Nodo" + nodoCliente + "[group=" + groupName +"]\n");
@@ -126,13 +125,12 @@ public class ListaEspera {
             }
 
             if(i + 1 < this.largo){
-                // conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoCliente, aux.getSiguiente().hashCode()));
                 ranks.append("Nodo" + nodoCliente + ",");
             }else{
                 ranks.append("Nodo" + nodoCliente);
-                // conexiones.append(String.format("Nodo%d -> Nodo%d;\n",nodoInicial, nodoCliente));
-
             }
+            
+            conexiones.append(String.format("Nodo%d -> Nodo%d;\n", nodoCliente, aux.getSiguiente().hashCode()));
             aux = aux.getSiguiente();
         }
         ranks.append("}\n");

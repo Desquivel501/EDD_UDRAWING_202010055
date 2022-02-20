@@ -73,17 +73,23 @@ public class Controller {
                         if(Integer.parseInt(num_ventanillas)>0){
                             listaVentanillas.crearVentanillas(Integer.parseInt(num_ventanillas));
                             ventValido = true;
+                        }else{
+                            System.out.println("Numero de ventanillas no valido");
                         }
                     }
-
                     break;
                 
                 case "2":
-                    Algoritmo();
+                    if(archivoValido){
+                        Algoritmo();
+                    } else{
+                        System.out.println("No se ha realizado la carga masiva de usuarios");
+                    }
                     break;
                 
                 case "3":
                     graficar();
+                    System.out.println("Reporte generado.");
                     break;
                 
                 case "4":
@@ -122,8 +128,9 @@ public class Controller {
                                 listaUsuarios.buscar(Integer.parseInt(id),this.contadorPasos);
                             case "5":
                                 run2 = false;
-                        }
+                        } 
                     }
+                    break;
 
                 case "5":
                     System.out.println("Nombre: Derek Esquivel Diaz");
@@ -132,7 +139,8 @@ public class Controller {
                     break;
                     
                 case "6":
-                    run2 = false;
+                    run = false;
+                    break;
 
                 default:
                     System.out.println("Opcion no valida");
@@ -143,7 +151,7 @@ public class Controller {
     }
 
     public void Algoritmo(){
-        System.out.println("---------------PASO " + contadorPasos + "---------------");
+        System.out.println("------------------PASO " + contadorPasos + "-----------------");
 
         //Mira si ya hay un  cliente al que ya se le entregaron todas sus imagenes
         if(!listaEspera.vacia()){
@@ -194,7 +202,6 @@ public class Controller {
             }else{
                 System.out.println("Se esta imprimiendo una imagen a color de " + getNombre(Integer.parseInt(imagenActual.getValor().getDueño())));
             }
-            
         }
 
         //Cliente es atendido en la ventanilla
@@ -326,7 +333,6 @@ public class Controller {
     public void graficar(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
-
         dot.append(colaRecepcion.graficar());
         dot.append(listaVentanillas.graficar());
         dot.append(listaEspera.graficar());
@@ -344,15 +350,16 @@ public class Controller {
     }
 
     public void generarArchivo(String dot) throws IOException {
-        FileWriter fileWriter = new FileWriter("grafico.dot");
+        FileWriter fileWriter = new FileWriter("Reportes\\Estado.dot");
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.print(dot);
         printWriter.close();
 
-        String[] command = {"dot", "-Tsvg", "grafico.dot", "-o", "grafico.svg" };
+        String[] command = {"dot", "-Tsvg", "Reportes\\Estado.dot", "-o", "Reportes\\Estado.svg" };
         new ProcessBuilder(command).start();
 
-        File file = new File("grafico.svg");
+        File file = new File("Reportes\\Estado.svg");
+
         Desktop desktop = Desktop.getDesktop();
         if(file.exists()) desktop.open(file);
 

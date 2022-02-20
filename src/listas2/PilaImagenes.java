@@ -19,19 +19,7 @@ public class PilaImagenes {
     public int getLargo(){
         return this.largo;
     }
-
-    public void imprimir(){
-        if (!vacia()){
-            String cadena = "";
-            NodoImagen aux = this.head;
-            while(aux != null){
-                cadena += aux.getValor() + ", ";
-                aux = aux.getSiguiente();
-            }
-            System.out.print(cadena);
-        }
-    }
-
+    
     public void stack(Imagen valorNuevo){
         NodoImagen nuevo = new NodoImagen(valorNuevo);
         if(this.head == null){

@@ -8,8 +8,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -20,24 +18,21 @@ import proyecto1.Controller;
 public class Lector {
     JSONParser parser = new JSONParser();
 
-    public void cargaMasiva(){
-
-    }
-
     public ColaRecepcion abrir(){
-        // JFrame frame = new JFrame();
-        // frame.setSize(0,0);//400 width and 500 height  
-        // frame.setVisible(true);
-        System.out.println("here");
+        JFrame frame = new JFrame();
+        frame.setSize(0,0);//400 width and 500 height  
+        frame.setVisible(true);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+
         try{
-            // JFileChooser chooser = new JFileChooser();
-            // chooser.setDialogTitle("Ingrese la lista de Clientes");
-            // FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
-            // chooser.setFileFilter(filter);
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Ingrese la lista de Clientes");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Files", "json");
+            chooser.setFileFilter(filter);
             
-            // chooser.showOpenDialog(frame);
-            // File file = chooser.getSelectedFile();
-            File file = new File("D:\\Documents\\Entrada.json");
+            chooser.showOpenDialog(frame);
+            File file = chooser.getSelectedFile();
             if(file != null){;
                 ColaRecepcion colaRecepcion = new ColaRecepcion();
                 Reader reader = new FileReader(file);                
@@ -57,16 +52,17 @@ public class Lector {
                 }
                 System.out.println("Archivo JSON leido exitosamente");
                 Controller.archivoValido = true;
+                frame.dispose();
                 return colaRecepcion;
             }
 
         }catch(Exception ex){
-            // JOptionPane.showMessageDialog(null,
-            //     "No se ha podido abrir el archivo",
-            //         "Advertencia",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                "No se ha podido abrir el archivo",
+                    "Advertencia",JOptionPane.WARNING_MESSAGE);
             ex.printStackTrace();
         }
-        // frame.dispose();
+        frame.dispose();
         return null;
     }
 

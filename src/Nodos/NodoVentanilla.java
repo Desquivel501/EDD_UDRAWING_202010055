@@ -8,14 +8,12 @@ public class NodoVentanilla {
     private int id;
     private NodoVentanilla siguiente;
     private PilaImagenes imagenes;
-    private boolean ocupada;
     private Cliente clienteActual;
 
     public NodoVentanilla(int id){
         this.id = id;
         this.siguiente = null;
         this.imagenes = new PilaImagenes();
-        this.ocupada = false;
         this.clienteActual = null;
     }
 

@@ -201,15 +201,15 @@ public class ListaUsuarios{
     }
 
     public void generarArchivo(String dot, String nombre) throws IOException {
-        FileWriter fileWriter = new FileWriter(nombre + ".dot");
+        FileWriter fileWriter = new FileWriter("Reportes\\"+nombre + ".dot");
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.print(dot);
         printWriter.close();
 
-        String[] command = {"dot", "-Tpng", nombre + ".dot", "-o", nombre + ".png" };
+        String[] command = {"dot", "-Tpng","Reportes\\"+ nombre + ".dot", "-o","Reportes\\"+ nombre + ".png" };
         new ProcessBuilder(command).start();
 
-        File file = new File(nombre + ".png");
+        File file = new File("Reportes\\"+nombre + ".png");
         Desktop desktop = Desktop.getDesktop();
         if(file.exists()) desktop.open(file);
 

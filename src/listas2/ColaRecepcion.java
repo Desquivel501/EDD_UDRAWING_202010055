@@ -26,18 +26,6 @@ public class ColaRecepcion {
         return this.largo;
     }
 
-    // public void imprimir(){
-    //     if (!vacia()){
-    //         NodoCliente aux = this.head;
-    //         while(aux != null){
-    //             System.out.println("Cliete " + aux.getValor().getId());
-    //             System.out.println(aux.getValor().getNombre());
-    //             System.out.println("Tiempo: " + aux.getValor().getTiempoEspera());
-    //             aux = aux.getSiguiente();
-    //         }
-    //     }
-    // }
-
     public void enqueue(Cliente valorNuevo){
         NodoCliente nuevo = new NodoCliente(valorNuevo);
         if (this.head == null){
@@ -66,20 +54,6 @@ public class ColaRecepcion {
     public NodoCliente peek(){
         return this.head;
     }
-
-    // public void crearRandom(){
-    //     ClienteRandom rand = new ClienteRandom();
-    //     int numClientes = rand.numClientes();
-
-    //     for(int i = 0; i<numClientes; i++){
-    //         String nombre = rand.nombre() + " " + rand.apellido();
-    //         int img_color = rand.numImagenes();
-    //         int img_bw = rand.numImagenes();
-    //         if(img_bw==0 && img_color==0){img_bw=1;}
-    //         Cliente nuevo = new Cliente(nombre, this.largo + 1, false, img_color, img_bw);
-    //         this.enqueue(nuevo);
-    //     }
-    // }
 
     public ListaUsuarios dump(){
         ListaUsuarios nuevaLista = new ListaUsuarios();
