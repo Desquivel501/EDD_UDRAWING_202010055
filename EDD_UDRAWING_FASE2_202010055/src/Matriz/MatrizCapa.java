@@ -6,9 +6,11 @@ import java.io.PrintWriter;
 public class MatrizCapa {
     ListaEncabezado listaFilas = new ListaEncabezado();
     ListaEncabezado listaColumnas = new ListaEncabezado();
+    String nombre;
 
 
-    public MatrizCapa() {
+    public MatrizCapa(String nombre) {
+        this.nombre = nombre;
     }
 
     public void insertar(int columna, int fila, String valor){
@@ -129,7 +131,7 @@ public class MatrizCapa {
             conexion.append(String.format("nodo%d -> nodo%d [dir = \"back\"]\n",eFila.hashCode(), actual.hashCode()));
 
             while(actual != null){
-                dot.append(String.format("nodo%d[fillcolor=\"%s\", group=\"%d\"]\n",actual.hashCode(), actual.getValor(), actual.getColumna()));
+                dot.append(String.format("nodo%d[fillcolor=\"%s\", group=\"%d\", label=\" \"]\n",actual.hashCode(), actual.getValor(), actual.getColumna()));
                 rank.append("nodo" + actual.hashCode()+ "; ");
 
                 if(actual.getDerecha() != null){
@@ -181,12 +183,12 @@ public class MatrizCapa {
 
         try{
 
-            FileWriter fileWriter = new FileWriter("matriz.dot");
+            FileWriter fileWriter = new FileWriter( "matriz.dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tsvg","matriz.dot", "-o","matriz.svg" };
+            String[] command = {"dot", "-Tpng" ,"matriz.dot", "-o","matriz.png" };
             new ProcessBuilder(command).start();
         
         }catch(Exception e){

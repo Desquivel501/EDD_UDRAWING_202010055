@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "EDD_UDRAWING_FASE2_202010055/lib/json-simple-1.1.1.jar"
+    ]
+}

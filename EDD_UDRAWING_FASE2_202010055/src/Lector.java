@@ -27,10 +27,11 @@ public class Lector {
 
             Scanner scan = new Scanner(System.in);
             System.out.println("Ingrese la ruta de la matriz: ");
-            String path = scan.next();
+            String path = scan.nextLine();
             scan.close();
 
-            File archivo = new File("D:\\Documents\\USAC\\Lab EDD\\Proyecto 2\\Mario.json");
+            // File archivo = new File("D:\\Documents\\USAC\\Lab EDD\\Proyecto 2\\Mario.json");
+            File archivo = new File(path);
 
             if(archivo != null){
                 System.out.println("Here");
@@ -44,7 +45,7 @@ public class Lector {
                     int k = 0;
                     
                     for(int i = 0; i < array.size(); i++){
-                        MatrizCapa matrizActual = new MatrizCapa();
+                        MatrizCapa matrizActual = new MatrizCapa("Capa " + i);
 
                         JSONObject objetoCapa = (JSONObject) array.get(i);
 
@@ -56,16 +57,12 @@ public class Lector {
                             long fila = (long) objetoPixeles.get("fila");
                             String valor = (String) objetoPixeles.get("color");
 
-                            // System.out.println("Columna: " + columna);
-                            // System.out.println("Fila: " + fila);
-                            // System.out.println("Color: " + valor);
-
                             matrizActual.insertar((int)columna, (int)fila, valor);
                         }   
                         listaMatriz.add(matrizActual);
                     }
 
-                    listaMatriz.get(3).graficar();
+                    listaMatriz.get(0).graficar();
                     System.out.println(listaMatriz.size());
                     
                     
