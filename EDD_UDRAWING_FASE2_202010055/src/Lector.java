@@ -62,12 +62,9 @@ public class Lector {
                         listaMatriz.add(matrizActual);
                     }
 
-                    listaMatriz.get(0).graficar();
-                    System.out.println(listaMatriz.size());
+                    // listaMatriz.get(0).graficar();
+                    // System.out.println(listaMatriz.size());
                     
-                    
-
-
                 } catch (IOException | ParseException e) {
                     e.printStackTrace();
                 }                

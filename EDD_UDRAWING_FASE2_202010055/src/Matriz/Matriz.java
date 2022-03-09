@@ -20,6 +20,7 @@ public class Matriz {
             eFila.setAccesoNodo(nuevo);
             listaFilas.setEncabezado(eFila);
         }else{
+            
             if(nuevo.getColumna() < eFila.getAccesoNodo().getColumna()){
                 nuevo.setDerecha(eFila.getAccesoNodo());
                 eFila.getAccesoNodo().setIzquierda(nuevo);
@@ -107,8 +108,6 @@ public class Matriz {
         System.out.println("-------------FIN------------");
     }
 
-
-
     public void graficar(){
         StringBuilder dot = new StringBuilder();
         StringBuilder conexion = new StringBuilder();
@@ -194,4 +193,7 @@ public class Matriz {
         }
 
     }
+
+
+    
 }

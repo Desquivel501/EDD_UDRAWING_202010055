@@ -2,10 +2,15 @@ package Matriz;
 
 public class ListaEncabezado {
     private NodoE primero;
+    private int size;
 
 
     public ListaEncabezado() {
         this.primero = null;
+    }
+
+    public int size(){
+        return size;
     }
 
     public NodoE getPrimero(){
@@ -13,6 +18,7 @@ public class ListaEncabezado {
     }
 
     public void setEncabezado(NodoE nuevo){
+        size++;
         if(primero == null){
             this.primero = nuevo;
             return;
@@ -53,7 +59,17 @@ public class ListaEncabezado {
         return null;
     }
 
-
-
+    public NodoE get(int id){
+        NodoE actual = this.primero;
+        int k = 0;
+        while(actual != null){
+            if(k == id){
+                return actual;
+            }
+            k++;
+            actual = actual.getSiguiente();
+        }
+        return null;
+    }
 
 }

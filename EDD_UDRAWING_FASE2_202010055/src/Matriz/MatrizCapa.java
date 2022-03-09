@@ -13,6 +13,15 @@ public class MatrizCapa {
         this.nombre = nombre;
     }
 
+    public ListaEncabezado getFilas(){
+        return listaFilas;
+    }
+
+    public ListaEncabezado getColumnas(){
+        return listaColumnas;
+    }
+
+
     public void insertar(int columna, int fila, String valor){
         NodoM nuevo = new NodoM(columna, fila, valor);
 
@@ -110,7 +119,6 @@ public class MatrizCapa {
     }
 
 
-
     public void graficar(){
         StringBuilder dot = new StringBuilder();
         StringBuilder conexion = new StringBuilder();
@@ -188,7 +196,7 @@ public class MatrizCapa {
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" ,"matriz.dot", "-o","matriz.png" };
+            String[] command = {"dot", "-Tsvg" ,"matriz.dot", "-o","matriz.svg" };
             new ProcessBuilder(command).start();
         
         }catch(Exception e){
@@ -196,4 +204,30 @@ public class MatrizCapa {
         }
 
     }
+
+
+    public void combinar(int columna, int fila, String valor){
+        NodoE eFila = listaFilas.getEncabezado(fila);
+        if(eFila == null){
+            insertar(columna, fila, valor);
+        }else{
+            NodoM actual = eFila.getAccesoNodo();
+            if(actual == null){
+                insertar(columna, fila, valor);
+            }
+            boolean found = false;
+            while(actual != null){
+                if(columna == actual.getColumna()){
+                    actual.setValor(valor);
+                    found = true;
+                    break;
+                }
+                actual = actual.getDerecha();
+            }
+            if(!found){
+                insertar(columna, fila, valor);
+            }
+        }
+    }
+
 }
