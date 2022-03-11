@@ -2,14 +2,18 @@ package ABB;
 
 import java.util.ArrayList;
 
+import Matriz.ListaEncabezado;
+import Matriz.MatrizCapa;
+
 class Nodo{
     int valor;
     Nodo izquierda;
     Nodo derecha;
-    
+    MatrizCapa capa;
 
-    Nodo(int valor){
+    Nodo(int valor, MatrizCapa capa){
         this.valor = valor;
+        this.capa = capa;
         izquierda = null;
         derecha = null;
     }
@@ -18,25 +22,25 @@ class Nodo{
 public class ArbolBinario {
     Nodo raiz;
 
-    ArbolBinario(){
+    public ArbolBinario(){
     }
 
-    private Nodo insertarR(Nodo actual, int valor){
+    private Nodo insertarR(Nodo actual, int valor, MatrizCapa capa){
         if(actual == null){
-            return new Nodo(valor);
+            return new Nodo(valor,capa);
         }
         if(valor < actual.valor){
-            actual.izquierda = insertarR(actual.izquierda, valor);
+            actual.izquierda = insertarR(actual.izquierda, valor, capa);
         }else if(valor > actual.valor){
-            actual.derecha = insertarR(actual.derecha, valor);
+            actual.derecha = insertarR(actual.derecha, valor, capa);
         }else{
             return actual;
         }
         return actual;
     }
 
-    public void insertar(int valor){
-        raiz = insertarR(raiz,valor);
+    public void insertar(int valor, MatrizCapa capa){
+        raiz = insertarR(raiz,valor, capa);
     }
 
     private Nodo buscarR(Nodo actual, int valor){
@@ -108,4 +112,55 @@ public class ArbolBinario {
         visitados = postOrderR(raiz, visitados);
         System.out.println(visitados.toString());
     }
+
+
+
+
+    public MatrizCapa unirPreOrder(MatrizCapa completa){
+        completa = unirPreOrderR(raiz, completa);
+        return completa;
+    }
+
+    private MatrizCapa unirPreOrderR(Nodo actual , MatrizCapa completa){
+        if(actual == null){
+            return completa;
+        }
+
+        completa.combinarMatriz(completa, actual.capa);
+        completa = unirPreOrderR(actual.izquierda, completa);
+        completa = unirPreOrderR(actual.derecha, completa);
+        return completa;
+    }
+
+    public MatrizCapa unirInOrder(MatrizCapa completa){
+        completa = unirInOrderR(raiz, completa);
+        return completa;
+    }
+
+    private MatrizCapa unirInOrderR(Nodo actual , MatrizCapa completa){
+        if(actual == null){
+            return completa;
+        }
+        completa = unirInOrderR(actual.izquierda, completa);
+        completa.combinarMatriz(completa, actual.capa);
+        completa = unirInOrderR(actual.derecha, completa);
+        return completa;
+    }
+
+    public MatrizCapa unirPostOrder(MatrizCapa completa){
+        completa = unirPostOrderR(raiz, completa);
+        return completa;
+    }
+
+    private MatrizCapa unirPostOrderR(Nodo actual , MatrizCapa completa){
+        if(actual == null){
+            return completa;
+        }
+        completa = unirPostOrderR(actual.izquierda, completa);
+        completa = unirPostOrderR(actual.derecha, completa);
+        completa.combinarMatriz(completa, actual.capa);
+        return completa;
+    }
+
+    
 }

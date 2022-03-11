@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import ABB.ArbolBinario;
 import Matriz.MatrizCapa;
 
 public class Lector {
@@ -23,7 +24,7 @@ public class Lector {
     public Lector() {
     }
 
-    public ArrayList<MatrizCapa> leerMatriz(ArrayList<MatrizCapa> listaMatriz){
+    public ArbolBinario leerMatriz(ArbolBinario arbolMatriz){
 
             Scanner scan = new Scanner(System.in);
             System.out.println("Ingrese la ruta de la matriz: ");
@@ -41,12 +42,8 @@ public class Lector {
                     Object obj  = parser.parse(reader);
                     
                     JSONArray array = (JSONArray) obj;
-
-                    int k = 0;
-                    
+  
                     for(int i = 0; i < array.size(); i++){
-                        
-                        
 
                         JSONObject objetoCapa = (JSONObject) array.get(i);
 
@@ -64,7 +61,8 @@ public class Lector {
 
                             matrizActual.insertar((int)columna, (int)fila, valor);
                         }   
-                        listaMatriz.add(matrizActual);
+                        // listaMatriz.add(matrizActual);
+                        arbolMatriz.insertar((int)id, matrizActual);
                     }
 
                     // listaMatriz.get(0).graficar();
@@ -75,11 +73,8 @@ public class Lector {
                 }                
                 
             }
-            
 
-
-
-        return listaMatriz;
+        return arbolMatriz;
     }
 
 

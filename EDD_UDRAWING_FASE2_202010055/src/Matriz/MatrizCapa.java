@@ -215,7 +215,7 @@ public class MatrizCapa {
     }
 
 
-    public void combinar(int columna, int fila, String valor){
+    private void combinarNodo(int columna, int fila, String valor){
         NodoE eFila = listaFilas.getEncabezado(fila);
         if(eFila == null){
             insertar(columna, fila, valor);
@@ -237,6 +237,26 @@ public class MatrizCapa {
                 insertar(columna, fila, valor);
             }
         }
+    }
+
+    public MatrizCapa combinarMatriz(MatrizCapa completa, MatrizCapa actual){
+        MatrizCapa matrizActual = actual;
+        ListaEncabezado  eFila = matrizActual.getFilas();
+
+        var nodoEncabezado = eFila.getPrimero();
+
+        while(nodoEncabezado != null){
+            System.out.println("here1");
+            var nodoActual = nodoEncabezado.getAccesoNodo();
+
+            while(nodoActual != null){
+                System.out.println("here2");
+                completa.combinarNodo(nodoActual.getColumna(), nodoActual.getFila(), nodoActual.getValor());
+                nodoActual = nodoActual.getDerecha();
+            }
+            nodoEncabezado = nodoEncabezado.getSiguiente();
+        }
+        return completa;
     }
 
 }
