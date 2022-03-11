@@ -126,7 +126,7 @@ public class ArbolBinario {
             return completa;
         }
 
-        completa.combinarMatriz(completa, actual.capa);
+        completa.combinarMatriz(actual.capa);
         completa = unirPreOrderR(actual.izquierda, completa);
         completa = unirPreOrderR(actual.derecha, completa);
         return completa;
@@ -142,7 +142,7 @@ public class ArbolBinario {
             return completa;
         }
         completa = unirInOrderR(actual.izquierda, completa);
-        completa.combinarMatriz(completa, actual.capa);
+        completa.combinarMatriz(actual.capa);
         completa = unirInOrderR(actual.derecha, completa);
         return completa;
     }
@@ -158,7 +158,7 @@ public class ArbolBinario {
         }
         completa = unirPostOrderR(actual.izquierda, completa);
         completa = unirPostOrderR(actual.derecha, completa);
-        completa.combinarMatriz(completa, actual.capa);
+        completa.combinarMatriz(actual.capa);
         return completa;
     }
 

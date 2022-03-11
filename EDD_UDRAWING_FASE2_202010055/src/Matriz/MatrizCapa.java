@@ -239,24 +239,20 @@ public class MatrizCapa {
         }
     }
 
-    public MatrizCapa combinarMatriz(MatrizCapa completa, MatrizCapa actual){
-        MatrizCapa matrizActual = actual;
-        ListaEncabezado  eFila = matrizActual.getFilas();
+    public void combinarMatriz(MatrizCapa actual){
 
+        ListaEncabezado  eFila = actual.getFilas();
         var nodoEncabezado = eFila.getPrimero();
 
         while(nodoEncabezado != null){
-            System.out.println("here1");
             var nodoActual = nodoEncabezado.getAccesoNodo();
 
             while(nodoActual != null){
-                System.out.println("here2");
-                completa.combinarNodo(nodoActual.getColumna(), nodoActual.getFila(), nodoActual.getValor());
+                combinarNodo(nodoActual.getColumna(), nodoActual.getFila(), nodoActual.getValor());
                 nodoActual = nodoActual.getDerecha();
             }
             nodoEncabezado = nodoEncabezado.getSiguiente();
         }
-        return completa;
     }
 
 }
