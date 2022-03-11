@@ -45,9 +45,14 @@ public class Lector {
                     int k = 0;
                     
                     for(int i = 0; i < array.size(); i++){
-                        MatrizCapa matrizActual = new MatrizCapa("Capa " + i);
+                        
+                        
 
                         JSONObject objetoCapa = (JSONObject) array.get(i);
+
+                        long id = (long) objetoCapa.get("id_capa");
+                        MatrizCapa matrizActual = new MatrizCapa("Capa " + (int)id);
+                        matrizActual.setId((int)id);
 
                         JSONArray listaPixeles = (JSONArray) objetoCapa.get("pixeles");
                         for(int j = 0; j < listaPixeles.size(); j++){

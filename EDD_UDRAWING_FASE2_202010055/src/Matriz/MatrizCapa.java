@@ -7,6 +7,7 @@ public class MatrizCapa {
     ListaEncabezado listaFilas = new ListaEncabezado();
     ListaEncabezado listaColumnas = new ListaEncabezado();
     String nombre;
+    int id;
 
 
     public MatrizCapa(String nombre) {
@@ -19,6 +20,14 @@ public class MatrizCapa {
 
     public ListaEncabezado getColumnas(){
         return listaColumnas;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
 
@@ -191,12 +200,12 @@ public class MatrizCapa {
 
         try{
 
-            FileWriter fileWriter = new FileWriter( "matriz.dot");
+            FileWriter fileWriter = new FileWriter( nombre + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tsvg" ,"matriz.dot", "-o","matriz.svg" };
+            String[] command = {"dot", "-Tpng" , nombre +".dot", "-o", nombre +".png" };
             new ProcessBuilder(command).start();
         
         }catch(Exception e){
