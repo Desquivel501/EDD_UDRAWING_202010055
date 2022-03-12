@@ -1,21 +1,26 @@
 import java.util.ArrayList;
 
 import ABB.ArbolBinario;
+import GUI.Login;
 import Matriz.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        ArrayList<MatrizCapa> listaCapas = new ArrayList<>();
-        ArbolBinario arbol = new ArbolBinario();
+        // ArrayList<MatrizCapa> listaCapas = new ArrayList<>();
+        // ArbolBinario arbol = new ArbolBinario();
 
-        Lector lector = new Lector();
+        // Lector lector = new Lector();
 
-        ArbolBinario listaMatriz = lector.leerMatriz(arbol);
+        // ArbolBinario listaMatriz = lector.leerMatriz(arbol);
+        // // listaMatriz.inOrder();
 
-        MatrizCapa completa = new MatrizCapa("Completa");
-        completa = arbol.unirPreOrder(completa);
-        completa.graficar();
+        // MatrizCapa completa = new MatrizCapa("Completa");
+        // completa = arbol.unirPreOrder(completa);
+        // // completa.graficar();
+        // completa.graficarHTML();
+        
+        Login nuevo = new Login();
     }
 
     // public static MatrizCapa unirMatriz(ArrayList<MatrizCapa> listaMatriz){

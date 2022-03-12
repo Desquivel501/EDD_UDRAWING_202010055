@@ -8,6 +8,8 @@ public class MatrizCapa {
     ListaEncabezado listaColumnas = new ListaEncabezado();
     String nombre;
     int id;
+    int filas = 0;
+    int columnas = 0;
 
 
     public MatrizCapa(String nombre) {
@@ -30,10 +32,20 @@ public class MatrizCapa {
         return id;
     }
 
+    public int getNoFilas(){
+        return filas;
+    }
+
+    public int getNoColumnas(){
+        return columnas;
+    }
+
 
     public void insertar(int columna, int fila, String valor){
         NodoM nuevo = new NodoM(columna, fila, valor);
-
+        this.filas = (this.filas < fila)?fila:this.filas;
+        this.columnas = (this.columnas < columna)?columna:this.columnas;
+ 
         NodoE eFila = listaFilas.getEncabezado(fila);
         if(eFila == null){
             eFila = new NodoE(fila);
@@ -211,6 +223,67 @@ public class MatrizCapa {
         }catch(Exception e){
             e.printStackTrace();
         }
+
+    }
+
+    public void graficarHTML(){
+        StringBuilder dot = new StringBuilder();
+        dot.append("digraph G {\n");
+
+        dot.append("node[shape = plaintext]\n");
+
+        dot.append("a[ label =<\n");
+
+        dot.append("<TABLE style=\"border-collapse: collapse;\" border=\"1\">\n");
+
+        var listaFila = this.listaFilas;
+        var actual = listaFila.getPrimero();
+
+        while(actual != null){
+            dot.append("<TR>\n");
+            var nodo = actual.getAccesoNodo();
+            for(int i = 0; i < this.columnas+1;i++){
+                if(nodo == null){
+                    dot.append("<TD style=\"width: 10px; height: 10px; background-color: white;\"></TD>\n");
+                    continue;
+                }
+                if(nodo.getColumna() == i){
+                    dot.append("<TD style=\"width: 10px; height: 10px; background-color: " + nodo.getValor() +";\"></TD>\n");
+                    nodo = nodo.getDerecha(); 
+                    // System.out.println("Nodo: " + nodo.getColumna() + "," + nodo.getFila() + "," + nodo.getValor());
+                }else{
+                    dot.append("<TD style=\"width: 10px; height: 10px; background-color: white;\"></TD>\n");
+                }
+                
+            }
+            dot.append("</TR>\n");
+            actual = actual.getSiguiente();
+        }
+        
+        dot.append("</TABLE>\n");
+
+        dot.append(">]\n");
+
+        dot.append("}\n");
+
+        try{
+            FileWriter fileWriter = new FileWriter( nombre + "HTML.dot");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(dot);
+            printWriter.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        // var nodoF = listaFila.getPrimero();
+        // while(nodoF != null){
+        //     var actualF = nodoF.getAccesoNodo();
+        //     while(actualF != null){
+        //         System.out.println("Nodo: " + actualF.getColumna() + "," + actualF.getFila() + "," + actualF.getValor());
+        //         actualF = actualF.getDerecha();
+        //     }
+        //     nodoF = nodoF.getSiguiente();
+        // }
 
     }
 

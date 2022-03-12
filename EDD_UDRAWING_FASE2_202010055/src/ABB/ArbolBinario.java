@@ -68,6 +68,7 @@ public class ArbolBinario {
         }
         visitados = inOrderR(actual.izquierda, visitados);
         visitados.add(actual.valor);
+        System.out.println("Filas:" + actual.capa.getNoFilas() + ", Columnas: " + actual.capa.getNoColumnas());
         visitados = inOrderR(actual.derecha, visitados);
         return visitados;
 
@@ -76,7 +77,7 @@ public class ArbolBinario {
     public void inOrder(){
         ArrayList<Integer> visitados = new ArrayList<Integer>();
         visitados = inOrderR(raiz, visitados);
-        System.out.println(visitados.toString());
+        // System.out.println(visitados.toString());
     }
 
     private ArrayList<Integer> preOrderR(Nodo actual , ArrayList<Integer> visitados){
