@@ -234,7 +234,7 @@ public class MatrizCapa {
 
         dot.append("a[ label =<\n");
 
-        dot.append("<TABLE style=\"border-collapse: collapse;\" border=\"1\">\n");
+        dot.append("<TABLE cellspacing=\"0\" cellpadding=\"10\">\n");
 
         var listaFila = this.listaFilas;
         var actual = listaFila.getPrimero();
@@ -244,15 +244,18 @@ public class MatrizCapa {
             var nodo = actual.getAccesoNodo();
             for(int i = 0; i < this.columnas+1;i++){
                 if(nodo == null){
-                    dot.append("<TD style=\"width: 10px; height: 10px; background-color: white;\"></TD>\n");
+                    // dot.append("<TD style=\"width: 10px; height: 10px; background-color: white;\"></TD>\n");
+                    dot.append("<TD width=\"1\" height=\"1\" bgcolor=\"white\"></TD>\n");
                     continue;
                 }
                 if(nodo.getColumna() == i){
-                    dot.append("<TD style=\"width: 10px; height: 10px; background-color: " + nodo.getValor() +";\"></TD>\n");
-                    nodo = nodo.getDerecha(); 
-                    // System.out.println("Nodo: " + nodo.getColumna() + "," + nodo.getFila() + "," + nodo.getValor());
+                    // dot.append("<TD style=\"width: 10px; height: 10px; color: " + nodo.getValor() +" background-color: " + nodo.getValor() +";\"></TD>\n");
+                    dot.append("<TD width=\"1\" height=\"1\" bgcolor=\"" + nodo.getValor()  + "\"></TD>\n");
+                    System.out.println("Nodo: " + nodo.getColumna() + "," + nodo.getFila() + "," + nodo.getValor());
+                    nodo = nodo.getDerecha();      
                 }else{
-                    dot.append("<TD style=\"width: 10px; height: 10px; background-color: white;\"></TD>\n");
+                    // dot.append("<TD style=\"width: 10px; height: 10px; background-color: white;\"></TD>\n");
+                    dot.append("<TD width=\"1\" height=\"1\" bgcolor=\"white\"></TD>\n");
                 }
                 
             }
@@ -271,6 +274,10 @@ public class MatrizCapa {
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);
             printWriter.close();
+
+            String[] command = {"dot", "-Tpng" , nombre +"HTML.dot", "-o", nombre +"HTML.png" };
+            new ProcessBuilder(command).start();
+
         }catch(Exception e){
             e.printStackTrace();
         }

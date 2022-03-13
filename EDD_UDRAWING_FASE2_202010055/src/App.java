@@ -7,20 +7,19 @@ import Matriz.*;
 public class App {
     public static void main(String[] args) throws Exception {
 
-        // ArrayList<MatrizCapa> listaCapas = new ArrayList<>();
-        // ArbolBinario arbol = new ArbolBinario();
+        ArbolBinario arbol = new ArbolBinario();
 
-        // Lector lector = new Lector();
+        Lector lector = new Lector();
 
-        // ArbolBinario listaMatriz = lector.leerMatriz(arbol);
-        // // listaMatriz.inOrder();
+        ArbolBinario listaMatriz = lector.leerMatriz(arbol);
+        // listaMatriz.inOrder();
 
-        // MatrizCapa completa = new MatrizCapa("Completa");
-        // completa = arbol.unirPreOrder(completa);
-        // // completa.graficar();
-        // completa.graficarHTML();
+        MatrizCapa completa = new MatrizCapa("Completa");
+        completa = arbol.unirPreOrder(completa);
+        // completa.graficar();
+        completa.graficarHTML();
         
-        Login nuevo = new Login();
+        // Login nuevo = new Login();
     }
 
     // public static MatrizCapa unirMatriz(ArrayList<MatrizCapa> listaMatriz){
