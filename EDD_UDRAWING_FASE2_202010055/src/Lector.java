@@ -16,20 +16,20 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import ABB.ArbolBinario;
+import AVL.AVL;
 import Matriz.MatrizCapa;
+import Models.Imagen;
 
 public class Lector {
-    
+    Scanner scan = new Scanner(System.in);
 
     public Lector() {
     }
 
     public ArbolBinario leerMatriz(ArbolBinario arbolMatriz){
 
-            Scanner scan = new Scanner(System.in);
             System.out.println("Ingrese la ruta de la matriz: ");
             String path = scan.nextLine();
-            scan.close();
 
             // File archivo = new File("D:\\Documents\\USAC\\Lab EDD\\Proyecto 2\\Mario.json");
             File archivo = new File(path);
@@ -75,6 +75,47 @@ public class Lector {
             }
 
         return arbolMatriz;
+    }
+
+    public AVL leerImagenes(AVL arbolImagenes){
+        System.out.println("Ingrese la ruta de las imagenes:");
+        String path = scan.nextLine();
+
+        File archivo = new File(path);
+
+        if(archivo != null){
+            System.out.println("Here");
+            try {
+                Reader reader = new FileReader(archivo);
+                JSONParser parser = new JSONParser();
+                Object obj  = parser.parse(reader);
+                    
+                JSONArray array = (JSONArray) obj;
+  
+                for(int i = 0; i < array.size(); i++){
+
+                    JSONObject objetoImagen= (JSONObject) array.get(i);
+
+                    long id = (long) objetoImagen.get("id");
+                    JSONArray listaCapas = (JSONArray) objetoImagen.get("capas");
+                    ArrayList<Integer> lista = new ArrayList<Integer>();
+                    for(int j = 0; j < listaCapas.size();j++){
+                        long noCapa = (long) listaCapas.get(j);
+                        lista.add((int) noCapa);
+                    }
+                    Imagen nueva = new Imagen((int)id,lista);
+                    arbolImagenes.insertar((int)id, nueva);
+
+                }
+
+                    
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }                
+                
+            }
+            return arbolImagenes;
+    
     }
 
 

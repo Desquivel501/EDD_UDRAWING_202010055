@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import ABB.ArbolBinario;
+import AVL.AVL;
 import GUI.Login;
 import Matriz.*;
 
@@ -14,11 +15,22 @@ public class App {
         ArbolBinario listaMatriz = lector.leerMatriz(arbol);
         // listaMatriz.inOrder();
 
-        MatrizCapa completa = new MatrizCapa("Completa");
-        completa = arbol.unirPreOrder(completa);
-        // completa.graficar();
-        completa.graficarHTML();
-        
+        // MatrizCapa completa = new MatrizCapa("Completa");
+        // completa = arbol.unirPreOrder(completa);
+        // // completa.graficar();
+        // completa.graficarHTML();
+
+        // arbol.preOrder();
+
+        AVL arbolImagenes = new AVL();
+        arbolImagenes = lector.leerImagenes(arbolImagenes);
+        arbolImagenes.insertarCapas(arbol);
+        arbolImagenes.preOrder();
+        // arbolImagenes.generarImagenes();
+        arbolImagenes.eliminar(8);
+        System.out.println("-----------------------------------------");
+        arbolImagenes.preOrder();
+        arbolImagenes.postOrder();
         // Login nuevo = new Login();
     }
 

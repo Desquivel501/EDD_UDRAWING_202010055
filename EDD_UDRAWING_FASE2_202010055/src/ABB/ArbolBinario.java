@@ -51,15 +51,24 @@ public class ArbolBinario {
             return actual;
         }
         if(valor < actual.valor){
-            buscarR(actual.izquierda, valor);
+            actual = buscarR(actual.izquierda, valor);
         }else{
-            buscarR(actual.derecha, valor);
+            actual = buscarR(actual.derecha, valor);
         }
-        return null;
+        return actual;
     }
 
     public Nodo buscar(int valor){
         return buscarR(raiz, valor);
+    }
+
+    public MatrizCapa getCapa(int valor){
+        Nodo n = buscarR(raiz, valor);
+        if(n != null){
+            return n.capa;
+        }else{
+            return null;
+        }
     }
 
     private ArrayList<Integer> inOrderR(Nodo actual , ArrayList<Integer> visitados){

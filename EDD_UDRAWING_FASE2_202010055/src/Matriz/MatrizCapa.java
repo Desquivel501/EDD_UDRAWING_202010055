@@ -212,12 +212,12 @@ public class MatrizCapa {
 
         try{
 
-            FileWriter fileWriter = new FileWriter( nombre + ".dot");
+            FileWriter fileWriter = new FileWriter( "imagenes/"+ nombre + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" , nombre +".dot", "-o", nombre +".png" };
+            String[] command = {"dot", "-Tpng" , "imagenes/"+ nombre +".dot", "-o", "imagenes/"+ nombre +".png" };
             new ProcessBuilder(command).start();
         
         }catch(Exception e){
@@ -270,12 +270,12 @@ public class MatrizCapa {
         dot.append("}\n");
 
         try{
-            FileWriter fileWriter = new FileWriter( nombre + "HTML.dot");
+            FileWriter fileWriter = new FileWriter("imagenes/" + nombre + "HTML.dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" , nombre +"HTML.dot", "-o", nombre +"HTML.png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/" + nombre +"HTML.dot", "-o","imagenes/" + nombre +"HTML.png" };
             new ProcessBuilder(command).start();
 
         }catch(Exception e){
