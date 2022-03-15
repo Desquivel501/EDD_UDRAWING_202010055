@@ -251,7 +251,7 @@ public class MatrizCapa {
                 if(nodo.getColumna() == i){
                     // dot.append("<TD style=\"width: 10px; height: 10px; color: " + nodo.getValor() +" background-color: " + nodo.getValor() +";\"></TD>\n");
                     dot.append("<TD width=\"1\" height=\"1\" bgcolor=\"" + nodo.getValor()  + "\"></TD>\n");
-                    System.out.println("Nodo: " + nodo.getColumna() + "," + nodo.getFila() + "," + nodo.getValor());
+                    // System.out.println("Nodo: " + nodo.getColumna() + "," + nodo.getFila() + "," + nodo.getValor());
                     nodo = nodo.getDerecha();      
                 }else{
                     // dot.append("<TD style=\"width: 10px; height: 10px; background-color: white;\"></TD>\n");

@@ -1,0 +1,26 @@
+digraph G{
+Nodo591723622[label="Album 1" shape=tab];
+Nodo2081303229[label="Imagen 1" shape=box];
+Nodo591723622 -> Nodo2081303229;
+Nodo1223685984[label="Imagen 2" shape=box];
+Nodo2081303229 -> Nodo1223685984;
+Nodo1076835071[label="Album 2" shape=tab];
+Nodo1463757745[label="Imagen 3" shape=box];
+Nodo1076835071 -> Nodo1463757745;
+Nodo1525262377[label="Imagen 1" shape=box];
+Nodo1463757745 -> Nodo1525262377;
+Nodo1837760739[label="Imagen 2" shape=box];
+Nodo1525262377 -> Nodo1837760739;
+Nodo591723622 -> Nodo1076835071;
+Nodo1418428263[label="Album 3" shape=tab];
+Nodo2059904228[label="Imagen 2" shape=box];
+Nodo1418428263 -> Nodo2059904228;
+Nodo1836643189[label="Imagen 3" shape=box];
+Nodo2059904228 -> Nodo1836643189;
+Nodo1076835071 -> Nodo1418428263;
+Nodo1355316001[label="Album 4" shape=tab];
+Nodo1597462040[label="Imagen 1" shape=box];
+Nodo1355316001 -> Nodo1597462040;
+Nodo1418428263 -> Nodo1355316001;
+{rank=same;Nodo591723622;Nodo1076835071;Nodo1418428263;Nodo1355316001;}
+}

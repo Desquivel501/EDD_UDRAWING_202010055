@@ -17,7 +17,10 @@ import org.json.simple.parser.ParseException;
 
 import ABB.ArbolBinario;
 import AVL.AVL;
+import AVL.NodoAVL;
+import ListaAlbum.ListaAlbum;
 import Matriz.MatrizCapa;
+import Models.Album;
 import Models.Imagen;
 
 public class Lector {
@@ -115,7 +118,46 @@ public class Lector {
                 
             }
             return arbolImagenes;
-    
+    }
+
+    public ListaAlbum leerAlbumes(ListaAlbum listaAlbum, AVL imagenes){
+        System.out.println("Ingrese la ruta de los albumes:");
+        String path = scan.nextLine();
+
+        File archivo = new File(path);
+
+        if(archivo != null){
+            System.out.println("Here");
+            try {
+                Reader reader = new FileReader(archivo);
+                JSONParser parser = new JSONParser();
+                Object obj  = parser.parse(reader);
+                    
+                JSONArray array = (JSONArray) obj;
+  
+                for(int i = 0; i < array.size(); i++){
+
+                    JSONObject objetoAlbum = (JSONObject) array.get(i);
+
+                    String nombre = (String) objetoAlbum.get("nombre_album");
+                    Album nuevo = new Album(nombre);
+                    JSONArray listaImagenes = (JSONArray) objetoAlbum.get("imgs");
+                    for(int j = 0; j < listaImagenes.size();j++){
+                        long noimg = (long) listaImagenes.get(j);
+                        NodoAVL imgActual = imagenes.buscar((int)noimg);
+                        if(imgActual != null){
+                            nuevo.insertar(imgActual.getImagen());
+                        }
+                    }
+                    listaAlbum.insertar(nuevo);
+                }
+                    
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }                
+                
+            }
+            return listaAlbum;
     }
 
 

@@ -52,21 +52,6 @@ public class Imagen {
         arbolCapas.preOrder();
     }
 
-    public Imagen id(int id) {
-        setId(id);
-        return this;
-    }
-
-    public Imagen listaCapas(ArrayList<Integer> listaCapas) {
-        setListaCapas(listaCapas);
-        return this;
-    }
-
-    public Imagen arbolCapas(ArbolBinario arbolCapas) {
-        setArbolCapas(arbolCapas);
-        return this;
-    }
-
     public void generarImagen(){
         if(completa == null){
             this.completa = new MatrizCapa("Imagen" + this.id);

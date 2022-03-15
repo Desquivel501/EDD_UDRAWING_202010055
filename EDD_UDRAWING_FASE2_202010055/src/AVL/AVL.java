@@ -1,117 +1,29 @@
 package AVL;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Queue;
 
 import javax.management.RuntimeErrorException;
 
 import ABB.ArbolBinario;
+import Cola.Cola;
 import Matriz.MatrizCapa;
 import Models.Imagen;
 
-class Nodo{
-    int valor;
-    int alto;
-    Nodo derecha;
-    Nodo izquierda;
-    Imagen imagen;
-
-    public Nodo(int valor, Imagen imagen ){
-        this.valor = valor;
-        alto = 0;
-        derecha = null;
-        izquierda = null;
-        this.imagen = imagen;
-    }
-
-    public Nodo() {
-    }
-
-    public Nodo(int valor, int alto, Nodo derecha, Nodo izquierda, Imagen imagen) {
-        this.valor = valor;
-        this.alto = alto;
-        this.derecha = derecha;
-        this.izquierda = izquierda;
-        this.imagen = imagen;
-    }
-
-    public int getValor() {
-        return this.valor;
-    }
-
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
-
-    public int getAlto() {
-        return this.alto;
-    }
-
-    public void setAlto(int alto) {
-        this.alto = alto;
-    }
-
-    public Nodo getDerecha() {
-        return this.derecha;
-    }
-
-    public void setDerecha(Nodo derecha) {
-        this.derecha = derecha;
-    }
-
-    public Nodo getIzquierda() {
-        return this.izquierda;
-    }
-
-    public void setIzquierda(Nodo izquierda) {
-        this.izquierda = izquierda;
-    }
-
-    public Imagen getImagen() {
-        return this.imagen;
-    }
-
-    public void setImagen(Imagen imagen) {
-        this.imagen = imagen;
-    }
-
-    public Nodo valor(int valor) {
-        setValor(valor);
-        return this;
-    }
-
-    public Nodo alto(int alto) {
-        setAlto(alto);
-        return this;
-    }
-
-    public Nodo derecha(Nodo derecha) {
-        setDerecha(derecha);
-        return this;
-    }
-
-    public Nodo izquierda(Nodo izquierda) {
-        setIzquierda(izquierda);
-        return this;
-    }
-
-    public Nodo imagen(Imagen imagen) {
-        setImagen(imagen);
-        return this;
-    }
-}
-
 public class AVL {
-    private Nodo raiz;
+    private NodoAVL raiz;
 
     public AVL(){
         raiz = null;
     }
 
-    public void actualizarAltura(Nodo actual){
+    public void actualizarAltura(NodoAVL actual){
         actual.alto = 1 + Math.max(altura(actual.izquierda), altura(actual.derecha));
     }
 
-    private int altura(Nodo actual){
+    private int altura(NodoAVL actual){
         if(actual == null){
             return -1;
         }else{
@@ -119,7 +31,7 @@ public class AVL {
         }
     }
 
-    private int equilibrio(Nodo actual){
+    private int equilibrio(NodoAVL actual){
         if(actual == null){
             return 0;
         }else{
@@ -127,9 +39,9 @@ public class AVL {
         }
     }
 
-    private Nodo rotacionDerecha(Nodo n){
-        Nodo n1 = n.izquierda;
-        Nodo n2 = n1.derecha;
+    private NodoAVL rotacionDerecha(NodoAVL n){
+        NodoAVL n1 = n.izquierda;
+        NodoAVL n2 = n1.derecha;
         n1.derecha = n;
         n.izquierda = n2;
         actualizarAltura(n);
@@ -138,9 +50,9 @@ public class AVL {
         return n1;
     }
 
-    private Nodo rotacionIzquierda(Nodo n){
-        Nodo n1 = n.derecha;
-        Nodo n2 = n1.izquierda;
+    private NodoAVL rotacionIzquierda(NodoAVL n){
+        NodoAVL n1 = n.derecha;
+        NodoAVL n2 = n1.izquierda;
         n1.izquierda = n;
         n.derecha = n2;
         actualizarAltura(n);
@@ -149,7 +61,7 @@ public class AVL {
         return n1;
     }
 
-    private Nodo balancear(Nodo n){
+    private NodoAVL balancear(NodoAVL n){
         actualizarAltura(n);
         int equilibrio = equilibrio(n);
         if(equilibrio > 1){
@@ -171,9 +83,9 @@ public class AVL {
         return n;
     }
 
-    private Nodo insertarR(Nodo n, int valor, Imagen imagen ){
+    private NodoAVL insertarR(NodoAVL n, int valor, Imagen imagen ){
         if(n == null){
-            return new Nodo(valor,imagen);
+            return new NodoAVL(valor,imagen);
         }
         else if(n.valor > valor){
             n.izquierda = insertarR(n.izquierda, valor,imagen);
@@ -190,11 +102,11 @@ public class AVL {
         raiz = balancear(raiz);
     }
 
-    public Nodo getRaiz(){
+    public NodoAVL getRaiz(){
         return raiz;
     }
 
-    private ArrayList<Integer> preOrderR(Nodo actual , ArrayList<Integer> visitados){
+    private ArrayList<Integer> preOrderR(NodoAVL actual , ArrayList<Integer> visitados){
         if(actual == null){
             return visitados;
         }
@@ -211,7 +123,7 @@ public class AVL {
         System.out.println(visitados.toString());
     }
 
-    private ArrayList<Integer> postOrderR(Nodo actual , ArrayList<Integer> visitados){
+    private ArrayList<Integer> postOrderR(NodoAVL actual , ArrayList<Integer> visitados){
         if(actual == null){
             return visitados;
         }
@@ -229,7 +141,7 @@ public class AVL {
     }
 
 
-    private void insertarCapasR(Nodo actual , ArbolBinario arbolCompleto){
+    private void insertarCapasR(NodoAVL actual , ArbolBinario arbolCompleto){
         if(actual == null){
             return;
         }
@@ -245,7 +157,7 @@ public class AVL {
         // System.out.println(visitados.toString());
     }
 
-    private void generarImageneR(Nodo actual){
+    private void generarImageneR(NodoAVL actual){
         if(actual == null){
             return;
         }
@@ -258,7 +170,7 @@ public class AVL {
         generarImageneR(raiz);
     }
 
-    private Nodo buscarR(Nodo actual, int valor){
+    private NodoAVL buscarR(NodoAVL actual, int valor){
         if(actual == null){
             return null;
         }
@@ -273,11 +185,11 @@ public class AVL {
         return actual;
     }
 
-    public Nodo buscar(int valor){
+    public NodoAVL buscar(int valor){
         return buscarR(raiz, valor);
     }
 
-    private Nodo eliminarR(Nodo actual, int valor){
+    private NodoAVL eliminarR(NodoAVL actual, int valor){
         if(actual == null){
             return null;
         }
@@ -295,7 +207,7 @@ public class AVL {
             }else if(actual.izquierda == null && actual.derecha == null){
                 actual = null;
             }else{
-                Nodo n1 = masIzquierda(actual.derecha);
+                NodoAVL n1 = masIzquierda(actual.derecha);
                 actual.valor = n1.valor;
                 actual.imagen = n1.imagen;
                 actual.derecha = eliminarR(actual.derecha, actual.valor);
@@ -311,28 +223,47 @@ public class AVL {
         eliminarR(raiz,valor);
     }
 
-    private Nodo eliminarNodo(Nodo n){
-        if(n.izquierda == null || n.derecha == null){
-           if(n.izquierda == null){
-               n = n.derecha;
-           }else{
-               n = n.izquierda;
-           }
-        }else{
-            Nodo n1 = masIzquierda(n.derecha);
-            n.valor = n1.valor;
-            n.imagen = n1.imagen;
-            n.derecha = eliminarR(n.derecha, n.valor);
-        }
-        
-        return n;
-    }
-
-    private Nodo masIzquierda(Nodo n){
-        Nodo aux = n;
+    private NodoAVL masIzquierda(NodoAVL n){
+        NodoAVL aux = n;
         while(aux.izquierda != null){
             aux = aux.izquierda;
         }
         return aux;
     }
+
+    public void recorridoNiveles(){
+        Cola<NodoAVL> cola = new Cola<>();
+        cola.enqueue(raiz);
+        while(!cola.vacia()){
+            NodoAVL actual = cola.dequeue().getValor();
+            System.out.println("Imagen " + actual.getValor());
+            if(actual.izquierda != null){
+                cola.enqueue(actual.izquierda);
+            }
+            if(actual.derecha != null){
+                cola.enqueue(actual.derecha);
+            }
+        }
+    }
+
+    public void graficar(){
+        StringBuilder dot = new StringBuilder();
+        dot.append("digraph G{\n");
+        dot = getRaiz().graficar(dot);
+        dot.append("}\n");
+
+        try{
+            FileWriter fileWriter = new FileWriter("imagenes/arbol.dot");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(dot.toString());
+            printWriter.close();
+
+            String[] command = {"dot", "-Tpng" ,"imagenes/arbol.dot", "-o","imagenes/arbol.png" };
+            new ProcessBuilder(command).start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 }
