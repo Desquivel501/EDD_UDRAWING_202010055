@@ -17,9 +17,15 @@ public class ArbolB {
         }else{
             NodoB nodo = insertarPagina(nuevo, raiz);
             if(nodo != null){
-
+                raiz = new Pagina();
+                raiz.insertar(nodo);
+                raiz.hoja = false;
             }
         }
+    }
+
+    public void buscar(int id){
+        raiz.buscar(id);
     }
 
 
@@ -42,6 +48,7 @@ public class ArbolB {
             if(nodo.id < aux.id){
                 NodoB nodoAux = insertarPagina(nodo, aux.izquierda);
                 if(nodoAux != null){
+
                     pagina.insertar(nodoAux);
                     if(pagina.noNodos == this.orden){
                         return dividir(pagina);
@@ -49,7 +56,7 @@ public class ArbolB {
                 }
                 return null;
             }else if(aux.siguiente == null){
-                NodoB nodoAux = insertarPagina(nodo, aux.izquierda);
+                NodoB nodoAux = insertarPagina(nodo, aux.derecha);
                 if(nodoAux != null){
                     pagina.insertar(nodoAux);
                     if(pagina.noNodos == this.orden){
@@ -103,6 +110,16 @@ public class ArbolB {
         nuevo = new NodoB(val, cliente, paginaD, paginaI);
         return nuevo;
         
+    }
+
+    public void graficar(){
+        StringBuilder dot = new StringBuilder();
+        dot.append("digraph G {\n");
+        dot.append("node[shape=record]\n");
+        dot = this.raiz.graficarPagina(dot);
+        dot.append("}\n");
+
+        System.out.println(dot);
     }
 
 

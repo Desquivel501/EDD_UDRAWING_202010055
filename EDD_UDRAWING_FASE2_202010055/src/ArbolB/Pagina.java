@@ -64,4 +64,70 @@ public class Pagina {
         }
     }
 
+    public NodoB buscar(int id){
+        NodoB aux = head;
+        while(head != null){
+            if(aux.id == id){
+                System.out.println("Found: Cliente " + aux.cliente.getNombre());
+                return aux;
+            }
+
+            if(id < aux.id){
+                if(!this.hoja){
+                    if(aux.izquierda != null){
+                        return aux.izquierda.buscar(id);
+                    }else{
+                        return null;
+                    }
+                }else{
+                    return null;
+                }
+            }
+            
+            if(aux.siguiente == null){
+                if(id > aux.id){
+                    if(!this.hoja){
+                        if(aux.izquierda != null){
+                            return aux.derecha.buscar(id);
+                        }else{
+                            return null;
+                        }
+                    }else{
+                        return null;
+                    }
+                }
+            }
+            aux = aux.getSiguiente();
+        }
+        return null;
+    }
+
+    public StringBuilder graficarPagina(StringBuilder dot){
+        NodoB aux = head;
+        int cont = 0;
+        StringBuilder nodo = new StringBuilder();
+        nodo.append(String.format("nodo%d[label=\"",this.hashCode()));
+
+        while(aux != null){
+            nodo.append(String.format("<p%d>|%d|",cont,aux.cliente.getDpi()));
+            if(aux.izquierda != null){
+                dot = aux.izquierda.graficarPagina(dot);
+                dot.append(String.format("nodo%d:p%d -> nodo%d\n", this.hashCode(), cont, aux.izquierda.hashCode()));
+            }
+            cont++;
+
+            if(aux.siguiente == null){
+                nodo.append(String.format("<p%d>\"]\n", cont));
+                if(aux.derecha != null){
+                    dot = aux.derecha.graficarPagina(dot);
+                    dot.append(String.format("nodo%d:p%d -> nodo%d\n", this.hashCode(), cont, aux.derecha.hashCode()));
+                }
+
+            } 
+            aux = aux.siguiente;
+        }
+        dot.append(nodo);
+        return dot;
+    }
+
 }
