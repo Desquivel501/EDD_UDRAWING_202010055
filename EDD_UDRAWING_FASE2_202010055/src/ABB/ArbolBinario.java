@@ -5,29 +5,19 @@ import java.util.ArrayList;
 import Matriz.ListaEncabezado;
 import Matriz.MatrizCapa;
 
-class Nodo{
-    int valor;
-    Nodo izquierda;
-    Nodo derecha;
-    MatrizCapa capa;
-
-    Nodo(int valor, MatrizCapa capa){
-        this.valor = valor;
-        this.capa = capa;
-        izquierda = null;
-        derecha = null;
-    }
-}
-
 public class ArbolBinario {
-    Nodo raiz;
+    NodoABB raiz;
 
     public ArbolBinario(){
     }
 
-    private Nodo insertarR(Nodo actual, int valor, MatrizCapa capa){
+    public NodoABB getRaiz(){
+        return raiz;
+    }
+
+    private NodoABB insertarR(NodoABB actual, int valor, MatrizCapa capa){
         if(actual == null){
-            return new Nodo(valor,capa);
+            return new NodoABB(valor,capa);
         }
         if(valor < actual.valor){
             actual.izquierda = insertarR(actual.izquierda, valor, capa);
@@ -43,7 +33,7 @@ public class ArbolBinario {
         raiz = insertarR(raiz,valor, capa);
     }
 
-    private Nodo buscarR(Nodo actual, int valor){
+    private NodoABB buscarR(NodoABB actual, int valor){
         if(actual == null){
             return null;
         }
@@ -58,12 +48,12 @@ public class ArbolBinario {
         return actual;
     }
 
-    public Nodo buscar(int valor){
+    public NodoABB buscar(int valor){
         return buscarR(raiz, valor);
     }
 
     public MatrizCapa getCapa(int valor){
-        Nodo n = buscarR(raiz, valor);
+        NodoABB n = buscarR(raiz, valor);
         if(n != null){
             return n.capa;
         }else{
@@ -71,7 +61,7 @@ public class ArbolBinario {
         }
     }
 
-    private ArrayList<Integer> inOrderR(Nodo actual , ArrayList<Integer> visitados){
+    private ArrayList<Integer> inOrderR(NodoABB actual , ArrayList<Integer> visitados){
         if(actual == null){
             return visitados;
         }
@@ -89,7 +79,7 @@ public class ArbolBinario {
         // System.out.println(visitados.toString());
     }
 
-    private ArrayList<Integer> preOrderR(Nodo actual , ArrayList<Integer> visitados){
+    private ArrayList<Integer> preOrderR(NodoABB actual , ArrayList<Integer> visitados){
         if(actual == null){
             return visitados;
         }
@@ -106,7 +96,7 @@ public class ArbolBinario {
         System.out.println(visitados.toString());
     }
 
-    private ArrayList<Integer> postOrderR(Nodo actual , ArrayList<Integer> visitados){
+    private ArrayList<Integer> postOrderR(NodoABB actual , ArrayList<Integer> visitados){
         if(actual == null){
             return visitados;
         }
@@ -131,7 +121,7 @@ public class ArbolBinario {
         return completa;
     }
 
-    private MatrizCapa unirPreOrderR(Nodo actual , MatrizCapa completa){
+    private MatrizCapa unirPreOrderR(NodoABB actual , MatrizCapa completa){
         if(actual == null){
             return completa;
         }
@@ -147,7 +137,7 @@ public class ArbolBinario {
         return completa;
     }
 
-    private MatrizCapa unirInOrderR(Nodo actual , MatrizCapa completa){
+    private MatrizCapa unirInOrderR(NodoABB actual , MatrizCapa completa){
         if(actual == null){
             return completa;
         }
@@ -162,7 +152,7 @@ public class ArbolBinario {
         return completa;
     }
 
-    private MatrizCapa unirPostOrderR(Nodo actual , MatrizCapa completa){
+    private MatrizCapa unirPostOrderR(NodoABB actual , MatrizCapa completa){
         if(actual == null){
             return completa;
         }

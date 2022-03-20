@@ -253,12 +253,32 @@ public class AVL {
         dot.append("}\n");
 
         try{
-            FileWriter fileWriter = new FileWriter("imagenes/arbol.dot");
+            FileWriter fileWriter = new FileWriter("imagenes/arbolImagenes.dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" ,"imagenes/arbol.dot", "-o","imagenes/arbol.png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/arbolImagenes.dot", "-o","imagenes/arbolImagenes.png" };
+            new ProcessBuilder(command).start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void graficar(int imagen){
+        StringBuilder dot = new StringBuilder();
+        dot.append("digraph G{\n");
+        dot = getRaiz().graficar(dot, imagen);
+        dot.append("}\n");
+
+        try{
+            FileWriter fileWriter = new FileWriter("imagenes/arbol_imagen" + imagen + ".dot");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(dot.toString());
+            printWriter.close();
+
+            String[] command = {"dot", "-Tpng" ,"imagenes/arbol_imagen" + imagen + ".dot", "-o","imagenes/arbol_imagen" + imagen + ".png" };
             new ProcessBuilder(command).start();
         }catch (Exception e){
             e.printStackTrace();

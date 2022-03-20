@@ -1,3 +1,4 @@
+package Lector;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JFileChooser;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,7 +22,9 @@ import AVL.NodoAVL;
 import ListaAlbum.ListaAlbum;
 import Matriz.MatrizCapa;
 import Models.Album;
+import Models.Cliente;
 import Models.Imagen;
+import Program.*;
 
 public class Lector {
     Scanner scan = new Scanner(System.in);
@@ -33,9 +36,11 @@ public class Lector {
 
             System.out.println("Ingrese la ruta de la matriz: ");
             String path = scan.nextLine();
-
-            // File archivo = new File("D:\\Documents\\USAC\\Lab EDD\\Proyecto 2\\Mario.json");
             File archivo = new File(path);
+
+            // JFileChooser fileChooser = new JFileChooser();
+            // fileChooser.setDialogTitle("Abrir archivo capas");   
+            // File archivo = fileChooser.getSelectedFile();
 
             if(archivo != null){
                 System.out.println("Here");
@@ -121,9 +126,13 @@ public class Lector {
     }
 
     public ListaAlbum leerAlbumes(ListaAlbum listaAlbum, AVL imagenes){
+
+        
+        // JFileChooser fileChooser = new JFileChooser();
+        // File archivo = fileChooser.getSelectedFile();
+
         System.out.println("Ingrese la ruta de los albumes:");
         String path = scan.nextLine();
-
         File archivo = new File(path);
 
         if(archivo != null){
@@ -158,6 +167,37 @@ public class Lector {
                 
             }
             return listaAlbum;
+    }
+
+    public void leerClientes(File archivo){
+
+        var listaClientes = Program.listaClientes;
+
+        try {
+            Reader reader = new FileReader(archivo);
+            JSONParser parser = new JSONParser();
+            Object obj  = parser.parse(reader);
+                    
+            JSONArray array = (JSONArray) obj;
+  
+            for(int i = 0; i < array.size(); i++){
+
+                JSONObject objetoCliente = (JSONObject) array.get(i);
+                
+
+                String nombre = (String) objetoCliente.get("nombre_cliente");
+                long dpi = (long) objetoCliente.get("dpi");
+                String pass = (String) objetoCliente.get("password");
+                
+                System.out.println(nombre);
+                Cliente actual = new Cliente((int)dpi, nombre, pass);
+                listaClientes.add(actual);
+            }
+                    
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }                
+
     }
 
 

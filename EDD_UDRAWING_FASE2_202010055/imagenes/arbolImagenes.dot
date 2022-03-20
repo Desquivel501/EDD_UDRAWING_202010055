@@ -1,0 +1,7 @@
+digraph G{
+Nodo915349526[label="2"  shape=box];
+Nodo1280851663[label="1"  shape=box];
+Nodo915349526 -> Nodo1280851663;
+Nodo1764696127[label="3"  shape=box];
+Nodo915349526 -> Nodo1764696127;
+}

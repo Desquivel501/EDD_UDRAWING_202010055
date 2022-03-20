@@ -95,12 +95,15 @@ public class NodoAVL{
 
     public StringBuilder graficar(StringBuilder dot){
         int idPadre = this.hashCode();
-        dot.append(String.format("Nodo%d[label=\"%d\"];\n",idPadre,this.valor));
+        dot.append(String.format("Nodo%d[label=\"%d\"  shape=box];\n",idPadre,this.valor));
+       
+
         if(this.izquierda != null){
             int idIz = izquierda.hashCode();
             dot = izquierda.graficar(dot);
             dot.append(String.format("Nodo%d -> Nodo%d;\n", idPadre, idIz));
         }
+
         if(this.derecha != null){
             int idDer = derecha.hashCode();
             dot = derecha.graficar(dot);
@@ -108,4 +111,30 @@ public class NodoAVL{
         }
         return dot;
     }
+
+    public StringBuilder graficar(StringBuilder dot, int imagen){
+        int idPadre = this.hashCode();
+        dot.append(String.format("Nodo%d[label=\"%d\"  shape=box];\n",idPadre,this.valor));
+       
+
+        if(this.izquierda != null){
+            int idIz = izquierda.hashCode();
+            dot = izquierda.graficar(dot, imagen);
+            dot.append(String.format("Nodo%d -> Nodo%d;\n", idPadre, idIz));
+        }
+        if(this.valor == imagen){
+            dot = this.imagen.getArbolCapas().getRaiz().graficar(dot);
+            dot.append(String.format("Nodo%d -> Nodo%d;\n", idPadre, this.imagen.getArbolCapas().getRaiz().hashCode()));
+    
+        }
+
+        if(this.derecha != null){
+            int idDer = derecha.hashCode();
+            dot = derecha.graficar(dot, imagen);
+            dot.append(String.format("Nodo%d -> Nodo%d;\n", idPadre, idDer));
+        }
+        return dot;
+    }
+
+    
 }
