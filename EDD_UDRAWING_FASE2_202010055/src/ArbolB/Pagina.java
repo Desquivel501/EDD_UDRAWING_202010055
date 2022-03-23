@@ -27,7 +27,7 @@ public class Pagina {
         
         NodoB aux = head;
         while(head != null){
-            if(aux.id == nuevo.id){
+            if(aux.id.equals(nuevo.id)){
                 System.out.println("Nodo ya existe");
                 return;
             }
@@ -64,10 +64,10 @@ public class Pagina {
         }
     }
 
-    public NodoB buscar(int id){
+    public NodoB buscar(Long id){
         NodoB aux = head;
         while(head != null){
-            if(aux.id == id){
+            if(aux.id.equals(id)){
                 System.out.println("Found: Cliente " + aux.cliente.getNombre());
                 return aux;
             }
@@ -95,6 +95,32 @@ public class Pagina {
                     }else{
                         return null;
                     }
+                }
+            }
+            aux = aux.getSiguiente();
+        }
+        return null;
+    }
+
+    public NodoB buscarNombre(String nombre){
+        NodoB aux = head;
+        NodoB nodo = null;
+        while(aux != null){
+            if(aux.getCliente().getNombre().equals(nombre)){
+                System.out.println("Usuario: " + nombre);
+                return aux;
+            }   
+
+            if(aux.izquierda != null){
+                nodo =  aux.izquierda.buscarNombre(nombre);
+                if(nodo != null){
+                    return nodo;
+                }
+            }
+            if(aux.derecha != null){
+                nodo = aux.izquierda.buscarNombre(nombre);
+                if(nodo != null){
+                    return nodo;
                 }
             }
             aux = aux.getSiguiente();

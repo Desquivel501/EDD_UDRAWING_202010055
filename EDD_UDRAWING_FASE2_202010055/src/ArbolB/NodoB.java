@@ -3,14 +3,14 @@ package ArbolB;
 import Models.Cliente;
 
 public class NodoB {
-    int id;
+    Long id;
     NodoB anterior;
     NodoB siguiente;
     Pagina derecha;
     Pagina izquierda;
     Cliente cliente;
 
-    public NodoB(int id, Cliente cliente){
+    public NodoB(Long id, Cliente cliente){
         this.id = id;
         this.anterior = null;
         this.siguiente = null;
@@ -19,7 +19,7 @@ public class NodoB {
         this.cliente = cliente;
     }
 
-    public NodoB(int id, Cliente cliente,  Pagina derecha, Pagina izquierda){
+    public NodoB(Long id, Cliente cliente,  Pagina derecha, Pagina izquierda){
         this.id = id;
         this.anterior = null;
         this.siguiente = null;
@@ -31,11 +31,11 @@ public class NodoB {
 
 
 
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

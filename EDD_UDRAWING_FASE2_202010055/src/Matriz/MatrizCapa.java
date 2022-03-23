@@ -2,6 +2,7 @@ package Matriz;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MatrizCapa {
     ListaEncabezado listaFilas = new ListaEncabezado();
@@ -140,7 +141,7 @@ public class MatrizCapa {
     }
 
 
-    public void graficar(){
+    public String graficar(){
         StringBuilder dot = new StringBuilder();
         StringBuilder conexion = new StringBuilder();
         dot.append("digraph L{\n");
@@ -210,25 +211,30 @@ public class MatrizCapa {
         dot.append(conexion);
         dot.append("}");
 
+        int num = this.hashCode();
+
         try{
 
-            FileWriter fileWriter = new FileWriter( "imagenes/"+ nombre + ".dot");
+            FileWriter fileWriter = new FileWriter( "imagenes/capa"+ num + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" , "imagenes/"+ nombre +".dot", "-o", "imagenes/"+ nombre +".png" };
+            String[] command = {"dot", "-Tpng" , "imagenes/capa"+ num + ".dot", "-o", "imagenes/capa"+ num + ".png" };
             new ProcessBuilder(command).start();
         
         }catch(Exception e){
             e.printStackTrace();
+            return "";
         }
-
+        return "imagenes/capa"+ num + ".png";
     }
 
-    public void graficarHTML(){
+    public String graficarHTML(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G {\n");
+        // dot.append(String.format("label=\"%s\"\n", "Capa " + this.nombre));
+        // dot.append("labelloc = \"t\"\n");
 
         dot.append("node[shape = plaintext]\n");
 
@@ -269,28 +275,23 @@ public class MatrizCapa {
 
         dot.append("}\n");
 
+        int int_random = ThreadLocalRandom.current().nextInt(); 
+        if(int_random < 0) int_random *= -1 ; 
+
         try{
-            FileWriter fileWriter = new FileWriter("imagenes/" + nombre + "HTML.dot");
+            FileWriter fileWriter = new FileWriter("imagenes/Imagen" + int_random + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" ,"imagenes/" + nombre +"HTML.dot", "-o","imagenes/" + nombre +"HTML.png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/Imagen" + int_random + ".dot", "-o", "imagenes/Imagen" + int_random + "HTML.png" };
             new ProcessBuilder(command).start();
 
         }catch(Exception e){
             e.printStackTrace();
+            return "";
         }
-
-        // var nodoF = listaFila.getPrimero();
-        // while(nodoF != null){
-        //     var actualF = nodoF.getAccesoNodo();
-        //     while(actualF != null){
-        //         System.out.println("Nodo: " + actualF.getColumna() + "," + actualF.getFila() + "," + actualF.getValor());
-        //         actualF = actualF.getDerecha();
-        //     }
-        //     nodoF = nodoF.getSiguiente();
-        // }
+        return "imagenes/Imagen" + int_random + "HTML.png";
 
     }
 

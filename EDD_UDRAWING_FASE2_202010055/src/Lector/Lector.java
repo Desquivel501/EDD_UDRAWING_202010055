@@ -32,15 +32,8 @@ public class Lector {
     public Lector() {
     }
 
-    public ArbolBinario leerMatriz(ArbolBinario arbolMatriz){
-
-            System.out.println("Ingrese la ruta de la matriz: ");
-            String path = scan.nextLine();
-            File archivo = new File(path);
-
-            // JFileChooser fileChooser = new JFileChooser();
-            // fileChooser.setDialogTitle("Abrir archivo capas");   
-            // File archivo = fileChooser.getSelectedFile();
+    public boolean leerMatriz(File archivo){
+        boolean error = false;
 
             if(archivo != null){
                 System.out.println("Here");
@@ -69,27 +62,21 @@ public class Lector {
 
                             matrizActual.insertar((int)columna, (int)fila, valor);
                         }   
-                        // listaMatriz.add(matrizActual);
-                        arbolMatriz.insertar((int)id, matrizActual);
+                        Program.loggedUser.getArbolCapas().insertar((int)id, matrizActual);
                     }
-
-                    // listaMatriz.get(0).graficar();
-                    // System.out.println(listaMatriz.size());
                     
                 } catch (IOException | ParseException e) {
                     e.printStackTrace();
+                    error = true;
                 }                
                 
             }
 
-        return arbolMatriz;
+        return error;
     }
 
-    public AVL leerImagenes(AVL arbolImagenes){
-        System.out.println("Ingrese la ruta de las imagenes:");
-        String path = scan.nextLine();
-
-        File archivo = new File(path);
+    public boolean leerImagenes(File archivo){
+        boolean error = false;
 
         if(archivo != null){
             System.out.println("Here");
@@ -112,28 +99,21 @@ public class Lector {
                         lista.add((int) noCapa);
                     }
                     Imagen nueva = new Imagen((int)id,lista);
-                    arbolImagenes.insertar((int)id, nueva);
-
+                    Program.loggedUser.getArbolImagenes().insertar((int)id, nueva);
                 }
-
                     
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
+                error = true;
             }                
                 
             }
-            return arbolImagenes;
+            return error;
     }
 
-    public ListaAlbum leerAlbumes(ListaAlbum listaAlbum, AVL imagenes){
+    public boolean leerAlbumes(File archivo){
 
-        
-        // JFileChooser fileChooser = new JFileChooser();
-        // File archivo = fileChooser.getSelectedFile();
-
-        System.out.println("Ingrese la ruta de los albumes:");
-        String path = scan.nextLine();
-        File archivo = new File(path);
+        boolean error = false;
 
         if(archivo != null){
             System.out.println("Here");
@@ -153,25 +133,26 @@ public class Lector {
                     JSONArray listaImagenes = (JSONArray) objetoAlbum.get("imgs");
                     for(int j = 0; j < listaImagenes.size();j++){
                         long noimg = (long) listaImagenes.get(j);
-                        NodoAVL imgActual = imagenes.buscar((int)noimg);
+                        NodoAVL imgActual = Program.loggedUser.getArbolImagenes().buscar((int)noimg);
                         if(imgActual != null){
                             nuevo.insertar(imgActual.getImagen());
                         }
                     }
-                    listaAlbum.insertar(nuevo);
+                    Program.loggedUser.getListaAlbum().insertar(nuevo);
                 }
                     
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
+                error = true;
             }                
                 
-            }
-            return listaAlbum;
+        }
+        return error;
     }
 
-    public void leerClientes(File archivo){
-
-        var listaClientes = Program.listaClientes;
+    public boolean leerClientes(File archivo){
+        boolean error = false;
+        var arbolClientes = Program.arbolClientes;
 
         try {
             Reader reader = new FileReader(archivo);
@@ -186,18 +167,29 @@ public class Lector {
                 
 
                 String nombre = (String) objetoCliente.get("nombre_cliente");
-                long dpi = (long) objetoCliente.get("dpi");
+                String dpi = (String) objetoCliente.get("dpi");
                 String pass = (String) objetoCliente.get("password");
                 
                 System.out.println(nombre);
-                Cliente actual = new Cliente((int)dpi, nombre, pass);
-                listaClientes.add(actual);
+
+                Cliente actual = new Cliente(Long.parseLong(dpi), nombre, pass);
+
+                if(arbolClientes.buscarNombre(nombre) == null){
+                    arbolClientes.insertar(Long.parseLong(dpi), actual);
+                    Program.hayUsuario = true;
+                }else{
+                    System.out.println("Nombre repetido: " + nombre);
+                }
+
+                
             }
-                    
+        
+            arbolClientes.graficar();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+            error = true;
         }                
-
+        return error;
     }
 
 

@@ -1,5 +1,8 @@
 package GUI;
 import javax.swing.*;
+
+import ArbolB.NodoB;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -66,7 +69,7 @@ public class Login extends JFrame implements ActionListener{
         boton2.setText("Registrarse");
         boton2.setBounds(280, 305, 120, 40);
         boton2.addActionListener(this);
-        
+
 
     }
 
@@ -75,14 +78,15 @@ public class Login extends JFrame implements ActionListener{
         // TODO Auto-generated method stub
 
         if(e.getSource() == boton1){
-            new Admin();
-            // new ClienteG();
-            setVisible(false);
-            dispose();
-            // System.out.println("Usuario: " + nameJT.getText());
-            // System.out.println("Contraseña: " + new String(password.getPassword()));
-            // login(nameJT.getText(), new String(password.getPassword()));
+            // new Admin();
+            // // new ClienteG();
+            // setVisible(false);
+            // dispose();
+            System.out.println("DPI: " + nameJT.getText());
+            System.out.println("Contraseña: " + new String(password.getPassword()));
+            login(nameJT.getText(), new String(password.getPassword()));
         }
+        
         if(e.getSource() == boton2){
             System.out.println("Not Here");
         }
@@ -97,20 +101,45 @@ public class Login extends JFrame implements ActionListener{
             return;
         }
 
-        var listaClientes = Program.listaClientes;
-        for(int i = 0; i < listaClientes.size();i++){
-            var cliente = listaClientes.get(i);
-    
-            if(usuario.equals(cliente.getNombre()) && pass.equals(cliente.getContraseña())){
-                System.out.println("Usuario");
-                Program.loggedUser = cliente;
-                new ClienteG();
+        var arbolClientes= Program.arbolClientes;
+        Long dpi = 0l;
+        try{
+            dpi = Long.parseLong(nameJT.getText().toString());
+        }catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this,
+                "DPI no Valido",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        NodoB encontrado = arbolClientes.buscar(dpi);
+        if(encontrado != null){
+            if(encontrado.getCliente().getContraseña().equals(new String(password.getPassword()))){
+                Program.loggedUser = encontrado.getCliente();
+                new ClienteG(encontrado.getCliente());
                 setVisible(false);
                 dispose();
                 return;
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "Contraseña Incorrecta",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
             }
+        }else{
+            int respuesta = JOptionPane.showConfirmDialog(this,
+                "El usuario no existe.\n ¿Desea registrar un nuevo usuario?",
+                "Error",
+                JOptionPane.YES_NO_OPTION);
 
-        }
+            if (respuesta == JOptionPane.YES_OPTION){
+                new Registro();
+                setVisible(false);
+                dispose();
+                return;
+            }    
+        }  
     }
 
 

@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.management.RuntimeErrorException;
 
@@ -246,44 +247,56 @@ public class AVL {
         }
     }
 
-    public void graficar(){
+    public String graficar(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
+        dot.append(String.format("label=\"%s\"\n", "Arbol Imagenes"));
+        dot.append("labelloc = \"t\"\n");
         dot = getRaiz().graficar(dot);
         dot.append("}\n");
 
+        int int_random = ThreadLocalRandom.current().nextInt(); 
+            if(int_random < 0) int_random *= -1 ; 
+
         try{
-            FileWriter fileWriter = new FileWriter("imagenes/arbolImagenes.dot");
+            FileWriter fileWriter = new FileWriter("imagenes/AVL" + int_random + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());
-            printWriter.close();
+            printWriter.close();   
 
-            String[] command = {"dot", "-Tpng" ,"imagenes/arbolImagenes.dot", "-o","imagenes/arbolImagenes.png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/AVL" + int_random + ".dot", "-o","imagenes/AVL" + int_random + ".png" };
             new ProcessBuilder(command).start();
         }catch (Exception e){
             e.printStackTrace();
+            return "";
         }
-
+        return "imagenes/AVL" + int_random + ".png";
     }
 
-    public void graficar(int imagen){
+    public String graficar(int imagen){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
+        dot.append(String.format("label=\"%s\"\n", "Arbol Imagenes, Capa " + imagen));
+        dot.append("labelloc = \"t\"\n");
         dot = getRaiz().graficar(dot, imagen);
         dot.append("}\n");
 
+        int int_random = ThreadLocalRandom.current().nextInt(); 
+            if(int_random < 0) int_random *= -1 ; 
+
         try{
-            FileWriter fileWriter = new FileWriter("imagenes/arbol_imagen" + imagen + ".dot");
+            FileWriter fileWriter = new FileWriter("imagenes/AVL" + int_random + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());
-            printWriter.close();
+            printWriter.close();   
 
-            String[] command = {"dot", "-Tpng" ,"imagenes/arbol_imagen" + imagen + ".dot", "-o","imagenes/arbol_imagen" + imagen + ".png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/AVL" + int_random + ".dot", "-o","imagenes/AVL" + int_random + ".png" };
             new ProcessBuilder(command).start();
         }catch (Exception e){
             e.printStackTrace();
+            return "";
         }
-
+        return "imagenes/AVL" + int_random + ".png";
     }
 
 }

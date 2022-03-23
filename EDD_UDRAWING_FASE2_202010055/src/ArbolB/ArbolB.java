@@ -1,5 +1,8 @@
 package ArbolB;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 import Models.Cliente;
 
 public class ArbolB {
@@ -7,10 +10,10 @@ public class ArbolB {
     Pagina raiz;
 
     public ArbolB(){
-        this.raiz = null;
+        this.raiz = new Pagina();
     }
 
-    public void insertar(int id, Cliente cliente){
+    public void insertar(Long id, Cliente cliente){
         NodoB nuevo = new NodoB(id, cliente);
         if(raiz == null){
             raiz = new Pagina(nuevo);
@@ -24,8 +27,14 @@ public class ArbolB {
         }
     }
 
-    public void buscar(int id){
-        raiz.buscar(id);
+    public NodoB buscar(Long id){
+        System.out.println("Buscando");
+        return raiz.buscar(id);
+    }
+
+    public NodoB buscarNombre(String nombre){
+        System.out.println("Buscando");
+        return raiz.buscarNombre(nombre);
     }
 
 
@@ -41,7 +50,7 @@ public class ArbolB {
 
         NodoB aux = pagina.head;
         while(aux != null){
-            if(nodo.id == aux.id){
+            if(nodo.id.equals(aux.id)){
                 System.out.println("Nodo repetido");
                 return null;
             }
@@ -72,7 +81,7 @@ public class ArbolB {
     }
 
     private NodoB dividir(Pagina pagina){
-        int val = -1;
+        Long val = -1L;
         NodoB temp, nuevo;
         NodoB aux = pagina.head;
         Pagina paginaD = new Pagina();
@@ -112,14 +121,33 @@ public class ArbolB {
         
     }
 
-    public void graficar(){
+    public String graficar(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G {\n");
         dot.append("node[shape=record]\n");
+        dot.append(String.format("label=\"%s\"\n", "Arbol Clientes"));
+        dot.append("labelloc = \"t\"\n");
         dot = this.raiz.graficarPagina(dot);
         dot.append("}\n");
 
         System.out.println(dot);
+
+        String nombre = "ArbolClientes" + this.hashCode();
+
+        try {
+            FileWriter fileWriter = new FileWriter("imagenes/" + nombre  + ".dot");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(dot);
+            printWriter.close();
+
+            String[] command = {"dot", "-Tpng","imagenes/" + nombre  + ".dot", "-o", "imagenes/" + nombre  + ".png" };
+            new ProcessBuilder(command).start();
+        }catch (Exception e){
+            e.printStackTrace();
+            nombre = "";
+        }
+        return "imagenes/" + nombre  + ".png";
+
     }
 
 

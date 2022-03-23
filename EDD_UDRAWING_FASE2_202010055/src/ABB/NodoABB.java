@@ -30,4 +30,8 @@ public class NodoABB{
         }
         return dot;
     }
+
+    public MatrizCapa getCapa(){
+        return capa;
+    }
 }

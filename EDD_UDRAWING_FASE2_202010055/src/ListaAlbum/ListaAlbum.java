@@ -55,11 +55,13 @@ public class ListaAlbum{
         return aux;
     } 
 
-    public void graficar(){
+    public String graficar(){
         StringBuilder dot = new StringBuilder();
         StringBuilder rank = new StringBuilder();
         rank.append("{rank=same;");
         dot.append("digraph G{\n");
+        dot.append(String.format("label=\"%s\"\n", "Lista Albumes"));
+        dot.append("labelloc = \"t\"\n");
         NodoD aux = head;
         int anterior = aux.hashCode();
         while(aux != null){
@@ -76,18 +78,21 @@ public class ListaAlbum{
         dot.append(rank);
         dot.append("}\n");
 
+        int num = this.hashCode();
+
         try{
-            FileWriter fileWriter = new FileWriter("imagenes/albumes.dot");
+            FileWriter fileWriter = new FileWriter("imagenes/albumes" + num + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" ,"imagenes/albumes.dot", "-o","imagenes/albumes.png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/albumes" + num + ".dot", "-o","imagenes/albumes" + num + ".png" };
             new ProcessBuilder(command).start();
         }catch (Exception e){
             e.printStackTrace();
+            return "";
         }
-
+        return "imagenes/albumes" + num + ".png";
     }
 
 }

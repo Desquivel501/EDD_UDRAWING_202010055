@@ -16,9 +16,9 @@ public class Registro extends JFrame implements ActionListener{
     public Registro(){
         this.setTitle("Registro");
         this.setSize(550,500);
-        // this.getContentPane().setBackground(Color.LIGHT_GRAY);
         this.setLayout(null);
         inicializar();
+        setLocationRelativeTo(null);
 
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

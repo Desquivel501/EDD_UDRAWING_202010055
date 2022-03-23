@@ -5,14 +5,14 @@ import AVL.*;
 import ListaAlbum.*;
 
 public class Cliente {
-    private int dpi;
+    private Long dpi;
     private String nombre;
     private String contraseña;
     private ListaAlbum listaAlbum;
     private AVL arbolImagenes;
     private ArbolBinario arbolCapas;
     
-    public Cliente(int dpi, String nombre, String contraseña) {
+    public Cliente(Long dpi, String nombre, String contraseña) {
         this.dpi = dpi;
         this.nombre = nombre;
         this.contraseña = contraseña;
@@ -21,11 +21,11 @@ public class Cliente {
         arbolCapas = new ArbolBinario();
     }
 
-    public int getDpi() {
+    public Long getDpi() {
         return this.dpi;
     }
 
-    public void setDpi(int dpi) {
+    public void setDpi(Long dpi) {
         this.dpi = dpi;
     }
 

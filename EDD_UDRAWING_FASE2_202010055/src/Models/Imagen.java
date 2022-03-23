@@ -52,22 +52,16 @@ public class Imagen {
         arbolCapas.preOrder();
     }
 
-    public void generarImagen(){
+    public String generarImagen(){
+        String nombre = "";
         if(completa == null){
             this.completa = new MatrizCapa("Imagen" + this.id);
-            this.completa = this.arbolCapas.unirInOrder(completa);
-            completa.graficarHTML();
+            this.completa = this.arbolCapas.unirLevel(completa);
+            nombre = completa.graficarHTML();
         }else{
-            completa.graficarHTML();
+            nombre = completa.graficarHTML();
         }
+        return nombre;
     }
-
-    public void actualizarImagen(){
-        this.completa = new MatrizCapa("Imagen" + this.id);
-        this.completa = this.arbolCapas.unirInOrder(completa);
-        completa.graficarHTML();
-    }
-
     
-
 }
