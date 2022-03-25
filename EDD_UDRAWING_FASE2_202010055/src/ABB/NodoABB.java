@@ -2,7 +2,7 @@ package ABB;
 
 import Matriz.MatrizCapa;
 
-public class NodoABB{
+public class NodoABB implements Comparable<NodoABB> {
     int valor;
     NodoABB izquierda;
     NodoABB derecha;
@@ -31,7 +31,16 @@ public class NodoABB{
         return dot;
     }
 
+    public boolean isHoja(){
+        return (izquierda == null && derecha == null);
+    }
+
     public MatrizCapa getCapa(){
         return capa;
+    }
+
+    @Override
+    public int compareTo(NodoABB o) {
+        return 0;
     }
 }

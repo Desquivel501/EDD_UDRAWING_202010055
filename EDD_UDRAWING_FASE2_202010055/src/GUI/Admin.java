@@ -8,12 +8,17 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
+import ABB.NodoABB;
 import ArbolB.NodoB;
 
 import java.awt.Font;
 
 import Lector.*;
+import Lista.Nodo;
 import Models.*;
 import Program.Program;
 import java.awt.Image;
@@ -24,11 +29,14 @@ public class Admin extends JFrame implements ActionListener{
     Cliente cliente;
 
     JTabbedPane tp, cp;
-    JPanel p1,p2,p3 ,c1,c2,c3,r;
-    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, actualizarBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen;
+    JPanel p1,p2,p3 ,c1,c2,c3,r, panelB, panelC;
+    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, actualizarBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen, listaClientes;
     JLabel cargaMasiva, buscarLbl, usuarioLabel, passLabel, dpiLbl, buscarLbl2, usuarioLabel2, passLabel2, dpiLbl2, buscarLbl1, usuarioLabel1, passLabel1, dpiLbl1, imagen;
-    JTextField barraBusqueda, nameJT, passJT, dpiJt, barraBusqueda1, nameJT1, passJT1, dpiJt1, barraBusqueda2, nameJT2, passJT2, dpiJt2;
-    JScrollPane panelImagen;
+    JTextField barraBusqueda, nameJT, passJT, dpiJt, nameJT1, passJT1, dpiJt1, nameJT2, passJT2, dpiJt2, barraBusqueda2, barraBusqueda1;
+    JScrollPane panelImagen, panelImagen2;
+    JRadioButton r1,r2,r3, r4;
+    ButtonGroup bg;
+    JTable tablaImagenes;
     
 
     public Admin(){
@@ -103,6 +111,7 @@ public class Admin extends JFrame implements ActionListener{
         dpiJt = new JTextField();
         c2.add(dpiJt);
         dpiJt.setBounds(375,240,250,40);
+        dpiJt.setEnabled(false);
 
         //--------------------------------------------
 
@@ -193,6 +202,7 @@ public class Admin extends JFrame implements ActionListener{
         nameJT2 = new JTextField();
         c3.add(nameJT2);
         nameJT2.setBounds(375,165,250,40);
+        nameJT2.setEnabled(false);
 
          //--------------------------------------------
 
@@ -203,6 +213,7 @@ public class Admin extends JFrame implements ActionListener{
         dpiJt2 = new JTextField();
         c3.add(dpiJt2);
         dpiJt2.setBounds(375,240,250,40);
+        dpiJt2.setEnabled(false);
 
         //--------------------------------------------
 
@@ -213,6 +224,7 @@ public class Admin extends JFrame implements ActionListener{
         passJT2 = new JTextField();
         c3.add(passJT2);
         passJT2.setBounds(375,315,250,40);
+        passJT2.setEnabled(false);
 
         //--------------------------------------------
 
@@ -221,6 +233,7 @@ public class Admin extends JFrame implements ActionListener{
         eliminarBtn.setText("Eliminar Usuario");
         eliminarBtn.setBounds(375, 400, 250, 40);
         eliminarBtn.addActionListener(this);
+        eliminarBtn.setEnabled(false);
 
         //--------------------------------------------
         //--------------------------------------------
@@ -231,12 +244,47 @@ public class Admin extends JFrame implements ActionListener{
         generarImagen.addActionListener(this);
 
         imagen = new JLabel();
-
         panelImagen = new JScrollPane(imagen);
         p1.add(panelImagen);
-        panelImagen.setBounds(10,50,950,650);
-        // panelImagen.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);  
+        panelImagen.setBounds(10,50,950,555);
         panelImagen.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+
+        //--------------------------------------------------------------------------
+
+        panelB = new JPanel();
+        panelB.setBorder(new TitledBorder("Buscar Cliente"));
+        r.add(panelB);
+        panelB.setBounds(140, 10, 330, 80);
+        panelB.setLayout(null);
+
+        barraBusqueda1 = new JTextField();
+        panelB.add(barraBusqueda1);
+        barraBusqueda1.setBounds(10,30,200,30);
+
+        buscarBtn1 = new JButton("Buscar");
+        panelB.add(buscarBtn1);
+        buscarBtn1.setBounds(220,30,100,30);
+        buscarBtn1.addActionListener(this);
+
+        //--------------------------------------------------------------------------
+
+        panelC = new JPanel();
+        panelC.setBorder(new TitledBorder("Listar Clientes"));
+        r.add(panelC);
+        panelC.setBounds(480, 10, 330, 80);
+        panelC.setLayout(null);
+
+        listaClientes = new JButton("Generar");
+        panelC.add(listaClientes);
+        listaClientes.setBounds(65, 30 , 200, 30);
+        listaClientes.addActionListener(this);
+
+
+
+        panelImagen2 = new JScrollPane();
+
+        //----------------------------------------------------------------------
+
 
         tp.add("Reporte Usuarios",p1); 
         tp.add("Nuevo Usuario",c1); 
@@ -305,24 +353,9 @@ public class Admin extends JFrame implements ActionListener{
             }
         }
 
-        if(e.getSource() == buscarBtn1){
-            System.out.println("here");
-            Long dpi = Long.parseLong(barraBusqueda.getText().toString());
-
-            var arbolClientes= Program.arbolClientes;
-            NodoB encontrado = arbolClientes.buscar(dpi);
-
-            if(encontrado != null){
-                Cliente cliente = encontrado.getCliente();
-                nameJT1.setText(cliente.getNombre());
-                dpiJt1.setText(Long.toString(cliente.getDpi()));
-                passJT1.setText(cliente.getContraseña());
-            }
-        }
-
         if(e.getSource() == buscarBtn2){
             System.out.println("here");
-            Long dpi = Long.parseLong(barraBusqueda.getText().toString());
+            Long dpi = Long.parseLong(barraBusqueda2.getText().toString());
 
             var arbolClientes= Program.arbolClientes;
             NodoB encontrado = arbolClientes.buscar(dpi);
@@ -337,20 +370,33 @@ public class Admin extends JFrame implements ActionListener{
 
         if(e.getSource() == actualizarBtn){
 
-            Long dpi = Long.parseLong(barraBusqueda.getText().toString());
-            var arbolClientes= Program.arbolClientes;
-            NodoB encontrado = arbolClientes.buscar(dpi);
-
-            if(encontrado != null){
+            if(this.cliente == null){
                 JOptionPane.showMessageDialog(this,
-                "El nombre de usuario ya esta en uso.",
+                "No se ha seleccionado ningun cliente.",
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
-            }else{
-                this.cliente.setNombre(nameJT.getText().toString());
-                this.cliente.setContraseña(passJT.getText().toString());
+                return;
             }
 
+            if(nameJT.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese un nombre.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if(passJT.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese una contraseña.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            this.cliente.setNombre(nameJT.getText().toString());
+            this.cliente.setContraseña(passJT.getText().toString());
+            
         }
 
         if(e.getSource() == nuevoBtn){
@@ -371,6 +417,14 @@ public class Admin extends JFrame implements ActionListener{
                 return;
             }
 
+            if(passJT1.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese una contraseña.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             String nombre = nameJT1.getText().toString();
             Long dpi = -999l;
             String pass = passJT1.getText().toString();
@@ -386,15 +440,6 @@ public class Admin extends JFrame implements ActionListener{
             }
 
             var arbol = Program.arbolClientes;
-
-            NodoB nodoNombre = arbol.buscarNombre(nombre);
-            if(nodoNombre != null){
-                JOptionPane.showMessageDialog(this,
-                "El nombre ingresado ya esta en uso.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-                return;
-            }
 
             NodoB nodoDPI = arbol.buscar(dpi);
             if(nodoDPI != null){
@@ -425,6 +470,102 @@ public class Admin extends JFrame implements ActionListener{
             generarImagen(nombre);
 
         }
+    
+        if(e.getSource() == buscarBtn1){
+            Long dpi = 0l;
+            try{
+                dpi = Long.parseLong(barraBusqueda1.getText().toString());
+            }catch (NumberFormatException ex){
+                JOptionPane.showMessageDialog(this,
+                "DPI no valido.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            var nodo = Program.arbolClientes.buscar(dpi);
+            if(nodo != null){
+                var cliente = nodo.getCliente();
+                DefaultTableModel model = new DefaultTableModel();
+
+                model.addColumn("Parametro");
+                model.addColumn("Datos");
+
+                tablaImagenes = new JTable(model);
+
+                model.addRow(new Object[]{"Nombre" ,cliente.getNombre()});
+                model.addRow(new Object[]{"DPI" ,cliente.getDpi()});
+                model.addRow(new Object[]{"Contraseña" ,cliente.getContraseña()});
+                
+                var albumes = cliente.getListaAlbum();
+                model.addRow(new Object[]{"Cantidad Albumes" ,albumes.getLargo()});
+
+                if(albumes.getLargo() > 0){
+                    model.addRow(new Object[]{"Lista Albumes" ,""});
+                    var nodoAlbum = albumes.getHead();
+                    while(nodoAlbum != null){
+                        var album = nodoAlbum.getAlbum();
+                        var nodoImagen = album.getPrimero();
+                        StringBuilder str = new StringBuilder();
+                        while(nodoImagen != null){
+                            str.append("Imagen " + nodoImagen.getImagen().getId() + ", ");
+                            nodoImagen = nodoImagen.getSiguiente();
+                        }
+                        str.deleteCharAt(str.lastIndexOf(","));
+                        model.addRow(new Object[]{"   -> " + nodoAlbum.getAlbum().getNombre(), str.toString()});
+                        nodoAlbum = nodoAlbum.getSiguiente();
+                    }
+                }
+
+                model.addRow(new Object[]{"Cantidad Imagenes" ,cliente.getArbolImagenes().noImagenes()});
+                model.addRow(new Object[]{"Cantidad Capas" ,cliente.getArbolCapas().largo});
+
+
+                panelImagen2.setSize(0, 0);
+                panelImagen2 = new JScrollPane(tablaImagenes);
+                r.add(panelImagen2);
+                panelImagen2.setBounds(265,130,450,350);
+                panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha encontrado el cliente..",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+    
+        if(e.getSource() == listaClientes){
+            var lista = Program.arbolClientes.recorrer();
+            var nodo = lista.getHead();
+
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("No.");
+            model.addColumn("Nombre");
+            model.addColumn("DPI");
+            model.addColumn("No. Imagenes");
+
+            tablaImagenes = new JTable(model);
+            int i = 1;
+            while(nodo != null){
+                Cliente actual = nodo.getValor();
+                model.addRow(new Object[]{i,actual.getNombre(), actual.getDpi(),actual.getArbolImagenes().noImagenes()});
+                nodo = nodo.getSiguiente();
+                i++;
+            }
+
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+            tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
+
+            panelImagen2.setSize(0, 0);
+            panelImagen2 = new JScrollPane(tablaImagenes);
+            r.add(panelImagen2);
+            panelImagen2.setBounds(200,130,580,400);
+            panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        }
+
     }
 
     private void generarImagen(String nombre){
@@ -436,7 +577,15 @@ public class Admin extends JFrame implements ActionListener{
                 try{
                     BufferedImage imagenOr = ImageIO.read(new File(nombre));
                     float altura = ((float)950/imagenOr.getWidth()) * imagenOr.getHeight();
-                    Image imagenResize = imagenOr.getScaledInstance(950, Math.round(altura), Image.SCALE_SMOOTH);
+
+                    Image imagenResize;
+                    if(imagenOr.getWidth() < 950){
+                        imagenResize = imagenOr.getScaledInstance(imagenOr.getWidth(), imagenOr.getHeight(), Image.SCALE_SMOOTH);
+                    }else{
+                        imagenResize = imagenOr.getScaledInstance(950, Math.round(altura), Image.SCALE_SMOOTH);
+                    }
+
+                    imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     imagen.setIcon(new ImageIcon(imagenResize));
                     
                     found = true;

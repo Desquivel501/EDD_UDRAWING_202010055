@@ -2,15 +2,15 @@ package Matriz;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class MatrizCapa {
+public class MatrizCapa implements Comparable<MatrizCapa>{
     ListaEncabezado listaFilas = new ListaEncabezado();
     ListaEncabezado listaColumnas = new ListaEncabezado();
     String nombre;
     int id;
     int filas = 0;
     int columnas = 0;
+    int noCeldas = 0;
 
 
     public MatrizCapa(String nombre) {
@@ -52,11 +52,13 @@ public class MatrizCapa {
             eFila = new NodoE(fila);
             eFila.setAccesoNodo(nuevo);
             listaFilas.setEncabezado(eFila);
+            noCeldas++;
         }else{
             if(nuevo.getColumna() < eFila.getAccesoNodo().getColumna()){
                 nuevo.setDerecha(eFila.getAccesoNodo());
                 eFila.getAccesoNodo().setIzquierda(nuevo);
                 eFila.setAccesoNodo(nuevo);
+                noCeldas++;
             }else{
                 NodoM actual = eFila.getAccesoNodo();
                 while(actual.getDerecha() != null){
@@ -65,13 +67,15 @@ public class MatrizCapa {
                         actual.getDerecha().setIzquierda(nuevo);
                         nuevo.setIzquierda(actual);
                         actual.setDerecha(nuevo);
-                        break;
+                        noCeldas++;
+                        return;
                     }
                     actual = actual.getDerecha();
                 }
                 if(actual.getDerecha() == null){
                     actual.setDerecha(nuevo);
                     nuevo.setIzquierda(actual);
+                    noCeldas++;
                 }
             }
         }
@@ -146,22 +150,23 @@ public class MatrizCapa {
         StringBuilder conexion = new StringBuilder();
         dot.append("digraph L{\n");
         dot.append("node[shape=square style=filled]\n");
+        // dot.append("node[style=filled]\n");
 
-        int contGrupo = -1;
+        int contGrupo = 0;
 
         var eFila = listaFilas.getPrimero();
         while(eFila != null){
 
             StringBuilder rank = new StringBuilder();
-            dot.append(String.format("nodo%d[label=\"Fila #%d\", group=\"%d\"]\n",eFila.hashCode(), eFila.getId(), contGrupo));
+            dot.append(String.format("nodo%d[label=\"Fila #%d\", group=%d]\n",eFila.hashCode(), eFila.getId(), contGrupo));
             rank.append("{rank=same; " + String.format("nodo%d",eFila.hashCode()) +"; ");
 
             var actual = eFila.getAccesoNodo();
-            conexion.append(String.format("nodo%d -> nodo%d \n",eFila.hashCode(), actual.hashCode()));
+            conexion.append(String.format("nodo%d -> nodo%d\n",eFila.hashCode(), actual.hashCode()));
             conexion.append(String.format("nodo%d -> nodo%d [dir = \"back\"]\n",eFila.hashCode(), actual.hashCode()));
 
             while(actual != null){
-                dot.append(String.format("nodo%d[fillcolor=\"%s\", group=\"%d\", label=\" \"]\n",actual.hashCode(), actual.getValor(), actual.getColumna()));
+                dot.append(String.format("nodo%d[fillcolor=\"%s\", group=%d, label=\"\"]\n",actual.hashCode(), actual.getValor(), actual.getColumna()+1));
                 rank.append("nodo" + actual.hashCode()+ "; ");
 
                 if(actual.getDerecha() != null){
@@ -170,13 +175,13 @@ public class MatrizCapa {
                 }
                 actual = actual.getDerecha();
             }
-            rank.append("}\n");
-            dot.append(rank);
+           
             if(eFila.getSiguiente() != null) {
                 conexion.append(String.format("nodo%d -> nodo%d \n",eFila.hashCode(), eFila.getSiguiente().hashCode()));
-                conexion.append(String.format("nodo%d -> nodo%d [dir = \"back\"] \n",eFila.hashCode(), eFila.getSiguiente().hashCode()));
             }
             eFila = eFila.getSiguiente();
+            rank.append("}\n");
+            dot.append(rank);
         }
 
         var eColumna = listaColumnas.getPrimero();
@@ -184,11 +189,11 @@ public class MatrizCapa {
         rankC.append("{rank=same; ");
 
         while(eColumna != null){
-            dot.append(String.format("nodo%d[label=\"Columna #%d\", group=\"%d\"]\n",eColumna.hashCode(), eColumna.getId(), eColumna.getId()));
+            dot.append(String.format("nodo%d[label=\"Columna #%d\", group=%d]\n",eColumna.hashCode(), eColumna.getId(), eColumna.getId()+1));
             rankC.append(String.format("nodo%d; ",eColumna.hashCode()));
 
             var actual = eColumna.getAccesoNodo();
-            conexion.append(String.format("nodo%d -> nodo%d \n",eColumna.hashCode(), actual.hashCode()));
+            conexion.append(String.format("nodo%d -> nodo%d\n",eColumna.hashCode(), actual.hashCode()));
             conexion.append(String.format("nodo%d -> nodo%d [dir = \"back\"]\n",eColumna.hashCode(), actual.hashCode()));
 
             while(actual != null){
@@ -201,7 +206,6 @@ public class MatrizCapa {
             }
             if(eColumna.getSiguiente() != null){
                 conexion.append(String.format("nodo%d -> nodo%d \n",eColumna.hashCode(), eColumna.getSiguiente().hashCode()));
-                conexion.append(String.format("nodo%d -> nodo%d [dir = \"back\"] \n",eColumna.hashCode(), eColumna.getSiguiente().hashCode()));
             }
             eColumna = eColumna.getSiguiente();
         }
@@ -220,8 +224,15 @@ public class MatrizCapa {
             printWriter.print(dot);
             printWriter.close();
 
-            String[] command = {"dot", "-Tpng" , "imagenes/capa"+ num + ".dot", "-o", "imagenes/capa"+ num + ".png" };
-            new ProcessBuilder(command).start();
+            if(noCeldas > 5000){
+                String[] command = {"dot","-Gnslimit=2", "-Tpng" , "imagenes/capa"+ num + ".dot", "-o", "imagenes/capa"+ num + ".png" };
+                new ProcessBuilder(command).start();
+            }else{
+                String[] command = {"dot","-Tpng" , "imagenes/capa"+ num + ".dot", "-o", "imagenes/capa"+ num + ".png" };
+                new ProcessBuilder(command).start();
+            }
+            
+            
         
         }catch(Exception e){
             e.printStackTrace();
@@ -275,8 +286,7 @@ public class MatrizCapa {
 
         dot.append("}\n");
 
-        int int_random = ThreadLocalRandom.current().nextInt(); 
-        if(int_random < 0) int_random *= -1 ; 
+        int int_random = this.hashCode();
 
         try{
             FileWriter fileWriter = new FileWriter("imagenes/Imagen" + int_random + ".dot");
@@ -334,6 +344,16 @@ public class MatrizCapa {
             }
             nodoEncabezado = nodoEncabezado.getSiguiente();
         }
+    }
+
+    @Override
+    public String toString(){
+        return "[" + this.nombre  + " - " + noCeldas + "]";
+    }
+
+    @Override
+    public int compareTo(MatrizCapa capa) {
+        return this.noCeldas - capa.noCeldas;
     }
 
 }

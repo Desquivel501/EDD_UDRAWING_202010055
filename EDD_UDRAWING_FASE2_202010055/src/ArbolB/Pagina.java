@@ -18,6 +18,10 @@ public class Pagina {
         insertar(nodo);
     }
 
+    public NodoB getHead(){
+        return head;
+    }
+
     public void insertar(NodoB nuevo){
         if(head == null){
             head = nuevo;

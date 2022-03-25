@@ -1,29 +1,26 @@
 package Lista;
+public class Nodo<E> {
+    private E valor;
+    private Nodo<E> siguiente;
 
-import Matriz.MatrizCapa;
-
-public class Nodo {
-    private MatrizCapa valor;
-    private Nodo siguiente;
-
-    public Nodo(MatrizCapa valor){
+    public Nodo(E valor){
         this.valor = valor;
         this.siguiente = null;
     }
 
-    public MatrizCapa getValor() {
+    public E getValor() {
         return this.valor;
     }
 
-    public void setValor(MatrizCapa valor) {
+    public void setValor(E valor) {
         this.valor = valor;
     }
 
-    public Nodo getSiguiente() {
+    public Nodo<E> getSiguiente() {
         return this.siguiente;
     }
 
-    public void setSiguiente(Nodo siguiente) {
+    public void setSiguiente(Nodo<E> siguiente) {
         this.siguiente = siguiente;
     }
 

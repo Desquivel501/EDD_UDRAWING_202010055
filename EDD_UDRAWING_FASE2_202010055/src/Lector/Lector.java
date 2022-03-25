@@ -19,6 +19,7 @@ import org.json.simple.parser.ParseException;
 import ABB.ArbolBinario;
 import AVL.AVL;
 import AVL.NodoAVL;
+import Lista.Lista;
 import ListaAlbum.ListaAlbum;
 import Matriz.MatrizCapa;
 import Models.Album;
@@ -33,8 +34,8 @@ public class Lector {
     }
 
     public boolean leerMatriz(File archivo){
+        Lista<MatrizCapa> lista = new Lista<>();
         boolean error = false;
-
             if(archivo != null){
                 System.out.println("Here");
                 try {
@@ -63,21 +64,23 @@ public class Lector {
                             matrizActual.insertar((int)columna, (int)fila, valor);
                         }   
                         Program.loggedUser.getArbolCapas().insertar((int)id, matrizActual);
+                        lista.insertar(matrizActual);
                     }
                     
-                } catch (IOException | ParseException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    // e.printStackTrace();
                     error = true;
                 }                
                 
             }
-
+            // lista.ordenar();
+            // lista.imprimir();
         return error;
     }
 
     public boolean leerImagenes(File archivo){
         boolean error = false;
-
+        Lista<Imagen> aux = new Lista<>();
         if(archivo != null){
             System.out.println("Here");
             try {
@@ -93,22 +96,31 @@ public class Lector {
 
                     long id = (long) objetoImagen.get("id");
                     JSONArray listaCapas = (JSONArray) objetoImagen.get("capas");
-                    ArrayList<Integer> lista = new ArrayList<Integer>();
+
+                    ArbolBinario arbol = new ArbolBinario();
+
                     for(int j = 0; j < listaCapas.size();j++){
                         long noCapa = (long) listaCapas.get(j);
-                        lista.add((int) noCapa);
+                        MatrizCapa actual = Program.loggedUser.getArbolCapas().getCapa((int) noCapa);
+                        if(actual != null){
+                            arbol.insertar((int) noCapa, actual);
+                        }
                     }
-                    Imagen nueva = new Imagen((int)id,lista);
+
+                    Imagen nueva = new Imagen((int)id,arbol);
                     Program.loggedUser.getArbolImagenes().insertar((int)id, nueva);
+                    aux.insertar(nueva);
                 }
                     
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                // e.printStackTrace();
                 error = true;
             }                
                 
-            }
-            return error;
+        }
+        aux.ordenar();
+        aux.imprimir();
+        return error;
     }
 
     public boolean leerAlbumes(File archivo){
@@ -141,8 +153,8 @@ public class Lector {
                     Program.loggedUser.getListaAlbum().insertar(nuevo);
                 }
                     
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                // e.printStackTrace();
                 error = true;
             }                
                 
@@ -174,19 +186,19 @@ public class Lector {
 
                 Cliente actual = new Cliente(Long.parseLong(dpi), nombre, pass);
 
-                if(arbolClientes.buscarNombre(nombre) == null){
+                if(arbolClientes.buscar(Long.parseLong(dpi)) == null){
                     arbolClientes.insertar(Long.parseLong(dpi), actual);
                     Program.hayUsuario = true;
                 }else{
-                    System.out.println("Nombre repetido: " + nombre);
+                   System.out.println("Repetido - " + dpi);
                 }
 
                 
             }
         
             arbolClientes.graficar();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            // e.printStackTrace();
             error = true;
         }                
         return error;

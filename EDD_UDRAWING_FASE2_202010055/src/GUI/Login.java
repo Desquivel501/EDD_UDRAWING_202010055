@@ -34,7 +34,7 @@ public class Login extends JFrame implements ActionListener{
         tituloLbl = new JLabel("UDrawing Paper");
         this.add(tituloLbl);
         tituloLbl.setFont(new java.awt.Font("Arial", Font.BOLD, 30));
-        tituloLbl.setBounds(150,75,250,30);
+        tituloLbl.setBounds(150,75,250,40);
 
         //---------------------------------------------------
 
@@ -78,22 +78,21 @@ public class Login extends JFrame implements ActionListener{
         // TODO Auto-generated method stub
 
         if(e.getSource() == boton1){
-            // new Admin();
-            // // new ClienteG();
-            // setVisible(false);
-            // dispose();
             System.out.println("DPI: " + nameJT.getText());
             System.out.println("Contraseña: " + new String(password.getPassword()));
             login(nameJT.getText(), new String(password.getPassword()));
         }
         
         if(e.getSource() == boton2){
-            System.out.println("Not Here");
+            new Registro();
+            setVisible(false);
+            dispose();
+            return;
         }
     }
 
     public void login(String usuario, String pass){
-        if(usuario.equals("Admin") && pass.equals("EDD2022")){
+        if(usuario.equals("Admin") && pass.equals("1")){
             System.out.println("Admin");
             new Admin();
             setVisible(false);
@@ -117,7 +116,7 @@ public class Login extends JFrame implements ActionListener{
         if(encontrado != null){
             if(encontrado.getCliente().getContraseña().equals(new String(password.getPassword()))){
                 Program.loggedUser = encontrado.getCliente();
-                new ClienteG(encontrado.getCliente());
+                new ClienteG();
                 setVisible(false);
                 dispose();
                 return;

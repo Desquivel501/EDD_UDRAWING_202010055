@@ -2,11 +2,11 @@ package Lista;
 
 import Matriz.MatrizCapa;
 
-public class Lista{
+public class Lista<E extends Comparable<E>>{
 
-    private Nodo head;
+    private Nodo<E> head;
     private int largo;
-    private Nodo tail;
+    private Nodo<E> tail;
 
     public Lista() {
         this.head = null;
@@ -14,7 +14,7 @@ public class Lista{
         this.tail = null;
     }
 
-    public Nodo getHead(){
+    public Nodo<E> getHead(){
         return head;
     }
 
@@ -29,17 +29,17 @@ public class Lista{
     public void imprimir(){
         if (!vacia()){
             String cadena = "";
-            Nodo aux = this.head;
+            Nodo<E> aux = this.head;
             while(aux != null){
                 cadena += aux.getValor() + ", ";
                 aux = aux.getSiguiente();
             }
-            System.out.print(cadena);
+            System.out.println(cadena);
         }
     }
 
-    public void insertar(MatrizCapa valorNuevo){
-        Nodo nuevo = new Nodo(valorNuevo);
+    public void insertar(E valorNuevo){
+        Nodo<E> nuevo = new Nodo<E>(valorNuevo);
         if (this.head == null){
             this.head = nuevo;
             this.tail = nuevo;
@@ -49,6 +49,24 @@ public class Lista{
         this.tail.setSiguiente(nuevo);
         this.tail = nuevo;
         this.largo++;
+    }
+
+    public void ordenar(){
+        Nodo<E> aux = this.head;
+        for(int i=0; i < largo -1; i++){
+            Nodo<E> maximo = aux;
+            Nodo<E> punt = aux;
+            while(punt != null){
+                if(punt.getValor().compareTo(maximo.getValor()) > 0){
+                    maximo = punt;
+                } 
+                punt = punt.getSiguiente();
+            }
+            E temp = aux.getValor();
+            aux.setValor(maximo.getValor());
+            maximo.setValor(temp);
+            aux = aux.getSiguiente();
+        }
     }
 
 }

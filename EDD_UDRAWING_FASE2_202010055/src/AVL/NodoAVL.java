@@ -17,9 +17,6 @@ public class NodoAVL{
         this.imagen = imagen;
     }
 
-    public NodoAVL() {
-    }
-
     public NodoAVL(int valor, int alto, NodoAVL derecha, NodoAVL izquierda, Imagen imagen) {
         this.valor = valor;
         this.alto = alto;

@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Cola.Cola;
 import Lista.*;
 import Matriz.ListaEncabezado;
@@ -12,6 +14,7 @@ import Matriz.MatrizCapa;
 public class ArbolBinario {
     NodoABB raiz;
     public int largo = 0;
+    int profundidad;
 
     public ArbolBinario(){
     }
@@ -67,61 +70,7 @@ public class ArbolBinario {
         }
     }
 
-    private ArrayList<Integer> inOrderR(NodoABB actual , ArrayList<Integer> visitados){
-        if(actual == null){
-            return visitados;
-        }
-        visitados = inOrderR(actual.izquierda, visitados);
-        visitados.add(actual.valor);
-        System.out.println("Filas:" + actual.capa.getNoFilas() + ", Columnas: " + actual.capa.getNoColumnas());
-        visitados = inOrderR(actual.derecha, visitados);
-        return visitados;
-
-    }
-
-    public void inOrder(){
-        ArrayList<Integer> visitados = new ArrayList<Integer>();
-        visitados = inOrderR(raiz, visitados);
-        // System.out.println(visitados.toString());
-    }
-
-    private ArrayList<Integer> preOrderR(NodoABB actual , ArrayList<Integer> visitados){
-        if(actual == null){
-            return visitados;
-        }
-        visitados.add(actual.valor);
-        visitados = preOrderR(actual.izquierda, visitados);
-        visitados = preOrderR(actual.derecha, visitados);
-        return visitados;
-
-    }
-
-    public void preOrder(){
-        ArrayList<Integer> visitados = new ArrayList<Integer>();
-        visitados = preOrderR(raiz, visitados);
-        System.out.println(visitados.toString());
-    }
-
-    private ArrayList<Integer> postOrderR(NodoABB actual , ArrayList<Integer> visitados){
-        if(actual == null){
-            return visitados;
-        }
-        visitados = postOrderR(actual.izquierda, visitados);
-        visitados = postOrderR(actual.derecha, visitados);
-        visitados.add(actual.valor);
-        return visitados;
-
-    }
-
-    public void postOrder(){
-        ArrayList<Integer> visitados = new ArrayList<Integer>();
-        visitados = postOrderR(raiz, visitados);
-        System.out.println(visitados.toString());
-    }
-
-
-
-
+    
     public MatrizCapa unirPreOrder(MatrizCapa completa, int num){
         completa = unirPreOrderR(raiz, completa, num);
         return completa;
@@ -142,22 +91,123 @@ public class ArbolBinario {
         return completa;
     }
 
+    //----------------------------------------------------------------------
+
+    public Lista<NodoABB> getNodospRE(){
+        Lista<NodoABB> listaRecorrido = new Lista<>();
+        listaRecorrido = getNodosR(raiz, listaRecorrido);
+        return listaRecorrido;
+    }
+
+    private Lista<NodoABB> getNodosR(NodoABB actual , Lista<NodoABB> listaRecorrido){
+        if(actual == null){
+            return listaRecorrido;
+        }
+        listaRecorrido.insertar(actual);
+        listaRecorrido = getNodosR(actual.izquierda, listaRecorrido);
+        listaRecorrido = getNodosR(actual.derecha, listaRecorrido);
+        return listaRecorrido;
+    }
+
+    public String getPreOrder(){
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
+        listaRecorrido = getPreOrderR(raiz, listaRecorrido);
+        StringBuilder cadena = new StringBuilder();
+        var aux = listaRecorrido.getHead();
+        while(aux != null){
+            cadena.append(aux.getValor().getId() + ", ");
+            aux = aux.getSiguiente();
+        }
+        cadena.deleteCharAt(cadena.lastIndexOf(","));
+        return cadena.toString();
+    }
+
+
+
+    public ArbolBinario getPreOrder(int num){
+        ArbolBinario nuevo = new ArbolBinario();
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
+        listaRecorrido = getPreOrderR(raiz, listaRecorrido);
+        Nodo<MatrizCapa> aux = listaRecorrido.getHead();
+        StringBuilder cadena = new StringBuilder();
+        while(aux != null && num > 0){
+            cadena.append(aux.getValor().getId() + ", ");
+            MatrizCapa mActual = (MatrizCapa)aux.getValor();
+            nuevo.insertar(mActual.getId(), mActual);
+            aux = aux.getSiguiente();
+            num--;
+        }
+        cadena.deleteCharAt(cadena.lastIndexOf(","));
+        JOptionPane.showMessageDialog(null,
+            "El recorrido PreOrder fue: " + cadena,
+            "Recorrido",
+            JOptionPane.INFORMATION_MESSAGE);
+
+        return nuevo;  
+    }
+
+    private Lista<MatrizCapa> getPreOrderR(NodoABB actual , Lista<MatrizCapa> listaRecorrido){
+        if(actual == null){
+            return listaRecorrido;
+        }
+
+        listaRecorrido.insertar(actual.capa);
+        listaRecorrido = getPreOrderR(actual.izquierda, listaRecorrido);
+        listaRecorrido = getPreOrderR(actual.derecha, listaRecorrido);
+        return listaRecorrido;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------
 
     public MatrizCapa unirInOrder(MatrizCapa completa, int num){
-        Lista listaRecorrido = new Lista();
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
         listaRecorrido = unirInOrderR(raiz, listaRecorrido);
-        Nodo aux = listaRecorrido.getHead();
+        Nodo<MatrizCapa> aux = listaRecorrido.getHead();
+        StringBuilder cadena = new StringBuilder();
         while(aux != null && num > 0){
-            completa.combinarMatriz(aux.getValor());
+            cadena.append(aux.getValor().getId() + ", ");
+            completa.combinarMatriz((MatrizCapa)aux.getValor());
             aux = aux.getSiguiente();
             num--;
         }
+        cadena.deleteCharAt(cadena.lastIndexOf(","));
+        JOptionPane.showMessageDialog(null,
+            "El recorrido InOrder fue: " + cadena,
+            "Recorrido",
+            JOptionPane.INFORMATION_MESSAGE);
+
         return completa;
     }
 
-    private Lista unirInOrderR(NodoABB actual , Lista listaRecorrido){
+    public String getInOrder(){
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
+        listaRecorrido = unirInOrderR(raiz, listaRecorrido);
+        StringBuilder cadena = new StringBuilder();
+        var aux = listaRecorrido.getHead();
+        while(aux != null){
+            cadena.append(aux.getValor().getId() + ", ");
+            aux = aux.getSiguiente();
+        }
+        cadena.deleteCharAt(cadena.lastIndexOf(","));
+        return cadena.toString();
+    }
+
+    public ArbolBinario getInOrder(int num){
+        ArbolBinario nuevo = new ArbolBinario();
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
+        listaRecorrido = unirInOrderR(raiz, listaRecorrido);
+        Nodo<MatrizCapa> aux = listaRecorrido.getHead();
+        while(aux != null && num > 0){
+            MatrizCapa mActual = (MatrizCapa)aux.getValor();
+            nuevo.insertar(mActual.getId(), mActual);
+            aux = aux.getSiguiente();
+            num--;
+        }
+        return nuevo;
+    }
+
+    private Lista<MatrizCapa> unirInOrderR(NodoABB actual , Lista<MatrizCapa> listaRecorrido){
         if(actual == null){
             return listaRecorrido;
         }
@@ -171,18 +221,54 @@ public class ArbolBinario {
     //--------------------------------------------------------------------------------------------------------------------
 
     public MatrizCapa unirPostOrder(MatrizCapa completa, int num){
-        Lista listaRecorrido = new Lista();
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
         listaRecorrido = unirPostOrderR2(raiz, listaRecorrido);
-        Nodo aux = listaRecorrido.getHead();
+        Nodo<MatrizCapa> aux = listaRecorrido.getHead();
+        StringBuilder cadena = new StringBuilder();
         while(aux != null && num > 0){
+            cadena.append(aux.getValor().getId() + ", ");
             completa.combinarMatriz(aux.getValor());
             aux = aux.getSiguiente();
             num--;
         }
+        cadena.deleteCharAt(cadena.lastIndexOf(","));
+        JOptionPane.showMessageDialog(null,
+            "El recorrido PostOrder fue: " + cadena,
+            "Recorrido",
+            JOptionPane.INFORMATION_MESSAGE);
+
         return completa;
     }
 
-    private Lista unirPostOrderR2(NodoABB actual , Lista listaRecorrido){
+    public ArbolBinario getPostOrder(int num){
+        ArbolBinario nuevo = new ArbolBinario();
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
+        listaRecorrido = unirPostOrderR2(raiz, listaRecorrido);
+        Nodo<MatrizCapa> aux = listaRecorrido.getHead();
+        while(aux != null && num > 0){
+            MatrizCapa mActual = (MatrizCapa)aux.getValor();
+            nuevo.insertar(mActual.getId(), mActual);
+            aux = aux.getSiguiente();
+            num--;
+        }
+        return nuevo;
+    }
+
+    public String getPostOrder(){
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
+        listaRecorrido = unirPostOrderR2(raiz, listaRecorrido);
+
+        StringBuilder cadena = new StringBuilder();
+        var aux = listaRecorrido.getHead();
+        while(aux != null){
+            cadena.append(aux.getValor().getId() + ", ");
+            aux = aux.getSiguiente();
+        }
+        cadena.deleteCharAt(cadena.lastIndexOf(","));
+        return cadena.toString();
+    }
+
+    private Lista<MatrizCapa> unirPostOrderR2(NodoABB actual , Lista<MatrizCapa> listaRecorrido){
         if(actual == null){
             return listaRecorrido;
         }
@@ -192,11 +278,17 @@ public class ArbolBinario {
         return listaRecorrido;
     }
 
+    public Lista<NodoABB> getNodos(){
+        Lista<NodoABB> listaRecorrido = new Lista<>();
+        listaRecorrido = getNodosR(raiz, listaRecorrido);
+        return listaRecorrido;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------
 
     public MatrizCapa unirLevel(MatrizCapa completa){
-        Lista listaRecorrido = new Lista();
+        Lista<MatrizCapa> listaRecorrido = new Lista<>();
         Cola<NodoABB> cola = new Cola<>();
         cola.enqueue(raiz);
         while(!cola.vacia()){
@@ -210,13 +302,30 @@ public class ArbolBinario {
             }
         }
 
-        Nodo aux = listaRecorrido.getHead();
+        Nodo<MatrizCapa> aux = listaRecorrido.getHead();
         while(aux != null){
             completa.combinarMatriz(aux.getValor());
             aux = aux.getSiguiente();
         }
 
         return completa;
+    }
+
+    public int getProfundidad(){
+        if(this.raiz == null){
+            return 0;
+        }else{
+            return altura(raiz)+1;
+        }
+    }
+
+    public int altura(NodoABB actual){
+        if(actual == null) return 0;
+        if(actual.izquierda != null || actual.derecha != null){
+            return Math.max(altura(actual.izquierda),altura(actual.derecha))+1;
+        }else{
+            return 0;
+        }
     }
 
     public String graficar(){

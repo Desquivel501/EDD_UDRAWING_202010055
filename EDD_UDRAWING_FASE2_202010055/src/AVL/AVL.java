@@ -3,22 +3,39 @@ package AVL;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.concurrent.ThreadLocalRandom;
-
-import javax.management.RuntimeErrorException;
-
-import ABB.ArbolBinario;
-import Cola.Cola;
-import Matriz.MatrizCapa;
+import Cola.*;
+import Lista.*;
 import Models.Imagen;
 
 public class AVL {
     private NodoAVL raiz;
+    int noImagenes;
 
     public AVL(){
         raiz = null;
+        noImagenes = 0;
     }
+
+    public int noImagenes(){
+        return noImagenes;
+    }
+
+    public Lista<Imagen> getImagenes(){
+        Lista<Imagen> lista = new Lista<Imagen>();
+        lista = getImagenesR(raiz, lista);
+        return lista;
+    }
+
+    public Lista<Imagen> getImagenesR(NodoAVL actual, Lista<Imagen> lista){
+        if(actual == null){
+            return lista;
+        }
+        lista.insertar(actual.getImagen());
+        lista = getImagenesR(actual.izquierda, lista);
+        lista = getImagenesR(actual.derecha, lista);
+        return lista;
+    }
+
 
     public void actualizarAltura(NodoAVL actual){
         actual.alto = 1 + Math.max(altura(actual.izquierda), altura(actual.derecha));
@@ -86,6 +103,7 @@ public class AVL {
 
     private NodoAVL insertarR(NodoAVL n, int valor, Imagen imagen ){
         if(n == null){
+            noImagenes++;
             return new NodoAVL(valor,imagen);
         }
         else if(n.valor > valor){
@@ -107,6 +125,13 @@ public class AVL {
         return raiz;
     }
 
+
+    public void preOrder(){
+        ArrayList<Integer> visitados = new ArrayList<Integer>();
+        visitados = preOrderR(raiz, visitados);
+        System.out.println(visitados.toString());
+    }
+
     private ArrayList<Integer> preOrderR(NodoAVL actual , ArrayList<Integer> visitados){
         if(actual == null){
             return visitados;
@@ -115,14 +140,9 @@ public class AVL {
         visitados = preOrderR(actual.izquierda, visitados);
         visitados = preOrderR(actual.derecha, visitados);
         return visitados;
-
     }
 
-    public void preOrder(){
-        ArrayList<Integer> visitados = new ArrayList<Integer>();
-        visitados = preOrderR(raiz, visitados);
-        System.out.println(visitados.toString());
-    }
+    
 
     private ArrayList<Integer> postOrderR(NodoAVL actual , ArrayList<Integer> visitados){
         if(actual == null){
@@ -139,23 +159,6 @@ public class AVL {
         ArrayList<Integer> visitados = new ArrayList<Integer>();
         visitados = postOrderR(raiz, visitados);
         System.out.println(visitados.toString());
-    }
-
-
-    private void insertarCapasR(NodoAVL actual , ArbolBinario arbolCompleto){
-        if(actual == null){
-            return;
-        }
-        actual.imagen.setArbolCapas(arbolCompleto);
-        // System.out.println("Imagen: " + actual.valor + ", " + actual.imagen.getListaCapas());
-        insertarCapasR(actual.izquierda, arbolCompleto);
-        insertarCapasR(actual.derecha, arbolCompleto);
-    }
-
-
-    public void insertarCapas(ArbolBinario arbolCompleto){
-        insertarCapasR(raiz, arbolCompleto);
-        // System.out.println(visitados.toString());
     }
 
     private void generarImageneR(NodoAVL actual){
@@ -220,8 +223,8 @@ public class AVL {
         return actual;
     }
 
-    public void eliminar(int valor){
-        eliminarR(raiz,valor);
+    public NodoAVL eliminar(int valor){
+        return eliminarR(raiz,valor);
     }
 
     private NodoAVL masIzquierda(NodoAVL n){
@@ -255,8 +258,7 @@ public class AVL {
         dot = getRaiz().graficar(dot);
         dot.append("}\n");
 
-        int int_random = ThreadLocalRandom.current().nextInt(); 
-            if(int_random < 0) int_random *= -1 ; 
+        int int_random = this.hashCode(); 
 
         try{
             FileWriter fileWriter = new FileWriter("imagenes/AVL" + int_random + ".dot");
@@ -281,22 +283,38 @@ public class AVL {
         dot = getRaiz().graficar(dot, imagen);
         dot.append("}\n");
 
-        int int_random = ThreadLocalRandom.current().nextInt(); 
-            if(int_random < 0) int_random *= -1 ; 
+        int int_random = this.hashCode();
 
         try{
-            FileWriter fileWriter = new FileWriter("imagenes/AVL" + int_random + ".dot");
+            FileWriter fileWriter = new FileWriter("imagenes/AVL" + int_random + "_capa" + imagen + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());
             printWriter.close();   
 
-            String[] command = {"dot", "-Tpng" ,"imagenes/AVL" + int_random + ".dot", "-o","imagenes/AVL" + int_random + ".png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/AVL" + int_random + "_capa" + imagen + ".dot", "-o","imagenes/AVL" + int_random + "_capa" + imagen + ".png"};
             new ProcessBuilder(command).start();
         }catch (Exception e){
             e.printStackTrace();
             return "";
         }
-        return "imagenes/AVL" + int_random + ".png";
+        return "imagenes/AVL" + int_random + "_capa" + imagen + ".png";
+    }
+
+
+    public String[][] topImagenes(){
+        Lista<Imagen> lista  = getImagenes();
+        lista.ordenar();
+        Nodo<Imagen> aux = lista.getHead();
+        int i = 0;
+        String[][] data = new String[5][2];
+        while(aux != null){
+            if(i == 5) break;
+            data[i][0] = Integer.toString(aux.getValor().getId());
+            data[i][1] =  Integer.toString(aux.getValor().getArbolCapas().largo);
+            i++;
+            aux = aux.getSiguiente();
+        }
+        return data;
     }
 
 }

@@ -4,7 +4,7 @@ import ABB.*;
 import AVL.*;
 import ListaAlbum.*;
 
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
     private Long dpi;
     private String nombre;
     private String contraseña;
@@ -68,6 +68,11 @@ public class Cliente {
 
     public void setArbolCapas(ArbolBinario arbolCapas) {
         this.arbolCapas = arbolCapas;
+    }
+
+    @Override
+    public int compareTo(Cliente o) {
+        return 0;
     }
 
 

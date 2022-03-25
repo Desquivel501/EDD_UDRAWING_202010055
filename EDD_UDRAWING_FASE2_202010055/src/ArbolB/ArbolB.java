@@ -3,6 +3,8 @@ package ArbolB;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+import Cola.Cola;
+import Lista.Lista;
 import Models.Cliente;
 
 public class ArbolB {
@@ -149,6 +151,33 @@ public class ArbolB {
         return "imagenes/" + nombre  + ".png";
 
     }
+
+    public Lista<Cliente> recorrer(){
+        Lista<Cliente> lista = new Lista<>();
+        Cola<Pagina> cola = new Cola<>();
+        cola.enqueue(raiz);
+        while(!cola.vacia()){
+            Pagina actual = cola.dequeue().getValor();
+            var nodo = actual.getHead();
+            while(nodo != null){
+                lista.insertar(nodo.getCliente());
+                
+                if(nodo.getIzquierda() != null){
+                    cola.enqueue(nodo.getIzquierda());
+                }
+
+                if(nodo.getSiguiente() == null){
+                    if(nodo.getDerecha() != null){
+                        cola.enqueue(nodo.getDerecha());
+                    }
+                }
+                nodo = nodo.getSiguiente();
+            }
+        }
+        return lista;
+    }
+
+
 
 
 }

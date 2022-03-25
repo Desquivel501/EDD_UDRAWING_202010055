@@ -27,17 +27,30 @@ public class ListaAlbum{
         return this.largo;
     }
 
+    public NodoD getHead(){
+        return head;
+    }
+
 
     public void insertar(Album valorNuevo){
         NodoD nuevo = new NodoD(valorNuevo);
         if(head == null){
             head = nuevo;
             tail = nuevo;
+            largo++;
             return;
         }
         tail.setSiguiente(nuevo);
         tail = nuevo;
         largo++;
+    }
+
+    public void eliminar(int id){
+        NodoD aux = head;
+        while(aux != null){
+            aux.getAlbum().eliminar(id);
+            aux = aux.getSiguiente();
+        }
     }
 
 
