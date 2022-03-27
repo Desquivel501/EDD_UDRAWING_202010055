@@ -10,6 +10,4 @@ public class App {
         }
         new Login();
     }
-
-
 }

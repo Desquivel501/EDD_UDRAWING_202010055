@@ -34,7 +34,7 @@ public class Login extends JFrame implements ActionListener{
 
         //---------------------------------------------------
 
-        usuarioLabel = new JLabel("Usuario");
+        usuarioLabel = new JLabel("DPI");
         this.add(usuarioLabel);
         usuarioLabel.setBounds(150,145,250,30);
 

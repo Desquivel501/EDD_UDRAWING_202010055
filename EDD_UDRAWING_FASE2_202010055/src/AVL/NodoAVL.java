@@ -120,8 +120,10 @@ public class NodoAVL{
             dot.append(String.format("Nodo%d -> Nodo%d;\n", idPadre, idIz));
         }
         if(this.valor == imagen){
-            dot = this.imagen.getArbolCapas().getRaiz().graficar(dot);
-            dot.append(String.format("Nodo%d -> Nodo%d;\n", idPadre, this.imagen.getArbolCapas().getRaiz().hashCode()));
+            if (this.imagen.getArbolCapas().getRaiz() != null){
+                dot = this.imagen.getArbolCapas().getRaiz().graficar(dot);
+                dot.append(String.format("Nodo%d -> Nodo%d;\n", idPadre, this.imagen.getArbolCapas().getRaiz().hashCode()));
+            }
     
         }
 

@@ -13,6 +13,8 @@ public class ArbolBinario {
     int profundidad;
 
     public ArbolBinario(){
+        raiz = null;
+        profundidad = 0;
     }
 
     public NodoABB getRaiz(){
@@ -283,17 +285,20 @@ public class ArbolBinario {
     //--------------------------------------------------------------------------------------------------------------------
 
     public MatrizCapa unirLevel(MatrizCapa completa){
+        if(raiz == null)return completa;
         Lista<MatrizCapa> listaRecorrido = new Lista<>();
         Cola<NodoABB> cola = new Cola<>();
         cola.enqueue(raiz);
         while(!cola.vacia()){
             NodoABB actual = cola.dequeue().getValor();
-            listaRecorrido.insertar(actual.capa);
-            if(actual.izquierda != null){
-                cola.enqueue(actual.izquierda);
-            }
-            if(actual.derecha != null){
-                cola.enqueue(actual.derecha);
+            if(actual.capa != null){
+                listaRecorrido.insertar(actual.capa);
+                if(actual.izquierda != null){
+                    cola.enqueue(actual.izquierda);
+                }
+                if(actual.derecha != null){
+                    cola.enqueue(actual.derecha);
+                }
             }
         }
 

@@ -84,6 +84,7 @@ public class ListaAlbum{
             dot = aux.getAlbum().graficar(aux.hashCode(), dot);
             if(anterior != aux.hashCode()){
                 dot.append(String.format("Nodo%d -> Nodo%d;\n", anterior, aux.hashCode()));
+                dot.append(String.format("Nodo%d -> Nodo%d [dir=back];\n", anterior, aux.hashCode()));
                 anterior = aux.hashCode();
             }
             rank.append("Nodo" + aux.hashCode() +";");

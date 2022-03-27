@@ -389,8 +389,8 @@ public class ClienteG extends JFrame implements ActionListener{
         panelImagen3 = new JScrollPane();
 
         tp.add("Gestion Imagenes",p1); 
-        tp.add("Carga Masiva",p2);
         tp.add("Estructuras",p4); 
+        tp.add("Carga Masiva",p2);
         tp.add("Reportes",p3);
         
     }

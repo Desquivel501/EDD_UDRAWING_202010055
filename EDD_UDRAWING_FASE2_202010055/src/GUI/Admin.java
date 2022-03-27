@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
+import java.awt.Font;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -542,18 +542,22 @@ public class Admin extends JFrame implements ActionListener{
                 var albumes = cliente.getListaAlbum();
                 model.addRow(new Object[]{"Cantidad Albumes" ,albumes.getLargo()});
 
-                if(albumes.getLargo() > 0){
-                    model.addRow(new Object[]{"Lista Albumes" ,""});
+                if(!albumes.vacia()){
+                    model.addRow(new Object[]{"Lista Albumes" ,"Imagenes"});
                     var nodoAlbum = albumes.getHead();
                     while(nodoAlbum != null){
                         var album = nodoAlbum.getAlbum();
-                        var nodoImagen = album.getPrimero();
                         StringBuilder str = new StringBuilder();
-                        while(nodoImagen != null){
-                            str.append("Imagen " + nodoImagen.getImagen().getId() + ", ");
-                            nodoImagen = nodoImagen.getSiguiente();
+                        var nodoImagen = album.getPrimero();
+                        
+                        if(nodoImagen != null){
+                            while(nodoImagen != null){
+                                str.append("Imagen " + nodoImagen.getImagen().getId() + ", ");
+                                nodoImagen = nodoImagen.getSiguiente();
+                            }
+                            str.deleteCharAt(str.lastIndexOf(","));
                         }
-                        str.deleteCharAt(str.lastIndexOf(","));
+
                         model.addRow(new Object[]{"   -> " + nodoAlbum.getAlbum().getNombre(), str.toString()});
                         nodoAlbum = nodoAlbum.getSiguiente();
                     }
@@ -568,6 +572,7 @@ public class Admin extends JFrame implements ActionListener{
                 r.add(panelImagen2);
                 panelImagen2.setBounds(265,130,450,350);
                 panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                panelImagen2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
             }else{
                 JOptionPane.showMessageDialog(this,
