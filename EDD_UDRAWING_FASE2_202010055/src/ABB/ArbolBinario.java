@@ -2,13 +2,9 @@ package ABB;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
-
 import Cola.Cola;
 import Lista.*;
-import Matriz.ListaEncabezado;
 import Matriz.MatrizCapa;
 
 public class ArbolBinario {
@@ -83,7 +79,6 @@ public class ArbolBinario {
 
         completa.combinarMatriz(actual.capa);
         num--;
-        System.out.println(num);
         if(num == 0) return completa;
 
         completa = unirPreOrderR(actual.izquierda, completa, num);

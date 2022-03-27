@@ -1,5 +1,6 @@
 package ArbolB;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
@@ -12,7 +13,11 @@ public class ArbolB {
     Pagina raiz;
 
     public ArbolB(){
-        this.raiz = new Pagina();
+        this.raiz = null;
+    }
+
+    public boolean vacio(){
+        return raiz == null;
     }
 
     public void insertar(Long id, Cliente cliente){
@@ -30,11 +35,13 @@ public class ArbolB {
     }
 
     public NodoB buscar(Long id){
+        if(raiz == null) return null;
         System.out.println("Buscando");
         return raiz.buscar(id);
     }
 
     public NodoB buscarNombre(String nombre){
+        if(raiz == null) return null;
         System.out.println("Buscando");
         return raiz.buscarNombre(nombre);
     }
@@ -124,6 +131,7 @@ public class ArbolB {
     }
 
     public String graficar(){
+        if(raiz == null) return "";
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G {\n");
         dot.append("node[shape=record]\n");
@@ -132,11 +140,19 @@ public class ArbolB {
         dot = this.raiz.graficarPagina(dot);
         dot.append("}\n");
 
-        System.out.println(dot);
-
-        String nombre = "ArbolClientes" + this.hashCode();
+        String nombre = "ArbolClientes";
 
         try {
+
+            File anterior = new File("imagenes/" + nombre  + ".png");
+            if(anterior.isFile()){
+                try{
+                    anterior.delete();
+                }catch (Exception ex){
+                    
+                }
+            }
+
             FileWriter fileWriter = new FileWriter("imagenes/" + nombre  + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot);

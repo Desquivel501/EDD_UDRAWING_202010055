@@ -1,12 +1,8 @@
 package GUI;
 import javax.swing.*;
-
 import ArbolB.NodoB;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.awt.Color;
 import java.awt.Font;
 import Program.Program;
 
@@ -70,7 +66,6 @@ public class Login extends JFrame implements ActionListener{
         boton2.setBounds(280, 305, 120, 40);
         boton2.addActionListener(this);
 
-
     }
 
     @Override
@@ -78,8 +73,6 @@ public class Login extends JFrame implements ActionListener{
         // TODO Auto-generated method stub
 
         if(e.getSource() == boton1){
-            System.out.println("DPI: " + nameJT.getText());
-            System.out.println("Contraseña: " + new String(password.getPassword()));
             login(nameJT.getText(), new String(password.getPassword()));
         }
         
@@ -92,7 +85,7 @@ public class Login extends JFrame implements ActionListener{
     }
 
     public void login(String usuario, String pass){
-        if(usuario.equals("Admin") && pass.equals("1")){
+        if(usuario.equals("Admin") && pass.equals("EDD2022")){
             System.out.println("Admin");
             new Admin();
             setVisible(false);

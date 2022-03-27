@@ -1,31 +1,21 @@
 package Lector;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JFileChooser;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import ABB.ArbolBinario;
-import AVL.AVL;
 import AVL.NodoAVL;
 import Lista.Lista;
-import ListaAlbum.ListaAlbum;
 import Matriz.MatrizCapa;
 import Models.Album;
 import Models.Cliente;
 import Models.Imagen;
-import Program.*;
+import Program.Program;
 
 public class Lector {
     Scanner scan = new Scanner(System.in);
@@ -37,7 +27,6 @@ public class Lector {
         Lista<MatrizCapa> lista = new Lista<>();
         boolean error = false;
             if(archivo != null){
-                System.out.println("Here");
                 try {
                     Reader reader = new FileReader(archivo);
                     JSONParser parser = new JSONParser();
@@ -82,7 +71,6 @@ public class Lector {
         boolean error = false;
         Lista<Imagen> aux = new Lista<>();
         if(archivo != null){
-            System.out.println("Here");
             try {
                 Reader reader = new FileReader(archivo);
                 JSONParser parser = new JSONParser();
@@ -128,7 +116,6 @@ public class Lector {
         boolean error = false;
 
         if(archivo != null){
-            System.out.println("Here");
             try {
                 Reader reader = new FileReader(archivo);
                 JSONParser parser = new JSONParser();

@@ -1,10 +1,9 @@
 package ListaAlbum;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-
 import Models.Album;
-import Models.Imagen;
 
 public class ListaAlbum{
     private NodoD head;
@@ -46,6 +45,7 @@ public class ListaAlbum{
     }
 
     public void eliminar(int id){
+        if(head == null) return;
         NodoD aux = head;
         while(aux != null){
             aux.getAlbum().eliminar(id);
@@ -55,6 +55,7 @@ public class ListaAlbum{
 
 
     public NodoD buscar(int indice){
+        if(head == null) return null;
         NodoD aux = this.head;
         int k = 0;
         while(k < indice){
@@ -69,6 +70,7 @@ public class ListaAlbum{
     } 
 
     public String graficar(){
+        if(head == null) return "";
         StringBuilder dot = new StringBuilder();
         StringBuilder rank = new StringBuilder();
         rank.append("{rank=same;");
@@ -94,6 +96,16 @@ public class ListaAlbum{
         int num = this.hashCode();
 
         try{
+
+            File fAnterior = new File("imagenes/albumes" + num + ".png");
+            if(fAnterior.isFile()){
+                try{
+                    fAnterior.delete();
+                }catch (Exception ex){
+                    
+                }
+            }
+
             FileWriter fileWriter = new FileWriter("imagenes/albumes" + num + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());

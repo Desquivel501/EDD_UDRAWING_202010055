@@ -1,7 +1,4 @@
 package Lista;
-
-import Matriz.MatrizCapa;
-
 public class Lista<E extends Comparable<E>>{
 
     private Nodo<E> head;

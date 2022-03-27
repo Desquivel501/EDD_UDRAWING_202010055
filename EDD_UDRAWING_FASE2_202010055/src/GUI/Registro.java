@@ -4,10 +4,8 @@ import javax.swing.*;
 
 import ArbolB.NodoB;
 import Models.Cliente;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
 import java.awt.Font;
 import Program.Program;
 
@@ -92,8 +90,6 @@ public class Registro extends JFrame implements ActionListener{
         }
  
         if(e.getSource() == boton1){
-            System.out.println("Usuario: " + nameJT.getText());
-            System.out.println("Contraseña: " + new String(password.getPassword()));
             long dpi = 0l;
             try{
                 dpi = Long.parseLong(dpiJT.getText());

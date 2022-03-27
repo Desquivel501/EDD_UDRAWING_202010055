@@ -1,38 +1,31 @@
 package GUI;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.awt.Color;
-
-import java.awt.*;
-import java.awt.event.*;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 import ABB.ArbolBinario;
 import ABB.NodoABB;
 import AVL.NodoAVL;
 import Cola.Cola;
-
-
-import java.awt.Font;
-
-import Lector.*;
+import Lector.Lector;
 import Lista.Lista;
 import Lista.Nodo;
 import Matriz.MatrizCapa;
-import Models.Cliente;
 import Models.Imagen;
 import Program.Program;
-
-
-import java.awt.Image;
 
 
 
@@ -670,7 +663,7 @@ public class ClienteG extends JFrame implements ActionListener{
                     return;
                 }
             }
-            System.out.println(nombre);
+     
             generarImagen(nombre,1);
         }
 
@@ -903,17 +896,13 @@ public class ClienteG extends JFrame implements ActionListener{
             this.numeroImagen = id;
             int num = (int) recJT.getValue();
             MatrizCapa completa = new MatrizCapa("Completa");
-            Imagen nuevaImagen = null;
 
             if(r1.isSelected()){
                 completa = Program.loggedUser.getArbolCapas().unirPreOrder(completa, num);
-                nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getPreOrder(num));
             }else if(r2.isSelected()){
                 completa = Program.loggedUser.getArbolCapas().unirInOrder(completa, num);
-                nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getInOrder(num));
             }else if(r3.isSelected()){
                 completa = Program.loggedUser.getArbolCapas().unirPostOrder(completa, num);
-                nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getPostOrder(num));
             }
 
             String nombre = completa.graficarHTML();

@@ -11,14 +11,8 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import ABB.NodoABB;
 import ArbolB.NodoB;
-
-import java.awt.Font;
-
 import Lector.*;
-import Lista.Nodo;
 import Models.*;
 import Program.Program;
 import java.awt.Image;
@@ -339,7 +333,13 @@ public class Admin extends JFrame implements ActionListener{
         }
 
         if(e.getSource() == buscarBtn){
-            System.out.println("here");
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             Long dpi = Long.parseLong(barraBusqueda.getText().toString());
 
             var arbolClientes= Program.arbolClientes;
@@ -350,11 +350,19 @@ public class Admin extends JFrame implements ActionListener{
                 nameJT.setText(cliente.getNombre());
                 dpiJt.setText(Long.toString(cliente.getDpi()));
                 passJT.setText(cliente.getContraseña());
+                this.cliente = cliente;
+                
             }
         }
 
         if(e.getSource() == buscarBtn2){
-            System.out.println("here");
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             Long dpi = Long.parseLong(barraBusqueda2.getText().toString());
 
             var arbolClientes= Program.arbolClientes;
@@ -365,10 +373,19 @@ public class Admin extends JFrame implements ActionListener{
                 nameJT2.setText(cliente.getNombre());
                 dpiJt2.setText(Long.toString(cliente.getDpi()));
                 passJT2.setText(cliente.getContraseña());
+                this.cliente = cliente;
             }
         }
 
         if(e.getSource() == actualizarBtn){
+
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if(this.cliente == null){
                 JOptionPane.showMessageDialog(this,
@@ -396,6 +413,11 @@ public class Admin extends JFrame implements ActionListener{
 
             this.cliente.setNombre(nameJT.getText().toString());
             this.cliente.setContraseña(passJT.getText().toString());
+
+            JOptionPane.showMessageDialog(this,
+                "Se ha actualizado el cliente.",
+                "Completado",
+            JOptionPane.INFORMATION_MESSAGE);
             
         }
 
@@ -452,10 +474,22 @@ public class Admin extends JFrame implements ActionListener{
 
             Cliente nuevo = new Cliente(dpi,nombre,pass);
             arbol.insertar(dpi, nuevo);
+            JOptionPane.showMessageDialog(this,
+                "Se ha creado el cliente.",
+                "Completado",
+            JOptionPane.INFORMATION_MESSAGE);
 
         }
         
         if(e.getSource() == generarImagen){
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             var arbol = Program.arbolClientes;
 
             String nombre = arbol.graficar();
@@ -472,6 +506,14 @@ public class Admin extends JFrame implements ActionListener{
         }
     
         if(e.getSource() == buscarBtn1){
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Long dpi = 0l;
             try{
                 dpi = Long.parseLong(barraBusqueda1.getText().toString());
@@ -537,6 +579,15 @@ public class Admin extends JFrame implements ActionListener{
         }
     
         if(e.getSource() == listaClientes){
+
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             var lista = Program.arbolClientes.recorrer();
             var nodo = lista.getHead();
 
@@ -576,13 +627,14 @@ public class Admin extends JFrame implements ActionListener{
             while(System.currentTimeMillis() < startTime + 30000) {
                 try{
                     BufferedImage imagenOr = ImageIO.read(new File(nombre));
-                    float altura = ((float)950/imagenOr.getWidth()) * imagenOr.getHeight();
+                    float largo = ((float)555/imagenOr.getHeight()) * imagenOr.getWidth();
 
                     Image imagenResize;
                     if(imagenOr.getWidth() < 950){
                         imagenResize = imagenOr.getScaledInstance(imagenOr.getWidth(), imagenOr.getHeight(), Image.SCALE_SMOOTH);
                     }else{
-                        imagenResize = imagenOr.getScaledInstance(950, Math.round(altura), Image.SCALE_SMOOTH);
+                        // imagenResize = imagenOr.getScaledInstance(950, Math.round(altura), Image.SCALE_SMOOTH);
+                        imagenResize = imagenOr.getScaledInstance(Math.round(largo), 555, Image.SCALE_SMOOTH);
                     }
 
                     imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -591,7 +643,7 @@ public class Admin extends JFrame implements ActionListener{
                     found = true;
                     break;
                 }catch (Exception ex1){
-                    System.err.println(".");
+
                 }  
             }
             System.err.println("out");

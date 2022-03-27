@@ -1,9 +1,6 @@
 package Models;
 
-import javax.security.auth.login.AccountNotFoundException;
-
 import ListaAlbum.NodoI;
-
 public class Album {
     private String nombre;
     private NodoI primero;
@@ -61,6 +58,7 @@ public class Album {
     }
 
     public void eliminar(int id){
+        if(primero==null) return;
         if(primero.getImagen().getId() == id){
             primero = primero.getSiguiente();
             return;
@@ -79,6 +77,7 @@ public class Album {
 
 
     public Imagen getImagen(int id){
+        if(primero==null) return null;
         NodoI aux = primero;
         while(aux != null){
             if(id == aux.getImagen().getId()){

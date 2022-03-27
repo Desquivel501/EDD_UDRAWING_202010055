@@ -1,8 +1,8 @@
 package AVL;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import Cola.*;
 import Lista.*;
 import Models.Imagen;
@@ -125,42 +125,6 @@ public class AVL {
         return raiz;
     }
 
-
-    public void preOrder(){
-        ArrayList<Integer> visitados = new ArrayList<Integer>();
-        visitados = preOrderR(raiz, visitados);
-        System.out.println(visitados.toString());
-    }
-
-    private ArrayList<Integer> preOrderR(NodoAVL actual , ArrayList<Integer> visitados){
-        if(actual == null){
-            return visitados;
-        }
-        visitados.add(actual.valor);
-        visitados = preOrderR(actual.izquierda, visitados);
-        visitados = preOrderR(actual.derecha, visitados);
-        return visitados;
-    }
-
-    
-
-    private ArrayList<Integer> postOrderR(NodoAVL actual , ArrayList<Integer> visitados){
-        if(actual == null){
-            return visitados;
-        }
-        visitados = postOrderR(actual.izquierda, visitados);
-        visitados = postOrderR(actual.derecha, visitados);
-        visitados.add(actual.valor);
-        return visitados;
-
-    }
-
-    public void postOrder(){
-        ArrayList<Integer> visitados = new ArrayList<Integer>();
-        visitados = postOrderR(raiz, visitados);
-        System.out.println(visitados.toString());
-    }
-
     private void generarImageneR(NodoAVL actual){
         if(actual == null){
             return;
@@ -240,7 +204,6 @@ public class AVL {
         cola.enqueue(raiz);
         while(!cola.vacia()){
             NodoAVL actual = cola.dequeue().getValor();
-            System.out.println("Imagen " + actual.getValor());
             if(actual.izquierda != null){
                 cola.enqueue(actual.izquierda);
             }
@@ -261,6 +224,15 @@ public class AVL {
         int int_random = this.hashCode(); 
 
         try{
+            File anterior = new File("imagenes/AVL" + int_random + ".png");
+            if(anterior.isFile()){
+                try{
+                    anterior.delete();
+                }catch (Exception ex){
+                    
+                }
+            }
+
             FileWriter fileWriter = new FileWriter("imagenes/AVL" + int_random + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());
@@ -286,6 +258,17 @@ public class AVL {
         int int_random = this.hashCode();
 
         try{
+
+            File anterior = new File("imagenes/AVL" + int_random + "_capa" + imagen + ".png");
+            if(anterior.isFile()){
+                try{
+                    anterior.delete();
+                }catch (Exception ex){
+                    
+                }
+            }
+
+
             FileWriter fileWriter = new FileWriter("imagenes/AVL" + int_random + "_capa" + imagen + ".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());

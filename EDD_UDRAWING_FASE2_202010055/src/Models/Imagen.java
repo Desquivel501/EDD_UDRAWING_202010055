@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.ArrayList;
-
 import ABB.ArbolBinario;
 import Matriz.MatrizCapa;
 
