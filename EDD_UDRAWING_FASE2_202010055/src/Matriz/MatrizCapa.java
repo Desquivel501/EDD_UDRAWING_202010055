@@ -68,7 +68,7 @@ public class MatrizCapa implements Comparable<MatrizCapa>{
                         nuevo.setIzquierda(actual);
                         actual.setDerecha(nuevo);
                         noCeldas++;
-                        return;
+                        break;
                     }
                     actual = actual.getDerecha();
                 }
@@ -294,7 +294,6 @@ public class MatrizCapa implements Comparable<MatrizCapa>{
         return "imagenes/Imagen" + int_random + "HTML.png";
 
     }
-
 
     private void combinarNodo(int columna, int fila, String valor){
         NodoE eFila = listaFilas.getEncabezado(fila);

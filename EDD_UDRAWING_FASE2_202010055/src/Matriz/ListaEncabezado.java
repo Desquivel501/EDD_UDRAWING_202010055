@@ -58,18 +58,4 @@ public class ListaEncabezado {
         }
         return null;
     }
-
-    public NodoE get(int id){
-        NodoE actual = this.primero;
-        int k = 0;
-        while(actual != null){
-            if(k == id){
-                return actual;
-            }
-            k++;
-            actual = actual.getSiguiente();
-        }
-        return null;
-    }
-
 }
