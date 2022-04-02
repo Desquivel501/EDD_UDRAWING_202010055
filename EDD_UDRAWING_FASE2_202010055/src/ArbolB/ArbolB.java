@@ -40,12 +40,6 @@ public class ArbolB {
         return raiz.buscar(id);
     }
 
-    public NodoB buscarNombre(String nombre){
-        if(raiz == null) return null;
-        System.out.println("Buscando");
-        return raiz.buscarNombre(nombre);
-    }
-
 
     private NodoB insertarPagina(NodoB nodo, Pagina pagina){
         if(pagina.hoja){
@@ -192,8 +186,5 @@ public class ArbolB {
         }
         return lista;
     }
-
-
-
 
 }

@@ -106,32 +106,6 @@ public class Pagina {
         return null;
     }
 
-    public NodoB buscarNombre(String nombre){
-        NodoB aux = head;
-        NodoB nodo = null;
-        while(aux != null){
-            if(aux.getCliente().getNombre().equals(nombre)){
-                System.out.println("Usuario: " + nombre);
-                return aux;
-            }   
-
-            if(aux.izquierda != null){
-                nodo =  aux.izquierda.buscarNombre(nombre);
-                if(nodo != null){
-                    return nodo;
-                }
-            }
-            if(aux.derecha != null){
-                nodo = aux.izquierda.buscarNombre(nombre);
-                if(nodo != null){
-                    return nodo;
-                }
-            }
-            aux = aux.getSiguiente();
-        }
-        return null;
-    }
-
     public StringBuilder graficarPagina(StringBuilder dot){
         NodoB aux = head;
         int cont = 0;

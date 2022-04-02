@@ -39,6 +39,7 @@ public class ListaAlbum{
             largo++;
             return;
         }
+        nuevo.setAnterior(tail);
         tail.setSiguiente(nuevo);
         tail = nuevo;
         largo++;

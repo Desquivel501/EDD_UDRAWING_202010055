@@ -10,7 +10,6 @@ import org.json.simple.parser.JSONParser;
 
 import ABB.ArbolBinario;
 import AVL.NodoAVL;
-import Lista.Lista;
 import Matriz.MatrizCapa;
 import Models.Album;
 import Models.Cliente;
@@ -24,7 +23,6 @@ public class Lector {
     }
 
     public boolean leerMatriz(File archivo){
-        Lista<MatrizCapa> lista = new Lista<>();
         boolean error = false;
             if(archivo != null){
                 try {
@@ -53,23 +51,18 @@ public class Lector {
                             matrizActual.insertar((int)columna, (int)fila, valor);
                         }   
                         Program.loggedUser.getArbolCapas().insertar((int)id, matrizActual);
-                        lista.insertar(matrizActual);
                     }
                     
                 } catch (Exception e) {
-                    // e.printStackTrace();
                     error = true;
                 }                
                 
             }
-            // lista.ordenar();
-            // lista.imprimir();
         return error;
     }
 
     public boolean leerImagenes(File archivo){
         boolean error = false;
-        Lista<Imagen> aux = new Lista<>();
         if(archivo != null){
             try {
                 Reader reader = new FileReader(archivo);
@@ -97,17 +90,12 @@ public class Lector {
 
                     Imagen nueva = new Imagen((int)id,arbol);
                     Program.loggedUser.getArbolImagenes().insertar((int)id, nueva);
-                    aux.insertar(nueva);
                 }
                     
             } catch (Exception e) {
-                // e.printStackTrace();
                 error = true;
-            }                
-                
+            }                   
         }
-        aux.ordenar();
-        aux.imprimir();
         return error;
     }
 
@@ -178,14 +166,11 @@ public class Lector {
                     Program.hayUsuario = true;
                 }else{
                    System.out.println("Repetido - " + dpi);
-                }
-
-                
+                }   
             }
         
             arbolClientes.graficar();
         } catch (Exception e) {
-            // e.printStackTrace();
             error = true;
         }                
         return error;
