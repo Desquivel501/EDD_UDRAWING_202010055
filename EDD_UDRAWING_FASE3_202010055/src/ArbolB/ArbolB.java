@@ -187,4 +187,32 @@ public class ArbolB {
         return lista;
     }
 
+    
+    public NodoB buscarNombre(String nombre){
+        Cola<Pagina> cola = new Cola<>();
+        cola.enqueue(raiz);
+        while(!cola.vacia()){
+            Pagina actual = cola.dequeue().getValor();
+            var nodo = actual.getHead();
+            while(nodo != null){
+                
+                if(nodo.cliente.getName().equals(nombre)){
+                    return nodo;
+                }
+                
+                if(nodo.getIzquierda() != null){
+                    cola.enqueue(nodo.getIzquierda());
+                }
+
+                if(nodo.getSiguiente() == null){
+                    if(nodo.getDerecha() != null){
+                        cola.enqueue(nodo.getDerecha());
+                    }
+                }
+                nodo = nodo.getSiguiente();
+            }
+        }
+        return null;
+    }
+
 }

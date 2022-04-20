@@ -4,13 +4,15 @@ import ArbolB.ArbolB;
 import Lista.Lista;
 import Models.Cliente;
 import Models.Mensajero;
+import TablaHash.TablaHash;
 
 public class Program {
     public static Program program;
     public static Cliente loggedUser;
     public static ArbolB arbolClientes = new ArbolB();
     public static boolean hayUsuario = false;
-    public static Lista<Mensajero> listaMensajeros;
+    public static TablaHash tablaMensajeros  = new TablaHash();;
+    
 
     public Program(){
     }
@@ -19,7 +21,7 @@ public class Program {
         if (program == null) {
             program = new Program();
             arbolClientes = new ArbolB();
-            listaMensajeros = new Lista<Mensajero>();
+            tablaMensajeros = new TablaHash();
             hayUsuario = false;
             loggedUser = null;
         }
