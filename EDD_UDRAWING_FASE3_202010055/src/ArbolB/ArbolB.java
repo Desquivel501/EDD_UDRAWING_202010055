@@ -195,8 +195,9 @@ public class ArbolB {
             Pagina actual = cola.dequeue().getValor();
             var nodo = actual.getHead();
             while(nodo != null){
-                
-                if(nodo.cliente.getName().equals(nombre)){
+                System.out.println(nodo.cliente.getUsername() + " - " + nombre);
+                if(nodo.cliente.getUsername().equals(nombre)){
+                    System.out.println("Here");
                     return nodo;
                 }
                 

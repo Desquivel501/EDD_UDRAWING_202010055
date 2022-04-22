@@ -12,9 +12,10 @@ public class Cliente implements Comparable<Cliente>{
     private String phone;
     private String address;
     private String id_municipio;
+    private String correo;
 
 
-    public Cliente(Long dpi, String username, String password, String name, String phone, String address, String id_municipio) {
+    public Cliente(Long dpi, String username, String password, String name, String correo, String phone, String address, String id_municipio) {
         this.dpi = dpi;
         this.username = username;
         this.password = password;
@@ -22,6 +23,7 @@ public class Cliente implements Comparable<Cliente>{
         this.phone = phone;
         this.address = address;
         this.id_municipio = id_municipio;
+        this.correo = correo;
     }
 
     public Cliente() {
@@ -55,6 +57,10 @@ public class Cliente implements Comparable<Cliente>{
         return this.name;
     }
 
+    public String getCorreo(){
+        return this.correo;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -82,6 +88,12 @@ public class Cliente implements Comparable<Cliente>{
     public void setId_municipio(String id_municipio) {
         this.id_municipio = id_municipio;
     }
+
+    public void setCorreo(String correo){
+        this.correo = correo;
+    }
+
+
 
     @Override
     public String toString() {

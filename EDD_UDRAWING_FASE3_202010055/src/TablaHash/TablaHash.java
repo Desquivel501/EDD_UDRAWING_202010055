@@ -3,7 +3,7 @@ package TablaHash;
 import Models.Mensajero;
 
 public class TablaHash {
-    static final int SIZE = 29;
+    static int SIZE = 37;
     private Mensajero []tabla;
     private int noElementos;
 
@@ -22,13 +22,20 @@ public class TablaHash {
 
     public void insertar(Mensajero valor){
         int pos = indice(valor.getDpi());
+        if(tabla[pos] != null){
+            pos = colision(valor.getDpi(), pos);
+        }
         tabla[pos] = valor;
         noElementos++;
     }
 
-    // private int colision(int i){
-    //     int s = 
-    // }
+    private int colision(long llv, int i){
+        while(tabla[i] != null){
+            long l = ((llv % 7) + 1) * i;
+            i = (int) l % SIZE;
+        }
+        return i;
+    }
 
     public void imprimir(){
         for(int i = 0; i < SIZE; i++){
@@ -37,7 +44,6 @@ public class TablaHash {
             }else{
                 // System.out.println(i + " -> null");
             }
-            
         }
     }
 

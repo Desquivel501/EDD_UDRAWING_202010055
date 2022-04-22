@@ -73,6 +73,8 @@ public class Login extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == login){
             // login(nameJT.getText(), new String(password.getPassword()));
+            var lista = Program.arbolClientes.recorrer();
+            lista.imprimir();
         }
         
         if(e.getSource() == registro){
