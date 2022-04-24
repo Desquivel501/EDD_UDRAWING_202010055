@@ -48,6 +48,18 @@ public class Lista<E extends Comparable<E>>{
         this.largo++;
     }
 
+    public void insertar_inicio(E valorNuevo){
+        Nodo<E> nuevo = new Nodo<E>(valorNuevo);
+        if (this.head == null){
+            this.head = nuevo;
+            this.tail = nuevo;
+            return;
+        }
+        nuevo.setSiguiente(this.head);
+        this.head = nuevo;
+        this.largo++;
+    }
+
     public void ordenar(){
         Nodo<E> aux = this.head;
         for(int i=0; i < largo -1; i++){

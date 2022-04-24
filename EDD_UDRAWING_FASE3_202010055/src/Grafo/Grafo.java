@@ -1,5 +1,6 @@
 package Grafo;
 
+import Cola.ColaP;
 import Lista.*;
 import Models.*;
 
@@ -63,6 +64,79 @@ public class Grafo {
         }
         return null;
     }
+
+    public void dijkstra(int inicio, int final_){
+
+        // if(buscarLugar(inicio) == null || buscarLugar(final_) == null) return;
+        if(buscarLugar(inicio) == null || buscarLugar(final_) == null)  return;
+
+        Dist_ dist = new Dist_();
+        Prev prev = new Prev();
+        ColaP cola = new ColaP();
+        
+        var lugar = listaLugares.getHead();
+        while(lugar != null){
+            dist.insertar(new Dist(lugar.getValor().getId(), Integer.MAX_VALUE));
+            prev.insertar(lugar.getValor().getId(), Integer.MIN_VALUE);
+            cola.insertar(new Dist(lugar.getValor().getId(), Integer.MAX_VALUE));
+            lugar = lugar.getSiguiente();
+        }
+        dist.actualizar(inicio, 0);
+        cola.actualizar(inicio, 0);
+
+        while(!cola.vacia()){
+            var actual = cola.dequeue().getValor();
+
+            var lugar_sig = listaLugares.getHead();
+
+            while(lugar_sig != null){
+                var ruta_posible = buscarRuta(actual.id, lugar_sig.getValor().getId());
+                if(ruta_posible != null){
+                    
+                    int dist_alt = actual.dist + ruta_posible.getPeso();
+                    if(dist_alt < 0) dist_alt *= -1;
+
+                    int dist_anterior = dist.buscar(lugar_sig.getValor().getId()).dist;
+
+                    if(dist_alt < dist_anterior){
+                        dist.actualizar(lugar_sig.getValor().getId(), dist_alt);
+                        cola.actualizar(lugar_sig.getValor().getId(), dist_alt);
+                        prev.actualizar(lugar_sig.getValor().getId(), actual.id);
+                    }
+                }
+                lugar_sig = lugar_sig.getSiguiente();
+            }
+        }  
+
+        System.out.println(String.format("largo de %d -> %d = %d",inicio,final_,dist.buscar(final_).dist));
+
+        int destino = final_;
+        var lugar_c = buscarLugar(final_);
+        Lista<Lugar> camino = new Lista<Lugar>();
+
+        if(prev.buscar(destino) != null || destino == inicio){
+            
+            while(lugar_c != null){
+                camino.insertar_inicio(lugar_c);
+
+                var prev_id = prev.buscar(lugar_c.getId());
+                if(prev_id == null) break;
+                lugar_c = buscarLugar(prev_id.prev);
+            }
+        }
+        
+        var aux = camino.getHead();
+        StringBuilder camino_str = new StringBuilder();
+        while(aux != null){
+            camino_str.append(aux.getValor().getId());
+            if(aux.getSiguiente() != null) camino_str.append("->");
+            aux = aux.getSiguiente();
+        }
+        System.out.println(camino_str);
+
+    }
+
+
 
     public void graficarGrafo(){
         StringBuilder dot = new StringBuilder();
@@ -137,3 +211,116 @@ public class Grafo {
         System.out.println(dot);
     }
 }
+
+
+
+class Prev {
+    public nodoP head;
+    public nodoP tail;
+    public int prev;
+
+    public Prev(){
+        head = null;
+        tail = null;
+    }
+
+    public void insertar(int ini, int prev){
+        nodoP nuevo = new nodoP(ini, prev);
+        if(this.head == null){
+            this.head = nuevo;
+            this.tail = nuevo;
+            return;
+        }
+        this.tail.siguiente = nuevo;
+        this.tail = nuevo;
+    }
+
+    public nodoP buscar(int ini){
+        var aux = this.head;
+        while(aux != null){
+            if(aux.ini == ini){
+                return aux;
+            }
+            aux = aux.siguiente;
+        }
+        return null;
+    }
+
+    public void actualizar(int ini, int prev){
+        var aux = this.head;
+        while(aux != null){
+            if(aux.ini == ini){
+                aux.prev = prev;
+                return;
+            }
+            aux = aux.siguiente;
+        }
+    }
+
+}
+
+class nodoP{
+    public int ini;
+    public int prev;
+    public nodoP siguiente;
+
+    public nodoP(int ini, int prev){
+        this.ini = ini;
+        this.prev = prev;
+    }
+}
+
+class Dist_ {
+    public nodoD head;
+    public nodoD tail;
+    public int prev;
+
+    public Dist_(){
+        head = null;
+        tail = null;
+    }
+
+    public void insertar(Dist valor){
+        nodoD nuevo = new nodoD(valor);
+        if(this.head == null){
+            this.head = nuevo;
+            this.tail = nuevo;
+            return;
+        }
+        this.tail.siguiente = nuevo;
+        this.tail = nuevo;
+    }
+
+    public Dist buscar(int id){
+        var aux = this.head;
+        while(aux != null){
+            if(aux.valor.id == id){
+                return aux.valor;
+            }
+            aux = aux.siguiente;
+        }
+        return null;
+    }
+
+    public void actualizar(int id, int dist){
+        var aux = this.head;
+        while(aux != null){
+            if(aux.valor.id == id){
+                aux.valor.dist = dist;
+                return;
+            }
+            aux = aux.siguiente;
+        }
+    }
+
+}
+
+class nodoD{
+    public Dist valor;
+    public nodoD siguiente;
+
+    public nodoD(Dist valor){
+        this.valor = valor;
+    }
+}
+

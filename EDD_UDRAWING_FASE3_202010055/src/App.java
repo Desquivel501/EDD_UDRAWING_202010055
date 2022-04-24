@@ -3,6 +3,7 @@ import Program.Program;
 import TablaHash.TablaHash;
 import javax.swing.UIManager;
 
+import Cola.ColaP;
 import GUI.Login;
 import Grafo.Grafo;
 import Models.*;
@@ -68,21 +69,28 @@ public class App {
         Lugar l5 = new Lugar();
         l5.setId(5);
 
+        Lugar l6 = new Lugar();
+        l6.setId(6);
+
         grafoRutas.insertarLugar(l1);
         grafoRutas.insertarLugar(l2);
         grafoRutas.insertarLugar(l3);
         grafoRutas.insertarLugar(l4);
         grafoRutas.insertarLugar(l5);
-        grafoRutas.imprimirLugares();
+        grafoRutas.insertarLugar(l6);
 
-        grafoRutas.insertarRuta(1, 4, 6);
+        grafoRutas.insertarRuta(1, 6, 6);
         grafoRutas.insertarRuta(1, 2, 5);
         grafoRutas.insertarRuta(2, 5, 9);
         grafoRutas.insertarRuta(2, 3, 1);
         grafoRutas.insertarRuta(3, 4, 11);
         grafoRutas.insertarRuta(4, 5, 3);
+        grafoRutas.insertarRuta(6, 4, 2);
+        grafoRutas.insertarRuta(6, 2, 3);
    
 
-        grafoRutas.graficarLista();
+        grafoRutas.graficarGrafo();
+        grafoRutas.dijkstra(1, 5);
+
     }
 }
