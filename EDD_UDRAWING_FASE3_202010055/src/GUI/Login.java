@@ -72,9 +72,43 @@ public class Login extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == login){
-            // login(nameJT.getText(), new String(password.getPassword()));
-            var lista = Program.arbolClientes.recorrer();
-            lista.imprimir();
+            String usuario = nameJT.getText();
+            String pass = new String(password.getPassword());
+            if(usuario.equals("Admin") && pass.equals("EDD2022")){
+                System.out.println("Admin");
+                new Admin();
+                setVisible(false);
+                dispose();
+                return;
+            }
+            var arbolClientes= Program.arbolClientes;
+            NodoB encontrado = arbolClientes.buscarNombre(usuario);
+            if(encontrado != null){
+                if(encontrado.getCliente().getPassword().equals(new String(password.getPassword()))){
+                    Program.loggedUser = encontrado.getCliente();
+                    new ClienteG();
+                    setVisible(false);
+                    dispose();
+                    return;
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                    "Contraseña Incorrecta",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                int respuesta = JOptionPane.showConfirmDialog(this,
+                    "El usuario no existe.\n ¿Desea registrar un nuevo usuario?",
+                    "Error",
+                    JOptionPane.YES_NO_OPTION);
+
+                if (respuesta == JOptionPane.YES_OPTION){
+                    new Registro();
+                    setVisible(false);
+                    dispose();
+                    return;
+                }    
+            }  
         }
         
         if(e.getSource() == registro){

@@ -85,20 +85,25 @@ public class Grafo {
         cola.actualizar(inicio, 0);
 
         while(!cola.vacia()){
+            
             var actual = cola.dequeue().getValor();
 
             var lugar_sig = listaLugares.getHead();
-
+            // System.out.println(actual.id);
             while(lugar_sig != null){
+                
                 var ruta_posible = buscarRuta(actual.id, lugar_sig.getValor().getId());
                 if(ruta_posible != null){
                     
                     int dist_alt = actual.dist + ruta_posible.getPeso();
-                    if(dist_alt < 0) dist_alt *= -1;
+                    if(dist_alt < 0) dist_alt = Integer.MAX_VALUE;
 
                     int dist_anterior = dist.buscar(lugar_sig.getValor().getId()).dist;
 
+
+
                     if(dist_alt < dist_anterior){
+                        // System.out.println("Actualizado: " + dist_anterior + " -> " + dist_alt);
                         dist.actualizar(lugar_sig.getValor().getId(), dist_alt);
                         cola.actualizar(lugar_sig.getValor().getId(), dist_alt);
                         prev.actualizar(lugar_sig.getValor().getId(), actual.id);
@@ -106,24 +111,27 @@ public class Grafo {
                 }
                 lugar_sig = lugar_sig.getSiguiente();
             }
+            
         }  
 
-        System.out.println(String.format("largo de %d -> %d = %d",inicio,final_,dist.buscar(final_).dist));
+        if(dist.buscar(final_).dist == Integer.MAX_VALUE || prev.buscar(final_).prev == Integer.MIN_VALUE){
+            System.out.println("Nodo destino no pudo ser alcanzado");
+            return;
+        }
 
-        int destino = final_;
+        System.out.println(String.format("largo de %d -> %d = %d",inicio,final_, dist.buscar(final_).dist));
+
         var lugar_c = buscarLugar(final_);
         Lista<Lugar> camino = new Lista<Lugar>();
 
-        if(prev.buscar(destino) != null || destino == inicio){
-            
-            while(lugar_c != null){
-                camino.insertar_inicio(lugar_c);
+        while(lugar_c != null){
+            camino.insertar_inicio(lugar_c);
 
-                var prev_id = prev.buscar(lugar_c.getId());
-                if(prev_id == null) break;
-                lugar_c = buscarLugar(prev_id.prev);
-            }
+            var prev_id = prev.buscar(lugar_c.getId());
+            if(prev_id == null) break;
+            lugar_c = buscarLugar(prev_id.prev);
         }
+        
         
         var aux = camino.getHead();
         StringBuilder camino_str = new StringBuilder();

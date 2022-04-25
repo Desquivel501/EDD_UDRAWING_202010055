@@ -1,5 +1,9 @@
 package Models;
 
+import ABB.ArbolBinario;
+import AVL.AVL;
+import ListaAlbum.ListaAlbum;
+
 // import ABB.*;
 // import AVL.*;
 // import ListaAlbum.*;
@@ -13,6 +17,9 @@ public class Cliente implements Comparable<Cliente>{
     private String address;
     private String id_municipio;
     private String correo;
+    private ListaAlbum listaAlbum;
+    private AVL arbolImagenes;
+    private ArbolBinario arbolCapas;
 
 
     public Cliente(Long dpi, String username, String password, String name, String correo, String phone, String address, String id_municipio) {
@@ -24,6 +31,9 @@ public class Cliente implements Comparable<Cliente>{
         this.address = address;
         this.id_municipio = id_municipio;
         this.correo = correo;
+        listaAlbum = new ListaAlbum();
+        arbolImagenes = new AVL();
+        arbolCapas = new ArbolBinario();
     }
 
     public Cliente() {
@@ -91,6 +101,30 @@ public class Cliente implements Comparable<Cliente>{
 
     public void setCorreo(String correo){
         this.correo = correo;
+    }
+
+    public ListaAlbum getListaAlbum() {
+        return this.listaAlbum;
+    }
+
+    public void setListaAlbum(ListaAlbum listaAlbum) {
+        this.listaAlbum = listaAlbum;
+    }
+
+    public AVL getArbolImagenes() {
+        return this.arbolImagenes;
+    }
+
+    public void setArbolImagenes(AVL arbolImagenes) {
+        this.arbolImagenes = arbolImagenes;
+    }
+
+    public ArbolBinario getArbolCapas() {
+        return this.arbolCapas;
+    }
+
+    public void setArbolCapas(ArbolBinario arbolCapas) {
+        this.arbolCapas = arbolCapas;
     }
 
 

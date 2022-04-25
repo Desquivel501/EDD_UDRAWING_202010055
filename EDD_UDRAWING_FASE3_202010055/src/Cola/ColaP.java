@@ -26,11 +26,22 @@ public class ColaP {
             String cadena = "";
             NodoPr aux = this.head;
             while(aux != null){
-                cadena += aux.getValor() + ", ";
+                cadena += aux.getValor().id + ", ";
                 aux = aux.getSiguiente();
             }
-            System.out.print(cadena);
+            System.out.println("Cola: "+ cadena);
         }
+    }
+
+    public NodoPr buscar(int id){
+        var aux = this.head;
+        while(aux != null){
+            if(aux.getValor().id == id){
+                return aux;
+            }
+            aux = aux.getSiguiente();
+        }
+        return null;
     }
 
     public void actualizar(int id, int dist){
@@ -38,10 +49,30 @@ public class ColaP {
         while(aux != null){
             if(aux.getValor().id == id){
                 aux.getValor().dist = dist;
+                ordenar();
                 return;
             }
             aux = aux.getSiguiente();
         }
+    }
+
+    public void ordenar(){
+        NodoPr aux = this.head;
+        while(aux != null){
+            NodoPr minimo = aux;
+            NodoPr punt = aux;
+            while(punt != null){
+                if(punt.getValor().dist < minimo.getValor().dist){
+                    minimo = punt;
+                } 
+                punt = punt.getSiguiente();
+            }
+            var temp = aux.getValor();
+            aux.setValor(minimo.getValor());
+            minimo.setValor(temp);
+            aux = aux.getSiguiente();
+        }
+        // imprimir();
     }
 
     public void insertar(Dist valorNuevo){
@@ -50,11 +81,13 @@ public class ColaP {
         if (nodo == null){
             this.head = nuevo;
             this.tail = nuevo;
+            this.largo++;
             return;
         }
         if(valorNuevo.dist < nodo.getValor().dist){
             nuevo.setSiguiente(nodo);
             this.head = nuevo;
+            this.largo++;
             return;
         }
         
@@ -62,10 +95,12 @@ public class ColaP {
             if(valorNuevo.dist <= nodo.getSiguiente().getValor().dist){
                 nuevo.setSiguiente(nodo.getSiguiente());
                 nodo.setSiguiente(nuevo);
+                this.largo++;
                 return;
             }
             nodo = nodo.getSiguiente();
         }
+        this.largo++;
         nodo.setSiguiente(nuevo);
     }
 

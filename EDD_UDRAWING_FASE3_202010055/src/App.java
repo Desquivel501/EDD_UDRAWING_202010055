@@ -72,12 +72,16 @@ public class App {
         Lugar l6 = new Lugar();
         l6.setId(6);
 
+        Lugar l7 = new Lugar();
+        l7.setId(7);
+
         grafoRutas.insertarLugar(l1);
         grafoRutas.insertarLugar(l2);
         grafoRutas.insertarLugar(l3);
         grafoRutas.insertarLugar(l4);
         grafoRutas.insertarLugar(l5);
         grafoRutas.insertarLugar(l6);
+        grafoRutas.insertarLugar(l7);
 
         grafoRutas.insertarRuta(1, 6, 6);
         grafoRutas.insertarRuta(1, 2, 5);
@@ -85,12 +89,14 @@ public class App {
         grafoRutas.insertarRuta(2, 3, 1);
         grafoRutas.insertarRuta(3, 4, 11);
         grafoRutas.insertarRuta(4, 5, 3);
-        grafoRutas.insertarRuta(6, 4, 2);
+        grafoRutas.insertarRuta(6, 4,15);
         grafoRutas.insertarRuta(6, 2, 3);
    
 
         grafoRutas.graficarGrafo();
+        grafoRutas.dijkstra(1, 4);
         grafoRutas.dijkstra(1, 5);
+
 
     }
 }
