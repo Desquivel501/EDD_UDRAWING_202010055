@@ -22,9 +22,9 @@ public class Admin extends JFrame implements ActionListener{
     Cliente cliente;
 
     JTabbedPane tp, cp;
-    JPanel p1,p2,p3 ,c1,c2,c3,r, panelB, panelC;
-    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, actualizarBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen, listaClientes;
-    JLabel cargaMasiva, buscarLbl, usuarioLabel, passLabel, dpiLbl, buscarLbl2, usuarioLabel2, passLabel2, dpiLbl2, buscarLbl1, usuarioLabel1, passLabel1, dpiLbl1, imagen;
+    JPanel p1,p2,p3 ,c1,c2,c3,r, panelB, panelC, l1 , leerLugar, verLugar;
+    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, actualizarBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen, listaClientes, cargarLugar, cargarRuta, verGrafo, verLista;
+    JLabel cargaMasiva, buscarLbl, usuarioLabel, passLabel, dpiLbl, buscarLbl2, usuarioLabel2, passLabel2, dpiLbl2, buscarLbl1, usuarioLabel1, passLabel1, dpiLbl1, imagen, imagen2;
     JTextField barraBusqueda, nameJT, passJT, dpiJt, nameJT1, passJT1, dpiJt1, nameJT2, passJT2, dpiJt2, barraBusqueda2, barraBusqueda1;
     JScrollPane panelImagen, panelImagen2;
     JRadioButton r1,r2,r3, r4;
@@ -55,10 +55,6 @@ public class Admin extends JFrame implements ActionListener{
 
         p1 = new JPanel();  
         p1.setLayout(null); 
-        p2 = new JPanel(); 
-        p2.setLayout(null); 
-        p3 = new JPanel();  
-        p3.setLayout(null); 
 
         c1 = new JPanel();  
         c1.setLayout(null); 
@@ -69,6 +65,10 @@ public class Admin extends JFrame implements ActionListener{
 
         r = new JPanel();  
         r.setLayout(null); 
+
+        l1 = new JPanel(); 
+        l1.setLayout(null); 
+
 
         //-----------------------------------------------------------
 
@@ -272,11 +272,47 @@ public class Admin extends JFrame implements ActionListener{
         listaClientes.setBounds(65, 30 , 200, 30);
         listaClientes.addActionListener(this);
 
-
-
-        panelImagen2 = new JScrollPane();
-
         //----------------------------------------------------------------------
+
+        leerLugar = new JPanel();
+        leerLugar.setBorder(new TitledBorder("Carga Masiva"));
+        l1.add(leerLugar);
+        leerLugar.setBounds(40, 10, 430, 60);
+        leerLugar.setLayout(null);
+
+        cargarLugar = new JButton("Cargar Lugares");
+        leerLugar.add(cargarLugar);
+        cargarLugar.setBounds(10, 20, 200, 30);
+        cargarLugar.addActionListener(this);
+
+        cargarRuta = new JButton("Cargar Rutas");
+        leerLugar.add(cargarRuta);
+        cargarRuta.setBounds(220, 20, 200, 30);
+        cargarRuta.addActionListener(this);
+
+
+        verLugar = new JPanel();
+        verLugar.setBorder(new TitledBorder("Visualizar"));
+        l1.add(verLugar);
+        verLugar.setBounds(490, 10, 430, 60);
+        verLugar.setLayout(null);
+
+        verGrafo = new JButton("Ver Grafo");
+        verLugar.add(verGrafo);
+        verGrafo.setBounds(10, 20, 200, 30);
+        verGrafo.addActionListener(this);
+
+        verLista = new JButton("Ver Lista de Adyacencia");
+        verLugar.add(verLista);
+        verLista.setBounds(220, 20, 200, 30);
+        verLista.addActionListener(this);
+
+
+        imagen2 = new JLabel();
+        panelImagen2 = new JScrollPane(imagen2);
+        l1.add(panelImagen2);
+        panelImagen2.setBounds(10,75,950,535);
+        panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
 
 
         tp.add("Reporte Usuarios",p1); 
@@ -284,6 +320,7 @@ public class Admin extends JFrame implements ActionListener{
         tp.add("Modificar Usuario",c2); 
         tp.add("Borrar Usuario",c3);  
         tp.add("Reportes", r);   
+        tp.add("Entregas", l1);  
 
     }
 
@@ -480,29 +517,29 @@ public class Admin extends JFrame implements ActionListener{
 
         // }
         
-        // if(e.getSource() == generarImagen){
-        //     if(Program.arbolClientes.vacio()){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No hay clientes ingresados en el sistema.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+        if(e.getSource() == generarImagen){
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     var arbol = Program.arbolClientes;
+            var arbol = Program.arbolClientes;
 
-        //     String nombre = arbol.graficar();
+            String nombre = arbol.graficar();
 
-        //     if(nombre.equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ha ocurrrido un error al generar la imagen.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     generarImagen(nombre);
+            if(nombre.equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre,1);
 
-        // }
+        }
     
         // if(e.getSource() == buscarBtn1){
         //     if(Program.arbolClientes.vacio()){
@@ -621,9 +658,129 @@ public class Admin extends JFrame implements ActionListener{
         //     panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         // }
 
+        if(e.getSource() == cargarLugar){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setPreferredSize( new Dimension(700, 600));
+            
+            if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
+                File archivo = fileChooser.getSelectedFile();
+
+                if(archivo != null){
+                    Lector lector = new Lector();
+                    if(!lector.leerLugares(archivo)){
+                        JOptionPane.showMessageDialog(this,
+                        "Se han cargado los lugares.",
+                        "Cargado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error abriendo el archivo.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrido un error abriendo el archivo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha seleccionado ningun archivo.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+            }
+
+        }
+
+        if(e.getSource() == cargarRuta){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setPreferredSize( new Dimension(700, 600));
+            
+            if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
+                File archivo = fileChooser.getSelectedFile();
+
+                if(archivo != null){
+                    Lector lector = new Lector();
+                    if(!lector.leerRutas(archivo)){
+                        JOptionPane.showMessageDialog(this,
+                        "Se han cargado las rutas.",
+                        "Cargado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error abriendo el archivo.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrido un error abriendo el archivo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha seleccionado ningun archivo.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+            }
+
+        }
+
+        if(e.getSource() == verGrafo){
+            if(!Program.grafoLugares.valido()){
+                JOptionPane.showMessageDialog(this,
+                "No se han ingresado datos del grafo.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            var grafo = Program.grafoLugares;
+
+            String nombre = grafo.graficarGrafo();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 2);
+
+        }
+
+        if(e.getSource() == verLista){
+            if(!Program.grafoLugares.valido()){
+                JOptionPane.showMessageDialog(this,
+                "No se han ingresado datos del grafo.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            var grafo = Program.grafoLugares;
+
+            String nombre = grafo.graficarLista();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 2);
+
+        }
+
     }
 
-    private void generarImagen(String nombre){
+    private void generarImagen(String nombre, int id){
         try{
             boolean found = false;
             long startTime = System.currentTimeMillis();
@@ -641,8 +798,16 @@ public class Admin extends JFrame implements ActionListener{
                         imagenResize = imagenOr.getScaledInstance(Math.round(largo), 555, Image.SCALE_SMOOTH);
                     }
 
-                    imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                    imagen.setIcon(new ImageIcon(imagenResize));
+                    switch(id){
+                        case 1:
+                            imagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            imagen.setIcon(new ImageIcon(imagenResize));
+                            break;
+                        case 2:
+                            imagen2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            imagen2.setIcon(new ImageIcon(imagenResize));
+                            break;
+                    }
                     
                     found = true;
                     break;

@@ -27,6 +27,9 @@ public class TablaHash {
         }
         tabla[pos] = valor;
         noElementos++;
+
+        if(noElementos < SIZE*0.75) SIZE *= 2;
+
     }
 
     private int colision(long llv, int i){
@@ -46,6 +49,5 @@ public class TablaHash {
             }
         }
     }
-
 
 }

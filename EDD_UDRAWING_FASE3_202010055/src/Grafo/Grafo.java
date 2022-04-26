@@ -1,5 +1,9 @@
 package Grafo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 import Cola.ColaP;
 import Lista.*;
 import Models.*;
@@ -11,6 +15,10 @@ public class Grafo {
     public Grafo() {
         listaLugares = new Lista<Lugar>();
         listaRutas = new Lista<Ruta>();
+    }
+
+    public boolean valido(){
+        return !(listaLugares.vacia() && listaRutas.vacia());
     }
 
     public void imprimirLugares(){
@@ -64,6 +72,7 @@ public class Grafo {
         }
         return null;
     }
+
 
     public void dijkstra(int inicio, int final_){
 
@@ -146,7 +155,7 @@ public class Grafo {
 
 
 
-    public void graficarGrafo(){
+    public String graficarGrafo(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
         dot.append(String.format("label=\"%s\"\n", "Grafo de Rutas"));
@@ -161,9 +170,11 @@ public class Grafo {
         }
         dot.append("}\n");
         System.out.println(dot);
+
+        return generarImagen(dot.toString(),"Grafo");
     }
 
-    public void graficarLista(){
+    public String graficarLista(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
         dot.append(String.format("label=\"%s\"\n", "Lista de Adyacencia"));
@@ -217,6 +228,36 @@ public class Grafo {
         dot.append(conexion);
         dot.append("}\n");
         System.out.println(dot);
+
+        return generarImagen(dot.toString(),"Lista");
+    }
+
+    private String generarImagen(String dot, String nombre){
+        String nombre_return  =  "imagenes/" + nombre  + ".png";
+        try {
+
+            File anterior = new File(nombre_return);
+            if(anterior.isFile()){
+                try{
+                    anterior.delete();
+                }catch (Exception ex){
+                    
+                }
+            }
+
+            FileWriter fileWriter = new FileWriter("imagenes/" + nombre  + ".dot");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(dot);
+            printWriter.close();
+
+            String[] command = {"dot", "-Tpng","imagenes/" + nombre  + ".dot", "-o", "imagenes/" + nombre  + ".png" };
+            new ProcessBuilder(command).start();
+        }catch (Exception e){
+            e.printStackTrace();
+            nombre_return = null;
+        }
+
+        return nombre_return;
     }
 }
 

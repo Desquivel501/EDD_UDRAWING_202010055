@@ -18,8 +18,6 @@ public class Lector {
     public boolean leerMensajero(File archivo){
         boolean error = false;
 
-        var lista = Program.tablaMensajeros;
-
         try {
             Reader reader = new FileReader(archivo);
             JSONParser parser = new JSONParser();
@@ -41,7 +39,8 @@ public class Lector {
                 System.out.println(nombre);
 
                 Mensajero nuevo = new Mensajero(Long.parseLong(dpi), nombre, apellido, licencia, genero, "0", direccion);
-                lista.insertar(nuevo);
+
+                Program.tablaMensajeros.insertar(nuevo);
 
 
             }
@@ -205,5 +204,66 @@ public class Lector {
     //     }                
     //     return error;
     // }
+
+    public boolean leerLugares(File archivo){
+        boolean error = false;
+
+        try {
+            Reader reader = new FileReader(archivo);
+            JSONParser parser = new JSONParser();
+            JSONObject obj  = (JSONObject) parser.parse(reader);
+                    
+            JSONArray array = (JSONArray) obj.get("Lugares");
+  
+            for(int i = 0; i < array.size(); i++){
+
+                JSONObject objetoLugar = (JSONObject) array.get(i);
+                
+                long id = (long) objetoLugar.get("id");
+                String departamento = (String) objetoLugar.get("departamento");
+                String nombre = (String) objetoLugar.get("nombre");
+                String sn_sucursal = (String) objetoLugar.get("sn_sucursal");
+
+                boolean sucursal = (sn_sucursal == "si") ? true : false;
+
+                Lugar nuevo = new Lugar((int) id, departamento, nombre, sucursal);
+                Program.grafoLugares.insertarLugar(nuevo);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            error = true;
+        }                
+        return error;
+    }
+
+    public boolean leerRutas(File archivo){
+        boolean error = false;
+
+        try {
+            Reader reader = new FileReader(archivo);
+            JSONParser parser = new JSONParser();
+            JSONObject obj  = (JSONObject) parser.parse(reader);
+                    
+            JSONArray array = (JSONArray) obj.get("Grafo");
+  
+            for(int i = 0; i < array.size(); i++){
+
+                JSONObject objetoLRuta = (JSONObject) array.get(i);
+                
+                long inicio = (long) objetoLRuta.get("inicio");
+                long final_ = (long) objetoLRuta.get("final");
+                long peso = (long) objetoLRuta.get("peso");
+
+                Program.grafoLugares.insertarRuta((int)inicio, (int)final_, (int)peso);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            error = true;
+        }                
+        return error;
+    }
 
 }

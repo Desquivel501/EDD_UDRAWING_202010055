@@ -1,6 +1,7 @@
 package Program;
 
 import ArbolB.ArbolB;
+import Grafo.Grafo;
 import Lista.Lista;
 import Models.Cliente;
 import Models.Mensajero;
@@ -11,7 +12,8 @@ public class Program {
     public static Cliente loggedUser;
     public static ArbolB arbolClientes = new ArbolB();
     public static boolean hayUsuario = false;
-    public static TablaHash tablaMensajeros  = new TablaHash();;
+    public static TablaHash tablaMensajeros  = new TablaHash();
+    public static Grafo grafoLugares = new Grafo();
     
 
     public Program(){

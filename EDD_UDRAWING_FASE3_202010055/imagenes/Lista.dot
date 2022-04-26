@@ -1,0 +1,30 @@
+digraph G{
+label="Lista de Adyacencia"
+labelloc = "t"
+rankdir = "LR"
+node [shape=record]
+edge[tailclip=false, arrowtail=dot, dir=both, arrowhead=normal]
+rutas1[label="{5|3|8|6}"]
+rutas2[label="{7|6|12}"]
+rutas3[label="{1|5}"]
+rutas5[label="{1|3|11|6}"]
+rutas6[label="{2|5|1}"]
+rutas7[label="{2|9}"]
+rutas8[label="{10|1}"]
+rutas9[label="{12|7}"]
+rutas10[label="{8}"]
+rutas11[label="{5}"]
+rutas12[label="{2|9}"]
+lista[label="{1 | <f1>}|{2 | <f2>}|{3 | <f3>}|{5 | <f5>}|{6 | <f6>}|{7 | <f7>}|{8 | <f8>}|{9 | <f9>}|{10 | <f10>}|{11 | <f11>}|{12 | <f12>}"]
+lista:f1:c -> rutas1
+lista:f2:c -> rutas2
+lista:f3:c -> rutas3
+lista:f5:c -> rutas5
+lista:f6:c -> rutas6
+lista:f7:c -> rutas7
+lista:f8:c -> rutas8
+lista:f9:c -> rutas9
+lista:f10:c -> rutas10
+lista:f11:c -> rutas11
+lista:f12:c -> rutas12
+}

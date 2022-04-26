@@ -4,6 +4,7 @@ import TablaHash.TablaHash;
 import javax.swing.UIManager;
 
 import Cola.ColaP;
+import GUI.Admin;
 import GUI.Login;
 import Grafo.Grafo;
 import Models.*;
@@ -15,9 +16,9 @@ public class App {
         } catch(Exception e){
             System.out.println(e);
         }
-        // var nuevo = new Cliente(1234L,"Desquivel","1234","Derek Esquivel" ,"correo" ,"5545652008","direccion","15");
-        // Program.arbolClientes.insertar(1234L, nuevo);
-        // new Login();
+        var nuevo = new Cliente(1234L,"Desquivel","1234","Derek Esquivel" ,"correo" ,"5545652008","direccion","15");
+        Program.arbolClientes.insertar(1234L, nuevo);
+        new Admin();
 
         // Mensajero m1 = new Mensajero();
         // m1.setNombres("1");
@@ -53,49 +54,49 @@ public class App {
 
         // tabla.imprimir();
 
-        Grafo grafoRutas = new Grafo();
-        Lugar l1 = new Lugar();
-        l1.setId(1);
+        // Grafo grafoRutas = new Grafo();
+        // Lugar l1 = new Lugar();
+        // l1.setId(1);
 
-        Lugar l2 = new Lugar();
-        l2.setId(2);
+        // Lugar l2 = new Lugar();
+        // l2.setId(2);
 
-        Lugar l3 = new Lugar();
-        l3.setId(3);
+        // Lugar l3 = new Lugar();
+        // l3.setId(3);
 
-        Lugar l4 = new Lugar();
-        l4.setId(4);
+        // Lugar l4 = new Lugar();
+        // l4.setId(4);
 
-        Lugar l5 = new Lugar();
-        l5.setId(5);
+        // Lugar l5 = new Lugar();
+        // l5.setId(5);
 
-        Lugar l6 = new Lugar();
-        l6.setId(6);
+        // Lugar l6 = new Lugar();
+        // l6.setId(6);
 
-        Lugar l7 = new Lugar();
-        l7.setId(7);
+        // Lugar l7 = new Lugar();
+        // l7.setId(7);
 
-        grafoRutas.insertarLugar(l1);
-        grafoRutas.insertarLugar(l2);
-        grafoRutas.insertarLugar(l3);
-        grafoRutas.insertarLugar(l4);
-        grafoRutas.insertarLugar(l5);
-        grafoRutas.insertarLugar(l6);
-        grafoRutas.insertarLugar(l7);
+        // grafoRutas.insertarLugar(l1);
+        // grafoRutas.insertarLugar(l2);
+        // grafoRutas.insertarLugar(l3);
+        // grafoRutas.insertarLugar(l4);
+        // grafoRutas.insertarLugar(l5);
+        // grafoRutas.insertarLugar(l6);
+        // grafoRutas.insertarLugar(l7);
 
-        grafoRutas.insertarRuta(1, 6, 6);
-        grafoRutas.insertarRuta(1, 2, 5);
-        grafoRutas.insertarRuta(2, 5, 9);
-        grafoRutas.insertarRuta(2, 3, 1);
-        grafoRutas.insertarRuta(3, 4, 11);
-        grafoRutas.insertarRuta(4, 5, 3);
-        grafoRutas.insertarRuta(6, 4,15);
-        grafoRutas.insertarRuta(6, 2, 3);
+        // grafoRutas.insertarRuta(1, 6, 6);
+        // grafoRutas.insertarRuta(1, 2, 5);
+        // grafoRutas.insertarRuta(2, 5, 9);
+        // grafoRutas.insertarRuta(2, 3, 1);
+        // grafoRutas.insertarRuta(3, 4, 11);
+        // grafoRutas.insertarRuta(4, 5, 3);
+        // grafoRutas.insertarRuta(6, 4,15);
+        // grafoRutas.insertarRuta(6, 2, 3);
    
 
-        grafoRutas.graficarGrafo();
-        grafoRutas.dijkstra(1, 4);
-        grafoRutas.dijkstra(1, 5);
+        // grafoRutas.graficarGrafo();
+        // grafoRutas.dijkstra(1, 4);
+        // grafoRutas.dijkstra(1, 5);
 
 
     }
