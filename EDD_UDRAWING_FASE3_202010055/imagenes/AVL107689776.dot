@@ -1,0 +1,15 @@
+digraph G{
+label="Arbol Imagenes"
+labelloc = "t"
+Nodo1583896486[label="5"  shape=box];
+Nodo1120544356[label="2"  shape=box];
+Nodo1982686503[label="1"  shape=box];
+Nodo1120544356 -> Nodo1982686503;
+Nodo349254430[label="3"  shape=box];
+Nodo1120544356 -> Nodo349254430;
+Nodo1583896486 -> Nodo1120544356;
+Nodo144212805[label="6"  shape=box];
+Nodo468872500[label="9"  shape=box];
+Nodo144212805 -> Nodo468872500;
+Nodo1583896486 -> Nodo144212805;
+}

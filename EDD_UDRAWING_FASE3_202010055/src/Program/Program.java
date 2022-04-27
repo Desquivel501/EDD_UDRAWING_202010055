@@ -3,7 +3,7 @@ package Program;
 import ArbolB.ArbolB;
 import Grafo.Grafo;
 import Lista.Lista;
-import Models.Cliente;
+import Models.*;
 import Models.Mensajero;
 import TablaHash.TablaHash;
 
@@ -14,6 +14,7 @@ public class Program {
     public static boolean hayUsuario = false;
     public static TablaHash tablaMensajeros  = new TablaHash();
     public static Grafo grafoLugares = new Grafo();
+    public static Lista<Entrega> lista_entregas = new Lista<Entrega>();
     
 
     public Program(){

@@ -24,7 +24,10 @@ import Lector.Lector;
 import Lista.Lista;
 import Lista.Nodo;
 import Matriz.MatrizCapa;
+import Models.Entrega;
 import Models.Imagen;
+import Models.Lugar;
+import Models.Mensajero;
 import Program.Program;
 
 
@@ -32,9 +35,9 @@ import Program.Program;
 public class ClienteG extends JFrame implements ActionListener{
 
     JTabbedPane tp;
-    JPanel p1,p2,p3,p4,p5, panelR, panelC, panelA ,verAVL, verABB, verAlbum, verCapa, panelE;
-    JButton cargaCapas,cargaImagenes,cargaAlbumes, regresar, recBtn, imgBtn, ElBtn, capaBtn , verAVLBtn, verABBBtn, verAlbumBtn, verCapaBtn, repTop, repHoja, repProf, repLista, ver1, ver2;
-    JLabel capasLbl, imagenesLbl, albumesLbl, imagen, imagen2, idReclbl, idCaplbl, imagen3;
+    JPanel p1,p2,p3,p4,p5,p6, panelR, panelC, panelA ,verAVL, verABB, verAlbum, verCapa, panelE;
+    JButton cargaCapas,cargaImagenes,cargaAlbumes, regresar, recBtn, imgBtn, ElBtn, capaBtn , verAVLBtn, verABBBtn, verAlbumBtn, verCapaBtn, repTop, repHoja, repProf, repLista, ver1, ver2, ordenarBtn;
+    JLabel capasLbl, imagenesLbl, albumesLbl, imagen, imagen2, idReclbl, idCaplbl, imagen3, sucursalLbl ,mensajeroLbl;
     JSpinner recJT, imgJT, verC, verC2, idRec, idCap, ElJT;
     JTextField capaJT;
     JRadioButton r1,r2,r3, r4;
@@ -42,6 +45,7 @@ public class ClienteG extends JFrame implements ActionListener{
     JScrollPane panelImagen, panelImagen2, panelImagen3;
     JTable tablaImagenes;
     int numeroImagen = -1;
+    JComboBox sucursalCB, mensajeroCB;
 
     public ClienteG(){
         this.setTitle("Cliente");
@@ -50,6 +54,8 @@ public class ClienteG extends JFrame implements ActionListener{
         inicializar();
         setLocationRelativeTo(null);
         this.setVisible(true);
+        getSucursales();
+        getMensajeros();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -74,6 +80,8 @@ public class ClienteG extends JFrame implements ActionListener{
         p4.setLayout(null); 
         p5 = new JPanel();  
         p5.setLayout(null);
+        p6 = new JPanel();  
+        p6.setLayout(null);
 
         capasLbl = new JLabel("Carga Masiva de Capas", SwingConstants.CENTER);
         capasLbl.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
@@ -383,14 +391,41 @@ public class ClienteG extends JFrame implements ActionListener{
         repLista.setBounds(40, 30 , 200, 30);
         repLista.addActionListener(this);
 
-        //------------------------------------------------------------------------------------
-        //------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        sucursalLbl = new JLabel("Sucursal");
+        p5.add(sucursalLbl);
+        sucursalLbl.setBounds(400,100,400,30);
+
+        sucursalCB = new JComboBox<>();
+        p5.add(sucursalCB);
+        sucursalCB.setBounds(400,125,400,40);
+
+        //--------------------------------------------
+
+        mensajeroLbl = new JLabel("Nombre Completo");
+        p5.add(mensajeroLbl);
+        mensajeroLbl.setBounds(400,175,400,30);
+
+        mensajeroCB = new JComboBox<>();
+        p5.add(mensajeroCB);
+        mensajeroCB.setBounds(400,200,400,40);
+
+        //--------------------------------------------
+
+        ordenarBtn= new JButton("Generar");
+        p5.add(ordenarBtn);
+        ordenarBtn.setBounds(500, 260 , 200, 40);
+        ordenarBtn.addActionListener(this);
+
+        
         panelImagen3 = new JScrollPane();
 
         tp.add("Gestion Imagenes",p1); 
         tp.add("Estructuras",p4); 
         tp.add("Carga Masiva",p2);
+        tp.add("Entrega",p5);
         tp.add("Reportes",p3);
         
     }
@@ -434,76 +469,76 @@ public class ClienteG extends JFrame implements ActionListener{
             }
         }
 
-        // if(e.getSource() == cargaImagenes){
-        //     JFileChooser fileChooser = new JFileChooser();
-        //     fileChooser.setPreferredSize( new Dimension(700, 600));
+        if(e.getSource() == cargaImagenes){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setPreferredSize( new Dimension(700, 600));
             
-        //     if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
-        //         File archivo = fileChooser.getSelectedFile();
+            if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
+                File archivo = fileChooser.getSelectedFile();
 
-        //         if(archivo != null){
-        //             Lector lector = new Lector();
-        //             if(!lector.leerImagenes(archivo)){
-        //                 JOptionPane.showMessageDialog(this,
-        //                 "Se han cargado las imagenes.",
-        //                 "Cargado",
-        //                 JOptionPane.INFORMATION_MESSAGE);
-        //                 // Program.loggedUser.getArbolImagenes().insertarCapas( Program.loggedUser.getArbolCapas());
-        //             }
-        //             else{
-        //                 JOptionPane.showMessageDialog(this,
-        //                 "Ha ocurrido un error abriendo el archivo.",
-        //                 "Error",
-        //                 JOptionPane.ERROR_MESSAGE);
-        //             }
-        //         }else{
-        //             JOptionPane.showMessageDialog(this,
-        //             "Ha ocurrido un error abriendo el archivo.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //         }
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se ha seleccionado ningun archivo.",
-        //         "Advertencia",
-        //         JOptionPane.WARNING_MESSAGE);
-        //     }
-        // }
+                if(archivo != null){
+                    Lector lector = new Lector();
+                    if(!lector.leerImagenes(archivo)){
+                        JOptionPane.showMessageDialog(this,
+                        "Se han cargado las imagenes.",
+                        "Cargado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                        // Program.loggedUser.getArbolImagenes().insertarCapas( Program.loggedUser.getArbolCapas());
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error abriendo el archivo.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrido un error abriendo el archivo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha seleccionado ningun archivo.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+            }
+        }
 
-        // if(e.getSource() == cargaAlbumes){
-        //     JFileChooser fileChooser = new JFileChooser();
-        //     fileChooser.setPreferredSize( new Dimension(700, 600));
+        if(e.getSource() == cargaAlbumes){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setPreferredSize( new Dimension(700, 600));
             
-        //     if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
-        //         File archivo = fileChooser.getSelectedFile();
+            if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
+                File archivo = fileChooser.getSelectedFile();
 
-        //         if(archivo != null){
-        //             Lector lector = new Lector();
-        //             if(!lector.leerAlbumes(archivo)){
-        //                 JOptionPane.showMessageDialog(this,
-        //                 "Se han cargado los albumes.",
-        //                 "Cargado",
-        //                 JOptionPane.INFORMATION_MESSAGE);
-        //             }
-        //             else{
-        //                 JOptionPane.showMessageDialog(this,
-        //                 "Ha ocurrido un error abriendo el archivo.",
-        //                 "Error",
-        //                 JOptionPane.ERROR_MESSAGE);
-        //             }
-        //         }else{
-        //             JOptionPane.showMessageDialog(this,
-        //             "Ha ocurrido un error abriendo el archivo.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //         }
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se ha seleccionado ningun archivo.",
-        //         "Advertencia",
-        //         JOptionPane.WARNING_MESSAGE);
-        //     }
-        // }
+                if(archivo != null){
+                    Lector lector = new Lector();
+                    if(!lector.leerAlbumes(archivo)){
+                        JOptionPane.showMessageDialog(this,
+                        "Se han cargado los albumes.",
+                        "Cargado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error abriendo el archivo.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrido un error abriendo el archivo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha seleccionado ningun archivo.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+            }
+        }
 
         if(e.getSource() == regresar){
             new Login();
@@ -512,448 +547,459 @@ public class ClienteG extends JFrame implements ActionListener{
             dispose();
         }
 
-        // if(e.getSource() == recBtn){
-        //     int id = (int) idRec.getValue();
-        //     this.numeroImagen = id;
-        //     int num = (int) recJT.getValue();
-        //     MatrizCapa completa = new MatrizCapa("Completa");
-        //     Imagen nuevaImagen = null;
+        if(e.getSource() == recBtn){
+            int id = (int) idRec.getValue();
+            this.numeroImagen = id;
+            int num = (int) recJT.getValue();
+            MatrizCapa completa = new MatrizCapa("Completa");
+            Imagen nuevaImagen = null;
 
-        //     if(r1.isSelected()){
-        //         completa = Program.loggedUser.getArbolCapas().unirPreOrder(completa, num);
-        //         nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getPreOrder(num));
-        //     }else if(r2.isSelected()){
-        //         completa = Program.loggedUser.getArbolCapas().unirInOrder(completa, num);
-        //         nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getInOrder(num));
-        //     }else if(r3.isSelected()){
-        //         completa = Program.loggedUser.getArbolCapas().unirPostOrder(completa, num);
-        //         nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getPostOrder(num));
-        //     }
+            if(r1.isSelected()){
+                completa = Program.loggedUser.getArbolCapas().unirPreOrder(completa, num);
+                nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getPreOrder(num));
+            }else if(r2.isSelected()){
+                completa = Program.loggedUser.getArbolCapas().unirInOrder(completa, num);
+                nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getInOrder(num));
+            }else if(r3.isSelected()){
+                completa = Program.loggedUser.getArbolCapas().unirPostOrder(completa, num);
+                nuevaImagen = new Imagen(id, Program.loggedUser.getArbolCapas().getPostOrder(num));
+            }
 
-        //     NodoAVL nodo = Program.loggedUser.getArbolImagenes().buscar(id);
-        //     if(nodo == null && nuevaImagen != null){
-        //         Program.loggedUser.getArbolImagenes().insertar(id, nuevaImagen);
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ya existe una imagen con ese ID,\n por lo que no se ha agregado al arbol.",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //     }
+            NodoAVL nodo = Program.loggedUser.getArbolImagenes().buscar(id);
+            if(nodo == null && nuevaImagen != null){
+                Program.loggedUser.getArbolImagenes().insertar(id, nuevaImagen);
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "Ya existe una imagen con ese ID,\n por lo que no se ha agregado al arbol.",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+            }
 
-        //     String nombre = completa.graficarHTML();
-        //     System.out.println(nombre);
-        //     if(nombre.equals("")){
-        //         numeroImagen = -1;
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ha ocurrrido un error al generar la imagen.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     generarImagen(nombre, 0);
-        // }
+            String nombre = completa.graficarHTML();
+            System.out.println(nombre);
+            if(nombre.equals("")){
+                numeroImagen = -1;
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 0);
+        }
 
-        // if(e.getSource() == imgBtn){
+        if(e.getSource() == imgBtn){
 
-        //     int num = (int) imgJT.getValue();
-        //     numeroImagen = num;
-        //     NodoAVL nodo = Program.loggedUser.getArbolImagenes().buscar(num);
+            int num = (int) imgJT.getValue();
+            numeroImagen = num;
+            NodoAVL nodo = Program.loggedUser.getArbolImagenes().buscar(num);
 
-        //     if(nodo != null){
-        //         String nombre = nodo.getImagen().generarImagen();
-        //         if(nombre.equals("")){
-        //             numeroImagen =-1;
-        //             JOptionPane.showMessageDialog(this,
-        //             "Ha ocurrrido un error al generar la imagen.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //             return;
-        //         }
+            if(nodo != null){
+                String nombre = nodo.getImagen().generarImagen();
+                if(nombre.equals("")){
+                    numeroImagen =-1;
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrrido un error al generar la imagen.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-        //         generarImagen(nombre,0);
+                generarImagen(nombre,0);
 
-        //     }else{
-        //         numeroImagen =-1;
-        //         JOptionPane.showMessageDialog(this,
-        //         "No existe una imagen con ese ID.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            }else{
+                numeroImagen =-1;
+                JOptionPane.showMessageDialog(this,
+                "No existe una imagen con ese ID.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        // }
+        }
 
-        // if(e.getSource() == capaBtn){
-        //     int id = (int) idCap.getValue();
-        //     String numString = capaJT.getText().toString();
-        //     Cola<Integer> cola = new Cola<Integer>();
-        //     numeroImagen = id;
+        if(e.getSource() == capaBtn){
+            int id = (int) idCap.getValue();
+            String numString = capaJT.getText().toString();
+            Cola<Integer> cola = new Cola<Integer>();
+            numeroImagen = id;
 
-        //     for(int i = 0; numString.length() > i;i++){
-        //         try{
-        //             int val = Integer.parseInt(numString.split(",")[i].strip());
-        //             cola.enqueue(val);
-        //             System.out.println(val);
-        //         }catch (Exception ex){
+            for(int i = 0; numString.length() > i;i++){
+                try{
+                    int val = Integer.parseInt(numString.split(",")[i].strip());
+                    cola.enqueue(val);
+                    System.out.println(val);
+                }catch (Exception ex){
 
-        //         }
-        //     }
-        //     ArbolBinario nuevoArbol = new ArbolBinario();
-        //     MatrizCapa completa = new MatrizCapa("Completa");
-        //     while(!cola.vacia()){
-        //         MatrizCapa capaActual = Program.loggedUser.getArbolCapas().getCapa(cola.dequeue().getValor());
-        //         if(capaActual != null){
-        //             completa.combinarMatriz(capaActual);
-        //             nuevoArbol.insertar(capaActual.getId(), capaActual);
-        //         }
-        //     }
-        //     Imagen nuevaImagen = new Imagen(id,nuevoArbol);
-        //     NodoAVL nodo = Program.loggedUser.getArbolImagenes().buscar(id);
-        //     if(nodo == null){
-        //         Program.loggedUser.getArbolImagenes().insertar(id, nuevaImagen);
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ya existe una imagen con ese ID,\n por lo que no se ha agregado al arbol.",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //     }
+                }
+            }
+            ArbolBinario nuevoArbol = new ArbolBinario();
+            MatrizCapa completa = new MatrizCapa("Completa");
+            while(!cola.vacia()){
+                MatrizCapa capaActual = Program.loggedUser.getArbolCapas().getCapa(cola.dequeue().getValor());
+                if(capaActual != null){
+                    completa.combinarMatriz(capaActual);
+                    nuevoArbol.insertar(capaActual.getId(), capaActual);
+                }
+            }
+            Imagen nuevaImagen = new Imagen(id,nuevoArbol);
+            NodoAVL nodo = Program.loggedUser.getArbolImagenes().buscar(id);
+            if(nodo == null){
+                Program.loggedUser.getArbolImagenes().insertar(id, nuevaImagen);
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "Ya existe una imagen con ese ID,\n por lo que no se ha agregado al arbol.",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+            }
 
-        //     String nombre = completa.graficarHTML();
-        //     if(nombre.equals("")){
-        //         numeroImagen = -1;
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ha ocurrrido un error al generar la imagen.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     generarImagen(nombre, 0);
+            String nombre = completa.graficarHTML();
+            if(nombre.equals("")){
+                numeroImagen = -1;
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 0);
             
-        // }   
+        }   
         
-        // if(e.getSource() == verAVLBtn){
-        //     var arbol = Program.loggedUser.getArbolImagenes();
+        if(e.getSource() == verAVLBtn){
+            var arbol = Program.loggedUser.getArbolImagenes();
 
-        //     if(arbol.getRaiz() == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se han cargado imagenes",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
+            if(arbol.getRaiz() == null){
+                JOptionPane.showMessageDialog(this,
+                "No se han cargado imagenes",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-        //     String nombre = "";
-        //     if(r4.isSelected()){
-        //         int num = (int) verC.getValue();
-        //         nombre = arbol.graficar(num);
-        //         if(nombre.equals("")){
-        //             JOptionPane.showMessageDialog(this,
-        //             "Ha ocurrrido un error al generar la imagen.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //             return;
-        //         }
-        //     }else{
-        //         nombre = arbol.graficar();
-        //         if(nombre.equals("")){
-        //             JOptionPane.showMessageDialog(this,
-        //             "Ha ocurrrido un error al generar la imagen.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //             return;
-        //         }
-        //     }
+            String nombre = "";
+            if(r4.isSelected()){
+                int num = (int) verC.getValue();
+                nombre = arbol.graficar(num);
+                if(nombre.equals("")){
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrrido un error al generar la imagen.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }else{
+                nombre = arbol.graficar();
+                if(nombre.equals("")){
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrrido un error al generar la imagen.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
      
-        //     generarImagen(nombre,1);
-        // }
+            generarImagen(nombre,1);
+        }
 
-        // if(e.getSource() == verABBBtn){
-        //     var arbol = Program.loggedUser.getArbolCapas();
+        if(e.getSource() == verABBBtn){
+            var arbol = Program.loggedUser.getArbolCapas();
 
-        //     if(arbol.getRaiz() == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se han cargado capas",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
+            if(arbol.getRaiz() == null){
+                JOptionPane.showMessageDialog(this,
+                "No se han cargado capas",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-        //     String nombre = "";
+            String nombre = "";
 
-        //     nombre = arbol.graficar();
-        //     if(nombre.equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ha ocurrrido un error al generar la imagen.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     generarImagen(nombre,1);
-        // }
+            nombre = arbol.graficar();
+            if(nombre.equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre,1);
+        }
 
-        // if(e.getSource() == verAlbumBtn){
-        //     var lista = Program.loggedUser.getListaAlbum();
+        if(e.getSource() == verAlbumBtn){
+            var lista = Program.loggedUser.getListaAlbum();
 
-        //     if(lista.vacia()){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se ha creado nigun album",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
+            if(lista.vacia()){
+                JOptionPane.showMessageDialog(this,
+                "No se ha creado nigun album",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
 
-        //     String nombre = "";
+            String nombre = "";
 
-        //     nombre = lista.graficar();
-        //     if(nombre.equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ha ocurrrido un error al generar la imagen.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     generarImagen(nombre,1);
-        // }
+            nombre = lista.graficar();
+            if(nombre.equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre,1);
+        }
 
-        // if(e.getSource() == verCapaBtn){
-        //     var arbol = Program.loggedUser.getArbolCapas();
+        if(e.getSource() == verCapaBtn){
+            var arbol = Program.loggedUser.getArbolCapas();
 
-        //     if(arbol.getRaiz() == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se han cargado capas",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
+            if(arbol.getRaiz() == null){
+                JOptionPane.showMessageDialog(this,
+                "No se han cargado capas",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-        //     int num = (int) verC2.getValue();
+            int num = (int) verC2.getValue();
 
-        //     var nodo = arbol.buscar(num);
+            var nodo = arbol.buscar(num);
 
-        //     if(nodo != null){
-        //         String nombre = nodo.getCapa().graficar();
-        //         if(nombre.equals("")){
-        //             JOptionPane.showMessageDialog(this,
-        //             "Ha ocurrrido un error al generar la imagen.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //             return;
-        //         }
-        //         generarImagen(nombre,1);
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //             "No existe una capa con ese ID.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //             return;
-        //     }
-        // }
+            if(nodo != null){
+                String nombre = nodo.getCapa().graficar();
+                if(nombre.equals("")){
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrrido un error al generar la imagen.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                generarImagen(nombre,1);
+            }else{
+                JOptionPane.showMessageDialog(this,
+                    "No existe una capa con ese ID.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
+        }
 
-        // if(e.getSource() == ElBtn){
+        if(e.getSource() == ElBtn){
 
-        //     int res = JOptionPane.showConfirmDialog(this,
-        //         "¿Esta segur que desea eliminar esta imagen?",
-        //         "Eliminar",
-        //         JOptionPane.YES_NO_OPTION);
+            int res = JOptionPane.showConfirmDialog(this,
+                "¿Esta segur que desea eliminar esta imagen?",
+                "Eliminar",
+                JOptionPane.YES_NO_OPTION);
             
-        //     if(res == JOptionPane.NO_OPTION){
-        //         return;
-        //     }
+            if(res == JOptionPane.NO_OPTION){
+                return;
+            }
 
-        //     int num = (int) ElJT.getValue();
-        //     NodoAVL nodo = Program.loggedUser.getArbolImagenes().eliminar(num);
+            int num = (int) ElJT.getValue();
+            NodoAVL nodo = Program.loggedUser.getArbolImagenes().eliminar(num);
 
-        //     if(nodo != null){
+            if(nodo != null){
 
-        //         if(num == numeroImagen) imagen.setIcon(null);
-        //         Program.loggedUser.getListaAlbum().eliminar(num);
-        //         numeroImagen = -1;
-        //         JOptionPane.showMessageDialog(this,
-        //         "Se ha eliminado la imagen.",
-        //         "Completado",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
+                if(num == numeroImagen) imagen.setIcon(null);
+                Program.loggedUser.getListaAlbum().eliminar(num);
+                numeroImagen = -1;
+                JOptionPane.showMessageDialog(this,
+                "Se ha eliminado la imagen.",
+                "Completado",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
 
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //         "No existe una imagen con ese ID.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        // }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No existe una imagen con ese ID.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
 
-        // if(e.getSource() == repTop){
-        //     var arbol = Program.loggedUser.getArbolImagenes();
-        //     if(arbol.getRaiz() == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se han cargado imagenes",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
+        if(e.getSource() == repTop){
+            var arbol = Program.loggedUser.getArbolImagenes();
+            if(arbol.getRaiz() == null){
+                JOptionPane.showMessageDialog(this,
+                "No se han cargado imagenes",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-        //     tablaImagenes = new JTable(arbol.topImagenes(), new String[]{"Imagen", "No. Capas"});
+            tablaImagenes = new JTable(arbol.topImagenes(), new String[]{"Imagen", "No. Capas"});
 
-        //     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        //     centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-        //     tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+            tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
 
-        //     panelImagen3.setSize(0, 0);
-        //     panelImagen3 = new JScrollPane(tablaImagenes);
-        //     p3.add(panelImagen3);
-        //     panelImagen3.setBounds(400,200,350,150);
-        //     panelImagen3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            panelImagen3.setSize(0, 0);
+            panelImagen3 = new JScrollPane(tablaImagenes);
+            p3.add(panelImagen3);
+            panelImagen3.setBounds(400,200,350,150);
+            panelImagen3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        // }
+        }
 
-        // if(e.getSource() == repHoja){
-        //     var arbol = Program.loggedUser.getArbolCapas();
-        //     if(arbol.getRaiz() == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se han cargado capas",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
+        if(e.getSource() == repHoja){
+            var arbol = Program.loggedUser.getArbolCapas();
+            if(arbol.getRaiz() == null){
+                JOptionPane.showMessageDialog(this,
+                "No se han cargado capas",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-        //     Lista<NodoABB> lista = arbol.getNodos();
+            Lista<NodoABB> lista = arbol.getNodos();
 
-        //     DefaultTableModel model = new DefaultTableModel();
-        //     model.addColumn("Capas que son Hojas");
-        //     tablaImagenes = new JTable(model);
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Capas que son Hojas");
+            tablaImagenes = new JTable(model);
 
-        //     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        //     centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-        //     tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+            tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
 
-        //     Nodo<NodoABB> aux = lista.getHead();
-        //     while(aux != null){
-        //         if(aux.getValor().isHoja()){
-        //             model.addRow(new Object[]{"Capa " + aux.getValor().getCapa().getId()});
-        //         }
-        //         aux = aux.getSiguiente();
-        //     }
+            Nodo<NodoABB> aux = lista.getHead();
+            while(aux != null){
+                if(aux.getValor().isHoja()){
+                    model.addRow(new Object[]{"Capa " + aux.getValor().getCapa().getId()});
+                }
+                aux = aux.getSiguiente();
+            }
 
-        //     panelImagen3.setSize(0, 0);
-        //     panelImagen3 = new JScrollPane(tablaImagenes);
-        //     p3.add(panelImagen3);
-        //     panelImagen3.setBounds(400,200,350,300);
-        //     panelImagen3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            panelImagen3.setSize(0, 0);
+            panelImagen3 = new JScrollPane(tablaImagenes);
+            p3.add(panelImagen3);
+            panelImagen3.setBounds(400,200,350,300);
+            panelImagen3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             
-        // }
+        }
     
-        // if(e.getSource() == repProf){
-        //     var arbol = Program.loggedUser.getArbolCapas();
+        if(e.getSource() == repProf){
+            var arbol = Program.loggedUser.getArbolCapas();
             
-        //     if(arbol.getRaiz() == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se han cargado capas",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
+            if(arbol.getRaiz() == null){
+                JOptionPane.showMessageDialog(this,
+                "No se han cargado capas",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-        //     tablaImagenes = new JTable(new String[][]{{Integer.toString(arbol.getProfundidad())}},new String[]{"Profundidad"});
+            tablaImagenes = new JTable(new String[][]{{Integer.toString(arbol.getProfundidad())}},new String[]{"Profundidad"});
 
-        //     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        //     centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-        //     tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+            tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
             
-        //     panelImagen3.setSize(0, 0);
-        //     panelImagen3 = new JScrollPane(tablaImagenes);
-        //     p3.add(panelImagen3);
-        //     panelImagen3.setBounds(500,200,150,70);
-        // }
+            panelImagen3.setSize(0, 0);
+            panelImagen3 = new JScrollPane(tablaImagenes);
+            p3.add(panelImagen3);
+            panelImagen3.setBounds(500,200,150,70);
+        }
 
-        // if(e.getSource() == repLista){
-        //     var arbol = Program.loggedUser.getArbolCapas();
-        //     if(arbol.getRaiz() == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se han cargado capas",
-        //         "Error",
-        //         JOptionPane.INFORMATION_MESSAGE);
-        //         return;
-        //     }
-        //     String[][] datos = new String[][]{{"Pre Order", arbol.getPreOrder() },{"In Order", arbol.getInOrder() },{"Post Order", arbol.getPostOrder()}};
-        //     tablaImagenes = new JTable(datos, new String[]{"Tipo Recorrido", "Capas"});
+        if(e.getSource() == repLista){
+            var arbol = Program.loggedUser.getArbolCapas();
+            if(arbol.getRaiz() == null){
+                JOptionPane.showMessageDialog(this,
+                "No se han cargado capas",
+                "Error",
+                JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            String[][] datos = new String[][]{{"Pre Order", arbol.getPreOrder() },{"In Order", arbol.getInOrder() },{"Post Order", arbol.getPostOrder()}};
+            tablaImagenes = new JTable(datos, new String[]{"Tipo Recorrido", "Capas"});
 
-        //     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        //     centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-        //     tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+            tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
 
-        //     panelImagen3.setSize(0, 0);
-        //     panelImagen3 = new JScrollPane(tablaImagenes);
-        //     p3.add(panelImagen3);
-        //     panelImagen3.setBounds(200,200,750,150);
-        //     panelImagen3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            panelImagen3.setSize(0, 0);
+            panelImagen3 = new JScrollPane(tablaImagenes);
+            p3.add(panelImagen3);
+            panelImagen3.setBounds(200,200,750,150);
+            panelImagen3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        // }
+        }
 
-        // if(e.getSource() == ver1){
-        //     int id = (int) idRec.getValue();
-        //     this.numeroImagen = id;
-        //     int num = (int) recJT.getValue();
-        //     MatrizCapa completa = new MatrizCapa("Completa");
+        if(e.getSource() == ver1){
+            int id = (int) idRec.getValue();
+            this.numeroImagen = id;
+            int num = (int) recJT.getValue();
+            MatrizCapa completa = new MatrizCapa("Completa");
 
-        //     if(r1.isSelected()){
-        //         completa = Program.loggedUser.getArbolCapas().unirPreOrder(completa, num);
-        //     }else if(r2.isSelected()){
-        //         completa = Program.loggedUser.getArbolCapas().unirInOrder(completa, num);
-        //     }else if(r3.isSelected()){
-        //         completa = Program.loggedUser.getArbolCapas().unirPostOrder(completa, num);
-        //     }
+            if(r1.isSelected()){
+                completa = Program.loggedUser.getArbolCapas().unirPreOrder(completa, num);
+            }else if(r2.isSelected()){
+                completa = Program.loggedUser.getArbolCapas().unirInOrder(completa, num);
+            }else if(r3.isSelected()){
+                completa = Program.loggedUser.getArbolCapas().unirPostOrder(completa, num);
+            }
 
-        //     String nombre = completa.graficarHTML();
-        //     System.out.println(nombre);
-        //     if(nombre.equals("")){
-        //         numeroImagen = -1;
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ha ocurrrido un error al generar la imagen.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     generarImagen(nombre, 0);
-        // }
+            String nombre = completa.graficarHTML();
+            System.out.println(nombre);
+            if(nombre.equals("")){
+                numeroImagen = -1;
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 0);
+        }
     
-        // if(e.getSource() == ver2){
-        //     int id = (int) idCap.getValue();
-        //     String numString = capaJT.getText().toString();
-        //     Cola<Integer> cola = new Cola<Integer>();
-        //     numeroImagen = id;
+        if(e.getSource() == ver2){
+            int id = (int) idCap.getValue();
+            String numString = capaJT.getText().toString();
+            Cola<Integer> cola = new Cola<Integer>();
+            numeroImagen = id;
 
-        //     for(int i = 0; numString.length() > i;i++){
-        //         try{
-        //             int val = Integer.parseInt(numString.split(",")[i].strip());
-        //             cola.enqueue(val);
-        //             System.out.println(val);
-        //         }catch (Exception ex){
+            for(int i = 0; numString.length() > i;i++){
+                try{
+                    int val = Integer.parseInt(numString.split(",")[i].strip());
+                    cola.enqueue(val);
+                    System.out.println(val);
+                }catch (Exception ex){
 
-        //         }
-        //     }
-        //     ArbolBinario nuevoArbol = new ArbolBinario();
-        //     MatrizCapa completa = new MatrizCapa("Completa");
-        //     while(!cola.vacia()){
-        //         MatrizCapa capaActual = Program.loggedUser.getArbolCapas().getCapa(cola.dequeue().getValor());
-        //         if(capaActual != null){
-        //             completa.combinarMatriz(capaActual);
-        //             nuevoArbol.insertar(capaActual.getId(), capaActual);
-        //         }
-        //     }
-        //     String nombre = completa.graficarHTML();
-        //     if(nombre.equals("")){
-        //         numeroImagen = -1;
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ha ocurrrido un error al generar la imagen.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     generarImagen(nombre, 0);
+                }
+            }
+            ArbolBinario nuevoArbol = new ArbolBinario();
+            MatrizCapa completa = new MatrizCapa("Completa");
+            while(!cola.vacia()){
+                MatrizCapa capaActual = Program.loggedUser.getArbolCapas().getCapa(cola.dequeue().getValor());
+                if(capaActual != null){
+                    completa.combinarMatriz(capaActual);
+                    nuevoArbol.insertar(capaActual.getId(), capaActual);
+                }
+            }
+            String nombre = completa.graficarHTML();
+            if(nombre.equals("")){
+                numeroImagen = -1;
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 0);
             
-        // } 
+        } 
+
+        if(e.getSource() == ordenarBtn){
+            int inicio = Program.loggedUser.getId_municipio();
+            var final_ = (ComboSucursal) sucursalCB.getSelectedItem();
+            int final_id = final_.getValor().getId();
+            var camino = Program.grafoLugares.dijkstra(inicio, final_id);
+            var mensajero = (ComboMensajero) mensajeroCB.getSelectedItem();
+
+            Program.lista_entregas.insertar(new Entrega(inicio, final_id, "fecha", Program.loggedUser, mensajero.getValor(), camino));
+
+        }
     }
 
     private void generarImagen(String nombre, int panel){
@@ -1009,6 +1055,96 @@ public class ClienteG extends JFrame implements ActionListener{
         }catch (Exception ex){
             ex.printStackTrace();
         }
+    }
+    
+    private void getSucursales(){
+        var nodo = Program.grafoLugares.getLugares().getHead();
+        int id = 0;
+        while(nodo != null){
+
+            System.out.println(nodo.getValor());
+            if(nodo.getValor().isSucursal()){
+                sucursalCB.addItem(new ComboSucursal(id, nodo.getValor()));
+                id++;
+            }
+
+
+            nodo = nodo.getSiguiente();
+        }
+    }
+
+    private void getMensajeros(){
+        var lista = Program.tablaMensajeros.getTabla();
+        int id = 0;
+        for(int i = 0; i < lista.length; i++){
+            if(lista[i] != null){
+                mensajeroCB.addItem(new ComboMensajero(id, lista[i]));
+                id++;
+            }
+        }
+    }
+}
+
+class ComboSucursal{
+    private int id;
+    private Lugar valor;
+
+    public ComboSucursal(int id, Lugar valor) {
+        this.id = id;
+        this.valor = valor;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Lugar getValor() {
+        return this.valor;
+    }
+
+    public void setValor(Lugar valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return valor.getNombre();
+    }
+    
+}
+
+class ComboMensajero{
+    private int id;
+    private Mensajero valor;
+
+    public ComboMensajero(int id, Mensajero valor) {
+        this.id = id;
+        this.valor = valor;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Mensajero getValor() {
+        return this.valor;
+    }
+
+    public void setValor(Mensajero valor) {
+        this.valor = valor;
+    }
+
+    @Override
+    public String toString() {
+        return valor.getNombres() + " " + valor.getApellidos();
     }
     
 }

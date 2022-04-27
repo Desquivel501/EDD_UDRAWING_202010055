@@ -47,6 +47,7 @@ public class Lector {
 
         } catch (Exception e) {
             error = true;
+            e.printStackTrace();
         }                
         return error;
     }
@@ -228,7 +229,7 @@ public class Lector {
                 String nombre = (String) objetoLugar.get("nombre");
                 String sn_sucursal = (String) objetoLugar.get("sn_sucursal");
 
-                boolean sucursal = (sn_sucursal == "si") ? true : false;
+                boolean sucursal = (sn_sucursal.equals("si")) ? true : false;
 
                 Lugar nuevo = new Lugar((int) id, departamento, nombre, sucursal);
                 Program.grafoLugares.insertarLugar(nuevo);

@@ -14,6 +14,10 @@ public class TablaHash {
         }
         this.noElementos = 0;
     }
+
+    public Mensajero[] getTabla(){
+        return tabla;
+    }
     
     public static int indice(long llv){
         long v = llv % SIZE;
@@ -21,6 +25,7 @@ public class TablaHash {
     }
 
     public void insertar(Mensajero valor){
+        System.out.println(".");
         int pos = indice(valor.getDpi());
         if(tabla[pos] != null){
             pos = colision(valor.getDpi(), pos);
@@ -28,13 +33,31 @@ public class TablaHash {
         tabla[pos] = valor;
         noElementos++;
 
-        if(noElementos < SIZE*0.75) SIZE *= 2;
+        if(noElementos > SIZE*0.75) resize();
 
     }
 
+    private void resize(){
+        SIZE = SIZE * 2;
+
+        Mensajero aux[] = new Mensajero[SIZE];
+
+        for(int i = 0; i < SIZE; i++){
+            aux[i] = null;
+        }
+
+        for(int i = 0; i < tabla.length; i++){
+            aux[i] = tabla[i];
+        }
+
+        tabla = aux;
+    }
+
     private int colision(long llv, int i){
+        
         while(tabla[i] != null){
-            long l = ((llv % 7) + 1) * i;
+            System.out.println("----------------------");
+            long l = ((llv % 7) + 1) + i;
             i = (int) l % SIZE;
         }
         return i;
@@ -48,6 +71,15 @@ public class TablaHash {
                 // System.out.println(i + " -> null");
             }
         }
+    }
+
+    public Mensajero buscar(long dpi){
+        for(int i = 0; i < tabla.length; i++){
+            if(tabla[i].getDpi().equals(dpi)){
+                return tabla[i];
+            }
+        }
+        return null;
     }
 
 }

@@ -23,7 +23,7 @@ public class Admin extends JFrame implements ActionListener{
 
     JTabbedPane tp, cp;
     JPanel p1,p2,p3 ,c1,c2,c3,r, panelB, panelC, l1 , leerLugar, verLugar;
-    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, actualizarBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen, listaClientes, cargarLugar, cargarRuta, verGrafo, verLista;
+    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, actualizarBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen, listaClientes, cargarLugar, cargarRuta, verGrafo, verLista, nuevoMen, cargaMen;
     JLabel cargaMasiva, buscarLbl, usuarioLabel, passLabel, dpiLbl, buscarLbl2, usuarioLabel2, passLabel2, dpiLbl2, buscarLbl1, usuarioLabel1, passLabel1, dpiLbl1, imagen, imagen2;
     JTextField barraBusqueda, nameJT, passJT, dpiJt, nameJT1, passJT1, dpiJt1, nameJT2, passJT2, dpiJt2, barraBusqueda2, barraBusqueda1;
     JScrollPane panelImagen, panelImagen2;
@@ -31,8 +31,9 @@ public class Admin extends JFrame implements ActionListener{
     ButtonGroup bg;
     JTable tablaImagenes;
 
-    JLabel correoLbl1, nameLbl1, telLbl1, id_munLbl1, dirLbl1, correoLbl2, nameLbl2, telLbl2, id_munLbl2, dirLbl2, correoLbl, nameLbl, telLbl, id_munLbl, dirLbl;
-    JTextField correoJT1, userJT1, telJT1, id_munJT1, dirJT1, correoJT2, userJT2, telJT2, id_munJT2, dirJT2, correoJT, userJT, telJT, id_munJT, dirJT;
+    JLabel correoLbl1, nameLbl1, telLbl1, id_munLbl1, dirLbl1, correoLbl2, nameLbl2, telLbl2, id_munLbl2, dirLbl2, correoLbl, nameLbl, telLbl, id_munLbl, dirLbl, dpiJLbl3,nombreLbl,apellidoLbl,licencialbl,genLbl, telLbl3,dirLbl3;
+    JTextField correoJT1, userJT1, telJT1, id_munJT1, dirJT1, correoJT2, userJT2, telJT2, id_munJT2, dirJT2, correoJT, userJT, telJT, id_munJT, dirJT, dpiJT3, nombreJT, apellidoJT, genJT, dirJT3, telJT3;
+    JComboBox<String> licenciaJT;
     
 
     public Admin(){
@@ -362,11 +363,102 @@ public class Admin extends JFrame implements ActionListener{
         panelImagen2.setBounds(10,75,950,535);
         panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
 
+        //------------------------------------------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        
+        dpiJLbl3 = new JLabel("DPI");
+        c3.add(dpiJLbl3);
+        dpiJLbl3.setBounds(370,75,250,30);
+
+        dpiJT3 = new JTextField();
+        c3.add(dpiJT3);
+        dpiJT3.setBounds(370,100,250,40);
+
+         //------------------------------------------------------------------------------------------------------------------------------------
+
+        nombreLbl = new JLabel("Nombres");
+        c3.add(nombreLbl);
+        nombreLbl.setBounds(225,150,250,30);
+
+        nombreJT = new JTextField();
+        c3.add(nombreJT);
+        nombreJT.setBounds(225,175,250,40);
+
+        //--------------------------------------------
+
+        apellidoLbl = new JLabel("Apellidos");
+        c3.add(apellidoLbl);
+        apellidoLbl.setBounds(500,150,250,30);
+
+        apellidoJT = new JTextField();
+        c3.add(apellidoJT);
+        apellidoJT.setBounds(500,175,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        
+        licencialbl = new JLabel("Tipo Licencia");
+        c3.add(licencialbl);
+        licencialbl.setBounds(225,225,250,30);
+
+        String licencias[]={"A", "B", "C"};    
+        licenciaJT = new JComboBox<>(licencias);
+        c3.add(licenciaJT);
+        licenciaJT.setBounds(225,250,250,40);
+
+         //--------------------------------------------
+
+        genLbl = new JLabel("Genero");
+        c3.add(genLbl);
+        genLbl.setBounds(500,225,250,30);
+
+        genJT = new JTextField();
+        c3.add(genJT);
+        genJT.setBounds(500,250,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        telLbl3 = new JLabel("Telefono");
+        c3.add(telLbl3);
+        telLbl3.setBounds(225,300,250,30);
+
+        telJT3 = new JTextField();
+        c3.add(telJT3);
+        telJT3.setBounds(225,325,250,40);
+
+        //--------------------------------------------
+
+        dirLbl3 = new JLabel("Direccion");
+        c3.add(dirLbl3);
+        dirLbl3.setBounds(500,300,250,30);
+
+        dirJT3 = new JTextField();
+        c3.add(dirJT3);
+        dirJT3.setBounds(500,325,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        nuevoMen = new JButton();
+        c3.add(nuevoMen);
+        nuevoMen.setText("Crear Mensajero");
+        nuevoMen.setBounds(350, 400, 300, 40);
+        nuevoMen.addActionListener(this);
+
+        cargaMen = new JButton("Carga Masiva");
+        c3.add(cargaMen);
+        cargaMen.setBounds(350,460,300,40);
+        cargaMen.addActionListener(this);
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
+
 
         tp.add("Reporte Usuarios",p1); 
         tp.add("Nuevo Usuario",c1); 
         tp.add("Modificar Usuario",c2); 
-        // tp.add("Borrar Usuario",c3);  
+        tp.add("Mensajeros",c3);  
         tp.add("Reportes", r);   
         tp.add("Entregas", l1);  
 
@@ -451,28 +543,6 @@ public class Admin extends JFrame implements ActionListener{
                 return;
             }
         }
-
-        // if(e.getSource() == buscarBtn2){
-        //     if(Program.arbolClientes.vacio()){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No hay clientes ingresados en el sistema.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     Long dpi = Long.parseLong(barraBusqueda2.getText().toString());
-
-        //     var arbolClientes= Program.arbolClientes;
-        //     NodoB encontrado = arbolClientes.buscar(dpi);
-
-        //     if(encontrado != null){
-        //         Cliente cliente = encontrado.getCliente();
-        //         nameJT2.setText(cliente.getNombre());
-        //         dpiJt2.setText(Long.toString(cliente.getDpi()));
-        //         passJT2.setText(cliente.getContraseña());
-        //         this.cliente = cliente;
-        //     }
-        // }
 
         if(e.getSource() == actualizarBtn){
 
@@ -626,122 +696,122 @@ public class Admin extends JFrame implements ActionListener{
 
         }
     
-        // if(e.getSource() == buscarBtn1){
-        //     if(Program.arbolClientes.vacio()){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No hay clientes ingresados en el sistema.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+        if(e.getSource() == buscarBtn1){
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     Long dpi = 0l;
-        //     try{
-        //         dpi = Long.parseLong(barraBusqueda1.getText().toString());
-        //     }catch (NumberFormatException ex){
-        //         JOptionPane.showMessageDialog(this,
-        //         "DPI no valido.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            Long dpi = 0l;
+            try{
+                dpi = Long.parseLong(barraBusqueda1.getText().toString());
+            }catch (NumberFormatException ex){
+                JOptionPane.showMessageDialog(this,
+                "DPI no valido.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     var nodo = Program.arbolClientes.buscar(dpi);
-        //     if(nodo != null){
-        //         var cliente = nodo.getCliente();
-        //         DefaultTableModel model = new DefaultTableModel();
+            var nodo = Program.arbolClientes.buscar(dpi);
+            if(nodo != null){
+                var cliente = nodo.getCliente();
+                DefaultTableModel model = new DefaultTableModel();
 
-        //         model.addColumn("Parametro");
-        //         model.addColumn("Datos");
+                model.addColumn("Parametro");
+                model.addColumn("Datos");
 
-        //         tablaImagenes = new JTable(model);
+                tablaImagenes = new JTable(model);
 
-        //         model.addRow(new Object[]{"Nombre" ,cliente.getNombre()});
-        //         model.addRow(new Object[]{"DPI" ,cliente.getDpi()});
-        //         model.addRow(new Object[]{"Contraseña" ,cliente.getContraseña()});
+                model.addRow(new Object[]{"Nombre" ,cliente.getName()});
+                model.addRow(new Object[]{"DPI" ,cliente.getDpi()});
+                model.addRow(new Object[]{"Contraseña" ,cliente.getPassword()});
                 
-        //         var albumes = cliente.getListaAlbum();
-        //         model.addRow(new Object[]{"Cantidad Albumes" ,albumes.getLargo()});
+                var albumes = cliente.getListaAlbum();
+                model.addRow(new Object[]{"Cantidad Albumes" ,albumes.getLargo()});
 
-        //         if(!albumes.vacia()){
-        //             model.addRow(new Object[]{"Lista Albumes" ,"Imagenes"});
-        //             var nodoAlbum = albumes.getHead();
-        //             while(nodoAlbum != null){
-        //                 var album = nodoAlbum.getAlbum();
-        //                 StringBuilder str = new StringBuilder();
-        //                 var nodoImagen = album.getPrimero();
+                if(!albumes.vacia()){
+                    model.addRow(new Object[]{"Lista Albumes" ,"Imagenes"});
+                    var nodoAlbum = albumes.getHead();
+                    while(nodoAlbum != null){
+                        var album = nodoAlbum.getAlbum();
+                        StringBuilder str = new StringBuilder();
+                        var nodoImagen = album.getPrimero();
                         
-        //                 if(nodoImagen != null){
-        //                     while(nodoImagen != null){
-        //                         str.append("Imagen " + nodoImagen.getImagen().getId() + ", ");
-        //                         nodoImagen = nodoImagen.getSiguiente();
-        //                     }
-        //                     str.deleteCharAt(str.lastIndexOf(","));
-        //                 }
+                        if(nodoImagen != null){
+                            while(nodoImagen != null){
+                                str.append("Imagen " + nodoImagen.getImagen().getId() + ", ");
+                                nodoImagen = nodoImagen.getSiguiente();
+                            }
+                            str.deleteCharAt(str.lastIndexOf(","));
+                        }
 
-        //                 model.addRow(new Object[]{"   -> " + nodoAlbum.getAlbum().getNombre(), str.toString()});
-        //                 nodoAlbum = nodoAlbum.getSiguiente();
-        //             }
-        //         }
+                        model.addRow(new Object[]{"   -> " + nodoAlbum.getAlbum().getNombre(), str.toString()});
+                        nodoAlbum = nodoAlbum.getSiguiente();
+                    }
+                }
 
-        //         model.addRow(new Object[]{"Cantidad Imagenes" ,cliente.getArbolImagenes().noImagenes()});
-        //         model.addRow(new Object[]{"Cantidad Capas" ,cliente.getArbolCapas().largo});
+                model.addRow(new Object[]{"Cantidad Imagenes" ,cliente.getArbolImagenes().noImagenes()});
+                model.addRow(new Object[]{"Cantidad Capas" ,cliente.getArbolCapas().largo});
 
 
-        //         panelImagen2.setSize(0, 0);
-        //         panelImagen2 = new JScrollPane(tablaImagenes);
-        //         r.add(panelImagen2);
-        //         panelImagen2.setBounds(265,130,450,350);
-        //         panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        //         panelImagen2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                panelImagen2.setSize(0, 0);
+                panelImagen2 = new JScrollPane(tablaImagenes);
+                r.add(panelImagen2);
+                panelImagen2.setBounds(265,130,450,350);
+                panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                panelImagen2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se ha encontrado el cliente..",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        // }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha encontrado el cliente..",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
     
-        // if(e.getSource() == listaClientes){
+        if(e.getSource() == listaClientes){
 
-        //     if(Program.arbolClientes.vacio()){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No hay clientes ingresados en el sistema.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     var lista = Program.arbolClientes.recorrer();
-        //     var nodo = lista.getHead();
+            var lista = Program.arbolClientes.recorrer();
+            var nodo = lista.getHead();
 
-        //     DefaultTableModel model = new DefaultTableModel();
-        //     model.addColumn("No.");
-        //     model.addColumn("Nombre");
-        //     model.addColumn("DPI");
-        //     model.addColumn("No. Imagenes");
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("No.");
+            model.addColumn("Nombre");
+            model.addColumn("DPI");
+            model.addColumn("No. Imagenes");
 
-        //     tablaImagenes = new JTable(model);
-        //     int i = 1;
-        //     while(nodo != null){
-        //         Cliente actual = nodo.getValor();
-        //         model.addRow(new Object[]{i,actual.getNombre(), actual.getDpi(),actual.getArbolImagenes().noImagenes()});
-        //         nodo = nodo.getSiguiente();
-        //         i++;
-        //     }
+            tablaImagenes = new JTable(model);
+            int i = 1;
+            while(nodo != null){
+                Cliente actual = nodo.getValor();
+                model.addRow(new Object[]{i,actual.getUsername(), actual.getDpi(),actual.getArbolImagenes().noImagenes()});
+                nodo = nodo.getSiguiente();
+                i++;
+            }
 
-        //     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        //     centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-        //     tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+            tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
 
-        //     panelImagen2.setSize(0, 0);
-        //     panelImagen2 = new JScrollPane(tablaImagenes);
-        //     r.add(panelImagen2);
-        //     panelImagen2.setBounds(200,130,580,400);
-        //     panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        // }
+            panelImagen2.setSize(0, 0);
+            panelImagen2 = new JScrollPane(tablaImagenes);
+            r.add(panelImagen2);
+            panelImagen2.setBounds(200,130,580,400);
+            panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        }
 
         if(e.getSource() == cargarLugar){
             JFileChooser fileChooser = new JFileChooser();
@@ -863,6 +933,72 @@ public class Admin extends JFrame implements ActionListener{
 
         }
 
+        if(e.getSource() == nuevoMen){
+
+            long dpi = -999l;
+            try{
+                dpi = Long.parseLong(dpiJT3.getText().toString());
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(this,
+                "El DPI no es valido.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            var tabla = Program.tablaMensajeros;
+            var busqueda = tabla.buscar(dpi);
+            if(busqueda != null){
+                JOptionPane.showMessageDialog(this,
+                "Ya existe un mensajero con ese DPI.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Mensajero nuevo = new Mensajero(dpi, nombreJT.getText(), apellidoJT.getText(), licenciaJT.getSelectedItem().toString(), genJT.getText(), telJT3.getText(), dirJT3.getText());
+            tabla.insertar(nuevo);
+            JOptionPane.showMessageDialog(this,
+                "Se ha creado el cliente.",
+                "Completado",
+            JOptionPane.INFORMATION_MESSAGE);
+
+        }
+
+        if(e.getSource() == cargaMen){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setPreferredSize( new Dimension(700, 600));
+            
+            if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
+                File archivo = fileChooser.getSelectedFile();
+
+                if(archivo != null){
+                    Lector lector = new Lector();
+                    if(!lector.leerMensajero(archivo)){
+                        JOptionPane.showMessageDialog(this,
+                        "Se han cargado los mensajeros.",
+                        "Cargado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error abriendo el archivo.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrido un error abriendo el archivo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha seleccionado ningun archivo.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }
 
     private void generarImagen(String nombre, int id){

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
+import javax.swing.JOptionPane;
+
 import Cola.ColaP;
 import Lista.*;
 import Models.*;
@@ -15,6 +17,10 @@ public class Grafo {
     public Grafo() {
         listaLugares = new Lista<Lugar>();
         listaRutas = new Lista<Ruta>();
+    }
+
+    public Lista<Lugar> getLugares(){
+        return listaLugares;
     }
 
     public boolean valido(){
@@ -74,10 +80,10 @@ public class Grafo {
     }
 
 
-    public void dijkstra(int inicio, int final_){
+    public Lista_recorrido dijkstra(int inicio, int final_){
 
         // if(buscarLugar(inicio) == null || buscarLugar(final_) == null) return;
-        if(buscarLugar(inicio) == null || buscarLugar(final_) == null)  return;
+        if(buscarLugar(inicio) == null || buscarLugar(final_) == null)  return null;
 
         Dist_ dist = new Dist_();
         Prev prev = new Prev();
@@ -125,16 +131,19 @@ public class Grafo {
 
         if(dist.buscar(final_).dist == Integer.MAX_VALUE || prev.buscar(final_).prev == Integer.MIN_VALUE){
             System.out.println("Nodo destino no pudo ser alcanzado");
-            return;
+            return null;
         }
 
         System.out.println(String.format("largo de %d -> %d = %d",inicio,final_, dist.buscar(final_).dist));
 
         var lugar_c = buscarLugar(final_);
         Lista<Lugar> camino = new Lista<Lugar>();
+        Lista_recorrido lista = new Lista_recorrido();
+        lista.setTiempo(dist.buscar(final_).dist);
 
         while(lugar_c != null){
             camino.insertar_inicio(lugar_c);
+            lista.insertar(lugar_c.getId(), lugar_c.getNombre());
 
             var prev_id = prev.buscar(lugar_c.getId());
             if(prev_id == null) break;
@@ -151,6 +160,12 @@ public class Grafo {
         }
         System.out.println(camino_str);
 
+        JOptionPane.showMessageDialog(null,
+            camino_str,
+            "Ruta Generada",
+            JOptionPane.INFORMATION_MESSAGE);
+
+        return lista;
     }
 
 

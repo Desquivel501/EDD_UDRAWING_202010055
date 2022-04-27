@@ -1,0 +1,29 @@
+digraph G{
+label="Arbol Capas"
+labelloc = "t"
+Nodo1946488536[label="9" shape=ellipse];
+Nodo1852772883[label="8" shape=ellipse];
+Nodo1621760438[label="3" shape=ellipse];
+Nodo28172470[label="1" shape=ellipse];
+Nodo1568820629[label="2" shape=ellipse];
+Nodo28172470 -> Nodo1568820629;
+Nodo1621760438 -> Nodo28172470;
+Nodo1265312700[label="4" shape=ellipse];
+Nodo2075981006[label="6" shape=ellipse];
+Nodo368706399[label="5" shape=ellipse];
+Nodo2075981006 -> Nodo368706399;
+Nodo1524308624[label="7" shape=ellipse];
+Nodo2075981006 -> Nodo1524308624;
+Nodo1265312700 -> Nodo2075981006;
+Nodo1621760438 -> Nodo1265312700;
+Nodo1852772883 -> Nodo1621760438;
+Nodo1946488536 -> Nodo1852772883;
+Nodo1212130484[label="12" shape=ellipse];
+Nodo1421419513[label="10" shape=ellipse];
+Nodo287060682[label="11" shape=ellipse];
+Nodo1421419513 -> Nodo287060682;
+Nodo1212130484 -> Nodo1421419513;
+Nodo328312291[label="13" shape=ellipse];
+Nodo1212130484 -> Nodo328312291;
+Nodo1946488536 -> Nodo1212130484;
+}

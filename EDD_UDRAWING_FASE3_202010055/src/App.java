@@ -5,6 +5,7 @@ import javax.swing.UIManager;
 
 import Cola.ColaP;
 import GUI.Admin;
+import GUI.ClienteG;
 import GUI.Login;
 import Grafo.Grafo;
 import Models.*;
@@ -18,6 +19,8 @@ public class App {
         }
         var nuevo = new Cliente(1234L,"Desquivel","1234","Derek Esquivel" ,"correo" ,"5545652008","direccion",15);
         Program.arbolClientes.insertar(1234L, nuevo);
+        // Program.loggedUser = nuevo;
+        // new ClienteG();
         new Admin();
 
         // Mensajero m1 = new Mensajero();

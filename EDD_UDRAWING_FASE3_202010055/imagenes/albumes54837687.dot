@@ -1,0 +1,35 @@
+digraph G{
+label="Lista Albumes"
+labelloc = "t"
+Nodo934591415[label="Blanco y negro" shape=tab];
+Nodo1917987734[label="Imagen 1" shape=box];
+Nodo934591415 -> Nodo1917987734;
+Nodo1718738793[label="Imagen 2" shape=box];
+Nodo1917987734 -> Nodo1718738793;
+Nodo988682836[label="Mis Imagenes" shape=tab];
+Nodo672495549[label="Imagen 3" shape=box];
+Nodo988682836 -> Nodo672495549;
+Nodo1266218930[label="Imagen 9" shape=box];
+Nodo672495549 -> Nodo1266218930;
+Nodo934591415 -> Nodo988682836;
+Nodo934591415 -> Nodo988682836 [dir=back];
+Nodo597357347[label="Todas" shape=tab];
+Nodo1777099198[label="Imagen 1" shape=box];
+Nodo597357347 -> Nodo1777099198;
+Nodo1783057313[label="Imagen 2" shape=box];
+Nodo1777099198 -> Nodo1783057313;
+Nodo1720644668[label="Imagen 3" shape=box];
+Nodo1783057313 -> Nodo1720644668;
+Nodo318308389[label="Imagen 5" shape=box];
+Nodo1720644668 -> Nodo318308389;
+Nodo412246613[label="Imagen 6" shape=box];
+Nodo318308389 -> Nodo412246613;
+Nodo1213741221[label="Imagen 9" shape=box];
+Nodo412246613 -> Nodo1213741221;
+Nodo988682836 -> Nodo597357347;
+Nodo988682836 -> Nodo597357347 [dir=back];
+Nodo1508252294[label="Vacio" shape=tab];
+Nodo597357347 -> Nodo1508252294;
+Nodo597357347 -> Nodo1508252294 [dir=back];
+{rank=same;Nodo934591415;Nodo988682836;Nodo597357347;Nodo1508252294;}
+}
