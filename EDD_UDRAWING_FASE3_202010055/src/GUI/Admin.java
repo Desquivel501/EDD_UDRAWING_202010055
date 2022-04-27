@@ -30,6 +30,9 @@ public class Admin extends JFrame implements ActionListener{
     JRadioButton r1,r2,r3, r4;
     ButtonGroup bg;
     JTable tablaImagenes;
+
+    JLabel correoLbl1, nameLbl1, telLbl1, id_munLbl1, dirLbl1, correoLbl2, nameLbl2, telLbl2, id_munLbl2, dirLbl2, correoLbl, nameLbl, telLbl, id_munLbl, dirLbl;
+    JTextField correoJT1, userJT1, telJT1, id_munJT1, dirJT1, correoJT2, userJT2, telJT2, id_munJT2, dirJT2, correoJT, userJT, telJT, id_munJT, dirJT;
     
 
     public Admin(){
@@ -70,8 +73,6 @@ public class Admin extends JFrame implements ActionListener{
         l1.setLayout(null); 
 
 
-        //-----------------------------------------------------------
-
         buscarLbl = new JLabel("Buscar Cliente");
         c2.add(buscarLbl);
         buscarLbl.setBounds(260,25,100,15);
@@ -85,151 +86,198 @@ public class Admin extends JFrame implements ActionListener{
         buscarBtn.setBounds(570,40,150,40);
         buscarBtn.addActionListener(this);
 
-        //--------------------------------------------
-
-        usuarioLabel = new JLabel("Nombre de Usuario");
-        c2.add(usuarioLabel);
-        usuarioLabel.setBounds(375,140,250,30);
-
-        nameJT = new JTextField();
-        c2.add(nameJT);
-        nameJT.setBounds(375,165,250,40);
-
-         //--------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------
 
         dpiLbl = new JLabel("DPI");
         c2.add(dpiLbl);
-        dpiLbl.setBounds(375,215,250,30);
+        dpiLbl.setBounds(225,100,250,30);
 
         dpiJt = new JTextField();
         c2.add(dpiJt);
-        dpiJt.setBounds(375,240,250,40);
-        dpiJt.setEnabled(false);
+        dpiJt.setBounds(225,125,250,40);
+        dpiJt.setEditable(false);
+
+        //--------------------------------------------
+
+        nameLbl = new JLabel("Nombre Completo");
+        c2.add(nameLbl);
+        nameLbl.setBounds(500,100,250,30);
+
+        nameJT = new JTextField();
+        c2.add(nameJT);
+        nameJT.setBounds(500,125,250,40);
+
+
+         //------------------------------------------------------------------------------------------------------------------------------------
+
+        usuarioLabel = new JLabel("Nombre de Usuario");
+        c2.add(usuarioLabel);
+        usuarioLabel.setBounds(225,175,250,30);
+
+        userJT = new JTextField();
+        c2.add(userJT);
+        userJT.setBounds(225,200,250,40);
 
         //--------------------------------------------
 
         passLabel = new JLabel("Contraseña");
         c2.add(passLabel);
-        passLabel.setBounds(375,290,250,30);
+        passLabel.setBounds(500,175,250,30);
 
         passJT = new JTextField();
         c2.add(passJT);
-        passJT.setBounds(375,315,250,40);
+        passJT.setBounds(500,200,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        
+        correoLbl = new JLabel("Correo");
+        c2.add(correoLbl);
+        correoLbl.setBounds(225,250,250,30);
+
+        correoJT = new JTextField();
+        c2.add(correoJT);
+        correoJT.setBounds(225,275,250,40);
+
+         //--------------------------------------------
+
+        telLbl = new JLabel("Telefono");
+        c2.add(telLbl);
+        telLbl.setBounds(500,250,250,30);
+
+        telJT = new JTextField();
+        c2.add(telJT);
+        telJT.setBounds(500,275,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        dirLbl = new JLabel("Direccion");
+        c2.add(dirLbl);
+        dirLbl.setBounds(225,325,250,30);
+
+        dirJT = new JTextField();
+        c2.add(dirJT);
+        dirJT.setBounds(225,350,250,40);
 
         //--------------------------------------------
+
+        id_munLbl = new JLabel("Id Municipio");
+        c2.add(id_munLbl);
+        id_munLbl.setBounds(500,325,250,30);
+
+        id_munJT = new JTextField();
+        c2.add(id_munJT);
+        id_munJT.setBounds(500,350,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
 
         actualizarBtn = new JButton();
         c2.add(actualizarBtn);
         actualizarBtn.setText("Actualizar");
-        actualizarBtn.setBounds(375, 400, 250, 40);
+        actualizarBtn.setBounds(350, 420, 300, 40);
         actualizarBtn.addActionListener(this);
 
-        //---------------------------------------------------
-        //---------------------------------------------------
+        //---------------------------------------------------------------------------------------------------------------------------------------------------------
+        //---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        usuarioLabel1 = new JLabel("Nombre de Usuario");
-        c1.add(usuarioLabel1);
-        usuarioLabel1.setBounds(375,100,250,30);
-
-        nameJT1 = new JTextField();
-        c1.add(nameJT1);
-        nameJT1.setBounds(375,125,250,40);
-
-         //--------------------------------------------
 
         dpiLbl1 = new JLabel("DPI");
         c1.add(dpiLbl1);
-        dpiLbl1.setBounds(375,175,250,30);
+        dpiLbl1.setBounds(225,75,250,30);
 
         dpiJt1 = new JTextField();
         c1.add(dpiJt1);
-        dpiJt1.setBounds(375,200,250,40);
+        dpiJt1.setBounds(225,100,250,40);
+
+        //--------------------------------------------
+
+        nameLbl1 = new JLabel("Nombre Completo");
+        c1.add(nameLbl1);
+        nameLbl1.setBounds(500,75,250,30);
+
+        nameJT1 = new JTextField();
+        c1.add(nameJT1);
+        nameJT1.setBounds(500,100,250,40);
+
+
+         //------------------------------------------------------------------------------------------------------------------------------------
+
+        usuarioLabel1 = new JLabel("Nombre de Usuario");
+        c1.add(usuarioLabel1);
+        usuarioLabel1.setBounds(225,150,250,30);
+
+        userJT1 = new JTextField();
+        c1.add(userJT1);
+        userJT1.setBounds(225,175,250,40);
 
         //--------------------------------------------
 
         passLabel1 = new JLabel("Contraseña");
         c1.add(passLabel1);
-        passLabel1.setBounds(375,250,250,30);
+        passLabel1.setBounds(500,150,250,30);
 
         passJT1 = new JTextField();
         c1.add(passJT1);
-        passJT1.setBounds(375,275,250,40);
+        passJT1.setBounds(500,175,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        
+        correoLbl1 = new JLabel("Correo");
+        c1.add(correoLbl1);
+        correoLbl1.setBounds(225,225,250,30);
+
+        correoJT1 = new JTextField();
+        c1.add(correoJT1);
+        correoJT1.setBounds(225,250,250,40);
+
+         //--------------------------------------------
+
+        telLbl1 = new JLabel("Telefono");
+        c1.add(telLbl1);
+        telLbl1.setBounds(500,225,250,30);
+
+        telJT1 = new JTextField();
+        c1.add(telJT1);
+        telJT1.setBounds(500,250,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        dirLbl1 = new JLabel("Direccion");
+        c1.add(dirLbl1);
+        dirLbl1.setBounds(225,300,250,30);
+
+        dirJT1 = new JTextField();
+        c1.add(dirJT1);
+        dirJT1.setBounds(225,325,250,40);
 
         //--------------------------------------------
+
+        id_munLbl1 = new JLabel("Id Municipio");
+        c1.add(id_munLbl1);
+        id_munLbl1.setBounds(500,300,250,30);
+
+        id_munJT1 = new JTextField();
+        c1.add(id_munJT1);
+        id_munJT1.setBounds(500,325,250,40);
+
+        //------------------------------------------------------------------------------------------------------------------------------------
 
         nuevoBtn = new JButton();
         c1.add(nuevoBtn);
         nuevoBtn.setText("Crear Usuario");
-        nuevoBtn.setBounds(375, 335, 250, 40);
+        nuevoBtn.setBounds(350, 400, 300, 40);
         nuevoBtn.addActionListener(this);
 
         cargaCliente = new JButton("Carga Masiva");
         c1.add(cargaCliente);
-        cargaCliente.setBounds(375,390,250,40);
+        cargaCliente.setBounds(350,460,300,40);
         cargaCliente.addActionListener(this);
 
 
-        //------------------------------------------------
-        //-------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-        
-        buscarLbl2 = new JLabel("Buscar Cliente");
-        c3.add(buscarLbl2);
-        buscarLbl2.setBounds(260,25,100,15);
-
-        barraBusqueda2 = new JTextField();
-        c3.add(barraBusqueda2);
-        barraBusqueda2.setBounds(260,40,300,40);
-
-        buscarBtn2 = new JButton("Buscar");
-        c3.add(buscarBtn2);
-        buscarBtn2.setBounds(570,40,150,40);
-        buscarBtn2.addActionListener(this);
-
-        //--------------------------------------------
-
-        usuarioLabel2 = new JLabel("Nombre de Usuario");
-        c3.add(usuarioLabel2);
-        usuarioLabel2.setBounds(375,140,250,30);
-
-        nameJT2 = new JTextField();
-        c3.add(nameJT2);
-        nameJT2.setBounds(375,165,250,40);
-        nameJT2.setEnabled(false);
-
-         //--------------------------------------------
-
-        dpiLbl2 = new JLabel("DPI");
-        c3.add(dpiLbl2);
-        dpiLbl2.setBounds(375,215,250,30);
-
-        dpiJt2 = new JTextField();
-        c3.add(dpiJt2);
-        dpiJt2.setBounds(375,240,250,40);
-        dpiJt2.setEnabled(false);
-
-        //--------------------------------------------
-
-        passLabel2 = new JLabel("Contraseña");
-        c3.add(passLabel2);
-        passLabel2.setBounds(375,290,250,30);
-
-        passJT2 = new JTextField();
-        c3.add(passJT2);
-        passJT2.setBounds(375,315,250,40);
-        passJT2.setEnabled(false);
-
-        //--------------------------------------------
-
-        eliminarBtn = new JButton();
-        c3.add(eliminarBtn);
-        eliminarBtn.setText("Eliminar Usuario");
-        eliminarBtn.setBounds(375, 400, 250, 40);
-        eliminarBtn.addActionListener(this);
-        eliminarBtn.setEnabled(false);
-
-        //--------------------------------------------
-        //--------------------------------------------
 
         generarImagen = new JButton("Generar Imagen");
         p1.add(generarImagen);
@@ -250,9 +298,9 @@ public class Admin extends JFrame implements ActionListener{
         panelB.setBounds(140, 10, 330, 80);
         panelB.setLayout(null);
 
-        barraBusqueda1 = new JTextField();
-        panelB.add(barraBusqueda1);
-        barraBusqueda1.setBounds(10,30,200,30);
+        barraBusqueda2 = new JTextField();
+        panelB.add(barraBusqueda2);
+        barraBusqueda2.setBounds(10,30,200,30);
 
         buscarBtn1 = new JButton("Buscar");
         panelB.add(buscarBtn1);
@@ -318,7 +366,7 @@ public class Admin extends JFrame implements ActionListener{
         tp.add("Reporte Usuarios",p1); 
         tp.add("Nuevo Usuario",c1); 
         tp.add("Modificar Usuario",c2); 
-        tp.add("Borrar Usuario",c3);  
+        // tp.add("Borrar Usuario",c3);  
         tp.add("Reportes", r);   
         tp.add("Entregas", l1);  
 
@@ -327,69 +375,82 @@ public class Admin extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // if(e.getSource() == cargaCliente){
-        //     JFileChooser fileChooser = new JFileChooser();
-        //     fileChooser.setPreferredSize( new Dimension(700, 600));
+        if(e.getSource() == cargaCliente){
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setPreferredSize( new Dimension(700, 600));
             
-        //     if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
-        //         File archivo = fileChooser.getSelectedFile();
+            if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
+                File archivo = fileChooser.getSelectedFile();
 
-        //         if(archivo != null){
-        //             Lector lector = new Lector();
-        //             if(!lector.leerClientes(archivo)){
-        //                 JOptionPane.showMessageDialog(this,
-        //                 "Se han cargado los clientes.",
-        //                 "Cargado",
-        //                 JOptionPane.INFORMATION_MESSAGE);
-        //             }
-        //             else{
-        //                 JOptionPane.showMessageDialog(this,
-        //                 "Ha ocurrido un error abriendo el archivo.",
-        //                 "Error",
-        //                 JOptionPane.ERROR_MESSAGE);
-        //             }
-        //         }else{
-        //             JOptionPane.showMessageDialog(this,
-        //             "Ha ocurrido un error abriendo el archivo.",
-        //             "Error",
-        //             JOptionPane.ERROR_MESSAGE);
-        //         }
-        //     }else{
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se ha seleccionado ningun archivo.",
-        //         "Advertencia",
-        //         JOptionPane.WARNING_MESSAGE);
-        //     }
-        // }
+                if(archivo != null){
+                    Lector lector = new Lector();
+                    if(!lector.leerClientes(archivo)){
+                        JOptionPane.showMessageDialog(this,
+                        "Se han cargado los clientes.",
+                        "Cargado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,
+                        "Ha ocurrido un error abriendo el archivo.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this,
+                    "Ha ocurrido un error abriendo el archivo.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha seleccionado ningun archivo.",
+                "Advertencia",
+                JOptionPane.WARNING_MESSAGE);
+            }
+        }
         
-        // if(e.getSource() == regresar){
-        //     new Login();
-        //     setVisible(false);
-        //     dispose();
-        // }
+        if(e.getSource() == regresar){
+            new Login();
+            setVisible(false);
+            dispose();
+        }
 
-        // if(e.getSource() == buscarBtn){
-        //     if(Program.arbolClientes.vacio()){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No hay clientes ingresados en el sistema.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
-        //     Long dpi = Long.parseLong(barraBusqueda.getText().toString());
+        if(e.getSource() == buscarBtn){
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Long dpi = Long.parseLong(barraBusqueda.getText().toString());
 
-        //     var arbolClientes= Program.arbolClientes;
-        //     NodoB encontrado = arbolClientes.buscar(dpi);
+            var arbolClientes= Program.arbolClientes;
+            NodoB encontrado = arbolClientes.buscar(dpi);
 
-        //     if(encontrado != null){
-        //         Cliente cliente = encontrado.getCliente();
-        //         nameJT.setText(cliente.getNombre());
-        //         dpiJt.setText(Long.toString(cliente.getDpi()));
-        //         passJT.setText(cliente.getContraseña());
-        //         this.cliente = cliente;
+            if(encontrado != null){
+                Cliente cliente = encontrado.getCliente();
+
+                dpiJt.setText(Long.toString(cliente.getDpi()));
+                nameJT.setText(cliente.getName());
+                userJT.setText(cliente.getUsername());
+                correoJT.setText(cliente.getCorreo());
+                passJT.setText(cliente.getPassword());
+                telJT.setText(cliente.getPhone());
+                dirJT.setText(cliente.getAddress());
+                id_munJT.setText(Integer.toString(cliente.getId_municipio()));
+
+                this.cliente = cliente;
                 
-        //     }
-        // }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                "No se ha encontrado el cliente.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
 
         // if(e.getSource() == buscarBtn2){
         //     if(Program.arbolClientes.vacio()){
@@ -413,109 +474,133 @@ public class Admin extends JFrame implements ActionListener{
         //     }
         // }
 
-        // if(e.getSource() == actualizarBtn){
+        if(e.getSource() == actualizarBtn){
 
-        //     if(Program.arbolClientes.vacio()){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No hay clientes ingresados en el sistema.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(Program.arbolClientes.vacio()){
+                JOptionPane.showMessageDialog(this,
+                "No hay clientes ingresados en el sistema.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     if(this.cliente == null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "No se ha seleccionado ningun cliente.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(this.cliente == null){
+                JOptionPane.showMessageDialog(this,
+                "No se ha seleccionado ningun cliente.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     if(nameJT.getText().equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ingrese un nombre.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(nameJT.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese un nombre.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     if(passJT.getText().equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ingrese una contraseña.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(passJT.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese una contraseña.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     this.cliente.setNombre(nameJT.getText().toString());
-        //     this.cliente.setContraseña(passJT.getText().toString());
+            int id_mun = 0;
+            try {
+                id_mun = Integer.parseInt(id_munJT.getText().toString());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                "El ID del municipio debe de ser un numero.",
+                "Completado",
+                JOptionPane.INFORMATION_MESSAGE);
+            }
 
-        //     JOptionPane.showMessageDialog(this,
-        //         "Se ha actualizado el cliente.",
-        //         "Completado",
-        //     JOptionPane.INFORMATION_MESSAGE);
+            this.cliente.setName(nameJT.getText().toString());
+            this.cliente.setPassword(passJT.getText().toString());
+            this.cliente.setUsername(userJT.getText().toString());
+            this.cliente.setCorreo(correoJT.getText().toString());
+            this.cliente.setPhone(telJT.getText().toString());
+            this.cliente.setAddress(dirJT.getText().toString());
+            this.cliente.setId_municipio(id_mun);
+
+            JOptionPane.showMessageDialog(this,
+                "Se ha actualizado el cliente.",
+                "Completado",
+            JOptionPane.INFORMATION_MESSAGE);
             
-        // }
+        }
 
-        // if(e.getSource() == nuevoBtn){
+        if(e.getSource() == nuevoBtn){
 
-        //     if(nameJT1.getText().equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ingrese un nombre.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(nameJT1.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese un nombre.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     if(dpiJt1.getText().equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ingrese un DPI.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(dpiJt1.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese un DPI.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     if(passJT1.getText().equals("")){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ingrese una contraseña.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            if(passJT1.getText().equals("")){
+                JOptionPane.showMessageDialog(this,
+                "Ingrese una contraseña.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     String nombre = nameJT1.getText().toString();
-        //     Long dpi = -999l;
-        //     String pass = passJT1.getText().toString();
+            String username = userJT1.getText().toString();
+            Long dpi = -999l;
+            String password = passJT1.getText().toString();
 
-        //     try{
-        //         dpi = Long.parseLong(dpiJt1.getText().toString());
-        //     }catch (Exception ex){
-        //         JOptionPane.showMessageDialog(this,
-        //         "El DPI no es valido.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            try{
+                dpi = Long.parseLong(dpiJt1.getText().toString());
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(this,
+                "El DPI no es valido.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     var arbol = Program.arbolClientes;
+            var arbol = Program.arbolClientes;
 
-        //     NodoB nodoDPI = arbol.buscar(dpi);
-        //     if(nodoDPI != null){
-        //         JOptionPane.showMessageDialog(this,
-        //         "Ya existe un usuario con ese DPI.",
-        //         "Error",
-        //         JOptionPane.ERROR_MESSAGE);
-        //         return;
-        //     }
+            NodoB nodoDPI = arbol.buscar(dpi);
+            if(nodoDPI != null){
+                JOptionPane.showMessageDialog(this,
+                "Ya existe un usuario con ese DPI.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        //     Cliente nuevo = new Cliente(dpi,nombre,pass);
-        //     arbol.insertar(dpi, nuevo);
-        //     JOptionPane.showMessageDialog(this,
-        //         "Se ha creado el cliente.",
-        //         "Completado",
-        //     JOptionPane.INFORMATION_MESSAGE);
+            NodoB nodoNombre = arbol.buscarNombre(username);
+            if(nodoNombre != null){
+                JOptionPane.showMessageDialog(this,
+                "Ya existe un usuario con ese Username.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        // }
+            Cliente nuevo = new Cliente(dpi, username, password, nameJT1.getText(), correoJT1.getText(), telJT1.getText(), dirJT1.getText(), Integer.parseInt(id_munJT1.getText()));
+            arbol.insertar(dpi, nuevo);
+            JOptionPane.showMessageDialog(this,
+                "Se ha creado el cliente.",
+                "Completado",
+            JOptionPane.INFORMATION_MESSAGE);
+
+        }
         
         if(e.getSource() == generarImagen){
             if(Program.arbolClientes.vacio()){

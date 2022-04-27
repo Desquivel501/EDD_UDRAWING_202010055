@@ -166,44 +166,48 @@ public class Lector {
         return error;
     }
 
-    // public boolean leerClientes(File archivo){
-    //     boolean error = false;
-    //     var arbolClientes = Program.arbolClientes;
+    public boolean leerClientes(File archivo){
+        boolean error = false;
+        var arbolClientes = Program.arbolClientes;
 
-    //     try {
-    //         Reader reader = new FileReader(archivo);
-    //         JSONParser parser = new JSONParser();
-    //         Object obj  = parser.parse(reader);
+        try {
+            Reader reader = new FileReader(archivo);
+            JSONParser parser = new JSONParser();
+            Object obj  = parser.parse(reader);
                     
-    //         JSONArray array = (JSONArray) obj;
+            JSONArray array = (JSONArray) obj;
   
-    //         for(int i = 0; i < array.size(); i++){
+            for(int i = 0; i < array.size(); i++){
 
-    //             JSONObject objetoCliente = (JSONObject) array.get(i);
+                JSONObject objetoCliente = (JSONObject) array.get(i);
                 
-
-    //             String nombre = (String) objetoCliente.get("nombre_cliente");
-    //             String dpi = (String) objetoCliente.get("dpi");
-    //             String pass = (String) objetoCliente.get("password");
+                String dpi = (String) objetoCliente.get("dpi");
+                String nombre_cliente = (String) objetoCliente.get("nombre_cliente");
+                String usuario = (String) objetoCliente.get("usuario");
+                String correo = (String) objetoCliente.get("correo");
+                String password = (String) objetoCliente.get("password");
+                String telefono = (String) objetoCliente.get("telefono");
+                String direccion = (String) objetoCliente.get("direccion");
+                long id_municipio = (long) objetoCliente.get("id_municipio");
                 
-    //             System.out.println(nombre);
+                Cliente actual = new Cliente(Long.parseLong(dpi), usuario, password, nombre_cliente, correo, telefono, direccion, (int) id_municipio);
+                System.out.println(actual);
 
-    //             Cliente actual = new Cliente(Long.parseLong(dpi), nombre, pass);
-
-    //             if(arbolClientes.buscar(Long.parseLong(dpi)) == null){
-    //                 arbolClientes.insertar(Long.parseLong(dpi), actual);
-    //                 Program.hayUsuario = true;
-    //             }else{
-    //                System.out.println("Repetido - " + dpi);
-    //             }   
-    //         }
+                if(arbolClientes.buscar(Long.parseLong(dpi)) == null){
+                    arbolClientes.insertar(Long.parseLong(dpi), actual);
+                    Program.hayUsuario = true;
+                }else{
+                   System.out.println("Repetido - " + dpi);
+                }   
+            }
         
-    //         arbolClientes.graficar();
-    //     } catch (Exception e) {
-    //         error = true;
-    //     }                
-    //     return error;
-    // }
+            arbolClientes.graficar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            error = true;
+        }                
+        return error;
+    }
 
     public boolean leerLugares(File archivo){
         boolean error = false;

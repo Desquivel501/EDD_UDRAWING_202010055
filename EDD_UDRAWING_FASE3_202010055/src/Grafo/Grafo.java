@@ -184,13 +184,13 @@ public class Grafo {
         dot.append("edge[tailclip=false, arrowtail=dot, dir=both, arrowhead=normal]\n");
 
         StringBuilder lista = new StringBuilder();
-        lista.append("lista[label=\"");
+        // lista.append("lista[label=\"");
 
         StringBuilder conexion = new StringBuilder();
 
         var lugar = listaLugares.getHead();
         while(lugar != null){
-            lista.append(String.format("{%d | <f%d>}", lugar.getValor().getId(),lugar.getValor().getId()));
+            dot.append(String.format("nodo%d[label=\"{ %d | <f%d>}\"] ", lugar.getValor().getId(),lugar.getValor().getId(),lugar.getValor().getId()));
             var ruta = listaRutas.getHead();
 
             StringBuilder sub_lista = new StringBuilder();
@@ -216,14 +216,14 @@ public class Grafo {
             sub_lista.append("}\"]\n");
             dot.append(sub_lista);
 
-            conexion.append(String.format("lista:f%d:c -> rutas%d\n", lugar.getValor().getId(),lugar.getValor().getId(),lugar.getValor().getId()));
+            conexion.append(String.format("nodo%d:f%d:c -> rutas%d\n", lugar.getValor().getId(),lugar.getValor().getId(),lugar.getValor().getId()));
 
             if(lugar.getSiguiente() != null){
-                lista.append("|");
+                // lista.append("|");
             }
             lugar = lugar.getSiguiente();
         }
-        lista.append("\"]\n");
+        // lista.append("\"]\n");
         dot.append(lista);
         dot.append(conexion);
         dot.append("}\n");

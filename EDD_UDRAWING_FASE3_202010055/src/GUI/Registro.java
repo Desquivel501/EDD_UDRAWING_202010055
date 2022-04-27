@@ -159,7 +159,7 @@ public class Registro extends JFrame implements ActionListener{
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            Cliente nuevo = new Cliente(dpi, userJT.getText(), new String(password.getPassword()), nombreJT.getText(), correoJT.getText() ,teleJT.getText(), dirJT.getText(), munJT.getText());
+            Cliente nuevo = new Cliente(dpi, userJT.getText(), new String(password.getPassword()), nombreJT.getText(), correoJT.getText() ,teleJT.getText(), dirJT.getText(), Integer.parseInt(munJT.getText()));
             NodoB nodo = Program.arbolClientes.buscar(dpi);
             if(nodo == null){
 

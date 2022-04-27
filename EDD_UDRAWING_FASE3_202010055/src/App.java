@@ -16,7 +16,7 @@ public class App {
         } catch(Exception e){
             System.out.println(e);
         }
-        var nuevo = new Cliente(1234L,"Desquivel","1234","Derek Esquivel" ,"correo" ,"5545652008","direccion","15");
+        var nuevo = new Cliente(1234L,"Desquivel","1234","Derek Esquivel" ,"correo" ,"5545652008","direccion",15);
         Program.arbolClientes.insertar(1234L, nuevo);
         new Admin();
 

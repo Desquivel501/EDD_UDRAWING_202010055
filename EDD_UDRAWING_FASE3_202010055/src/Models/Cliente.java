@@ -15,14 +15,14 @@ public class Cliente implements Comparable<Cliente>{
     private String name;
     private String phone;
     private String address;
-    private String id_municipio;
+    private int id_municipio;
     private String correo;
     private ListaAlbum listaAlbum;
     private AVL arbolImagenes;
     private ArbolBinario arbolCapas;
 
 
-    public Cliente(Long dpi, String username, String password, String name, String correo, String phone, String address, String id_municipio) {
+    public Cliente(Long dpi, String username, String password, String name, String correo, String phone, String address, int id_municipio) {
         this.dpi = dpi;
         this.username = username;
         this.password = password;
@@ -91,11 +91,11 @@ public class Cliente implements Comparable<Cliente>{
         this.address = address;
     }
 
-    public String getId_municipio() {
+    public int getId_municipio() {
         return this.id_municipio;
     }
 
-    public void setId_municipio(String id_municipio) {
+    public void setId_municipio(int id_municipio) {
         this.id_municipio = id_municipio;
     }
 
