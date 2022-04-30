@@ -1,5 +1,7 @@
 package Models;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import ABB.ArbolBinario;
 import AVL.AVL;
 import ListaAlbum.ListaAlbum;
@@ -61,6 +63,10 @@ public class Cliente implements Comparable<Cliente>{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean checkPassword(String password){
+        return BCrypt.checkpw(password, this.password);
     }
 
     public String getName() {

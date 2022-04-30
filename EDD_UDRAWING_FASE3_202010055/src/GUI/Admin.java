@@ -10,6 +10,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import ArbolB.NodoB;
 import Lector.*;
 import Models.*;
@@ -662,8 +665,9 @@ public class Admin extends JFrame implements ActionListener{
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            String hashedPass = BCrypt.hashpw(password, BCrypt.gensalt(10));
 
-            Cliente nuevo = new Cliente(dpi, username, password, nameJT1.getText(), correoJT1.getText(), telJT1.getText(), dirJT1.getText(), Integer.parseInt(id_munJT1.getText()));
+            Cliente nuevo = new Cliente(dpi, username, hashedPass, nameJT1.getText(), correoJT1.getText(), telJT1.getText(), dirJT1.getText(), Integer.parseInt(id_munJT1.getText()));
             arbol.insertar(dpi, nuevo);
             JOptionPane.showMessageDialog(this,
                 "Se ha creado el cliente.",

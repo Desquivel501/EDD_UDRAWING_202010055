@@ -1,6 +1,9 @@
 package GUI;
 
 import javax.swing.*;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import ArbolB.NodoB;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -82,9 +85,11 @@ public class Login extends JFrame implements ActionListener{
                 return;
             }
             var arbolClientes= Program.arbolClientes;
+
             NodoB encontrado = arbolClientes.buscarNombre(usuario);
+
             if(encontrado != null){
-                if(encontrado.getCliente().getPassword().equals(new String(password.getPassword()))){
+                if(encontrado.getCliente().checkPassword(pass)){
                     Program.loggedUser = encontrado.getCliente();
                     new ClienteG();
                     setVisible(false);

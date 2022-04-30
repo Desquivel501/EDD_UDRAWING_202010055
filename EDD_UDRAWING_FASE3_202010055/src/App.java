@@ -3,6 +3,8 @@ import Program.Program;
 import TablaHash.TablaHash;
 import javax.swing.UIManager;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import Cola.ColaP;
 import GUI.Admin;
 import GUI.ClienteG;
@@ -17,11 +19,13 @@ public class App {
         } catch(Exception e){
             System.out.println(e);
         }
-        var nuevo = new Cliente(1234L,"Desquivel","1234","Derek Esquivel" ,"correo" ,"5545652008","direccion",15);
+        String hashedPass = BCrypt.hashpw("1234", BCrypt.gensalt(10));
+        var nuevo = new Cliente(1234L,"Desquivel",hashedPass,"Derek Esquivel" ,"correo" ,"5545652008","direccion",15);
         Program.arbolClientes.insertar(1234L, nuevo);
         // Program.loggedUser = nuevo;
         // new ClienteG();
-        new Admin();
+        // new Admin();
+        new Login();
 
         // Mensajero m1 = new Mensajero();
         // m1.setNombres("1");

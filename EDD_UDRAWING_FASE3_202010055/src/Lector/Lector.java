@@ -7,6 +7,7 @@ import java.io.Reader;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import ABB.*;
 import AVL.*;
@@ -190,8 +191,10 @@ public class Lector {
                 String telefono = (String) objetoCliente.get("telefono");
                 String direccion = (String) objetoCliente.get("direccion");
                 long id_municipio = (long) objetoCliente.get("id_municipio");
+
+                String hashedPass = BCrypt.hashpw(password, BCrypt.gensalt(10));
                 
-                Cliente actual = new Cliente(Long.parseLong(dpi), usuario, password, nombre_cliente, correo, telefono, direccion, (int) id_municipio);
+                Cliente actual = new Cliente(Long.parseLong(dpi), usuario, hashedPass, nombre_cliente, correo, telefono, direccion, (int) id_municipio);
                 System.out.println(actual);
 
                 if(arbolClientes.buscar(Long.parseLong(dpi)) == null){
