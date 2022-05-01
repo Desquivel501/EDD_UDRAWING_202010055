@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import ABB.ArbolBinario;
 import AVL.AVL;
+import Lista.Lista;
 import ListaAlbum.ListaAlbum;
 
 // import ABB.*;
@@ -22,6 +23,7 @@ public class Cliente implements Comparable<Cliente>{
     private ListaAlbum listaAlbum;
     private AVL arbolImagenes;
     private ArbolBinario arbolCapas;
+    public Lista<Entrega> lista_entregas = new Lista<Entrega>();
 
 
     public Cliente(Long dpi, String username, String password, String name, String correo, String phone, String address, int id_municipio) {

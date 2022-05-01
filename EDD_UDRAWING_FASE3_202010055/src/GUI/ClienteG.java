@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -36,7 +39,7 @@ public class ClienteG extends JFrame implements ActionListener{
 
     JTabbedPane tp;
     JPanel p1,p2,p3,p4,p5,p6, panelR, panelC, panelA ,verAVL, verABB, verAlbum, verCapa, panelE;
-    JButton cargaCapas,cargaImagenes,cargaAlbumes, regresar, recBtn, imgBtn, ElBtn, capaBtn , verAVLBtn, verABBBtn, verAlbumBtn, verCapaBtn, repTop, repHoja, repProf, repLista, ver1, ver2, ordenarBtn;
+    JButton cargaCapas,cargaImagenes,cargaAlbumes, regresar, recBtn, imgBtn, ElBtn, capaBtn , verAVLBtn, verABBBtn, verAlbumBtn, verCapaBtn, repTop, repHoja, repProf, repLista, ver1, ver2, ordenarBtn, agregarBtn;
     JLabel capasLbl, imagenesLbl, albumesLbl, imagen, imagen2, idReclbl, idCaplbl, imagen3, sucursalLbl ,mensajeroLbl;
     JSpinner recJT, imgJT, verC, verC2, idRec, idCap, ElJT;
     JTextField capaJT;
@@ -45,7 +48,7 @@ public class ClienteG extends JFrame implements ActionListener{
     JScrollPane panelImagen, panelImagen2, panelImagen3;
     JTable tablaImagenes;
     int numeroImagen = -1;
-    JComboBox sucursalCB, mensajeroCB;
+    JComboBox sucursalCB, mensajeroCB, listaImagen;
 
     public ClienteG(){
         this.setTitle("Cliente");
@@ -56,6 +59,7 @@ public class ClienteG extends JFrame implements ActionListener{
         this.setVisible(true);
         getSucursales();
         getMensajeros();
+        getImagenes();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -394,29 +398,46 @@ public class ClienteG extends JFrame implements ActionListener{
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        sucursalLbl = new JLabel("Sucursal");
+        sucursalLbl = new JLabel("Imagen");
         p5.add(sucursalLbl);
         sucursalLbl.setBounds(400,100,400,30);
 
+        listaImagen = new JComboBox<>();
+        p5.add(listaImagen);
+        listaImagen.setBounds(400,125,400,40);
+
+        //--------------------------------------------
+
+        sucursalLbl = new JLabel("Sucursal");
+        p5.add(sucursalLbl);
+        sucursalLbl.setBounds(400,175,400,30);
+
         sucursalCB = new JComboBox<>();
         p5.add(sucursalCB);
-        sucursalCB.setBounds(400,125,400,40);
+        sucursalCB.setBounds(400,200,400,40);
 
         //--------------------------------------------
 
         mensajeroLbl = new JLabel("Nombre Completo");
         p5.add(mensajeroLbl);
-        mensajeroLbl.setBounds(400,175,400,30);
+        mensajeroLbl.setBounds(400,250,400,30);
 
         mensajeroCB = new JComboBox<>();
         p5.add(mensajeroCB);
-        mensajeroCB.setBounds(400,200,400,40);
+        mensajeroCB.setBounds(400,275,400,40);
+
+        //--------------------------------------------
+
+        agregarBtn= new JButton("Agregar");
+        p5.add(agregarBtn);
+        agregarBtn.setBounds(450, 335 , 300, 40);
+        agregarBtn.addActionListener(this);
 
         //--------------------------------------------
 
         ordenarBtn= new JButton("Generar");
         p5.add(ordenarBtn);
-        ordenarBtn.setBounds(500, 260 , 200, 40);
+        ordenarBtn.setBounds(450, 395 , 300, 40);
         ordenarBtn.addActionListener(this);
 
         
@@ -484,6 +505,7 @@ public class ClienteG extends JFrame implements ActionListener{
                         "Cargado",
                         JOptionPane.INFORMATION_MESSAGE);
                         // Program.loggedUser.getArbolImagenes().insertarCapas( Program.loggedUser.getArbolCapas());
+                        getImagenes();
                     }
                     else{
                         JOptionPane.showMessageDialog(this,
@@ -503,6 +525,7 @@ public class ClienteG extends JFrame implements ActionListener{
                 "Advertencia",
                 JOptionPane.WARNING_MESSAGE);
             }
+
         }
 
         if(e.getSource() == cargaAlbumes){
@@ -990,16 +1013,25 @@ public class ClienteG extends JFrame implements ActionListener{
             
         } 
 
-        if(e.getSource() == ordenarBtn){
+        if(e.getSource() == agregarBtn){
             int inicio = Program.loggedUser.getId_municipio();
             var final_ = (ComboSucursal) sucursalCB.getSelectedItem();
             int final_id = final_.getValor().getId();
             var camino = Program.grafoLugares.dijkstra(inicio, final_id);
             var mensajero = (ComboMensajero) mensajeroCB.getSelectedItem();
+            LocalDateTime fecha = LocalDateTime.now();
+            String fecha_f = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
 
-            Program.lista_entregas.insertar(new Entrega(inicio, final_id, "fecha", Program.loggedUser, mensajero.getValor(), camino));
+            Program.lista_entregas.insertar(new Entrega(inicio, final_id, fecha_f, Program.loggedUser, mensajero.getValor(), camino));
 
         }
+
+        if(e.getSource() == ordenarBtn){
+            Program.arbolMerkle.generarArbol();
+            Program.arbolMerkle.graficar();
+        }
+
+
     }
 
     private void generarImagen(String nombre, int panel){
@@ -1081,6 +1113,15 @@ public class ClienteG extends JFrame implements ActionListener{
                 mensajeroCB.addItem(new ComboMensajero(id, lista[i]));
                 id++;
             }
+        }
+    }
+
+    private void getImagenes(){
+        Lista<Imagen> lista = Program.loggedUser.getArbolImagenes().recorrer();
+        var aux = lista.getHead();
+        while(aux != null){
+            listaImagen.addItem("Imagen " + aux.getValor().getId());
+            aux = aux.getSiguiente();
         }
     }
 }

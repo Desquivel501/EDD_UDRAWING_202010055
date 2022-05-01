@@ -300,4 +300,20 @@ public class AVL {
         return data;
     }
 
+    public Lista<Imagen> recorrer(){
+        Lista<Imagen> listaRecorrido = new Lista<>();
+        listaRecorrido = recorrerR(this.raiz, listaRecorrido);
+        return listaRecorrido;
+    }
+
+    private Lista<Imagen> recorrerR(NodoAVL actual , Lista<Imagen> listaRecorrido){
+        if(actual == null){
+            return listaRecorrido;
+        }
+        listaRecorrido.insertar(actual.getImagen());
+        listaRecorrido = recorrerR(actual.izquierda, listaRecorrido);
+        listaRecorrido = recorrerR(actual.derecha, listaRecorrido);
+        return listaRecorrido;
+    }
+
 }

@@ -1,6 +1,0 @@
-digraph G {
-node[shape=record]
-label="Arbol Clientes"
-labelloc = "t"
-nodo986219429[label="<p0>|1234|<p1>"]
-}

@@ -1,6 +1,5 @@
 package Models;
 
-import Lista.Lista;
 import Lista.Lista_recorrido;
 
 public class Entrega implements Comparable<Entrega>{
@@ -67,6 +66,10 @@ public class Entrega implements Comparable<Entrega>{
 
     public void setCamino(Lista_recorrido camino) {
         this.camino = camino;
+    }
+
+    public String getDatos(){
+        return id_inicio + fecha + id_destino + cliente.getDpi() + mensajero.getDpi() + camino.imprimir();
     }
 
     @Override

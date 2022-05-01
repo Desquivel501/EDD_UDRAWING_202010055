@@ -40,6 +40,7 @@ public class Lista<E extends Comparable<E>>{
         if (this.head == null){
             this.head = nuevo;
             this.tail = nuevo;
+            this.largo++;
             return;
         }
 
@@ -53,6 +54,7 @@ public class Lista<E extends Comparable<E>>{
         if (this.head == null){
             this.head = nuevo;
             this.tail = nuevo;
+            this.largo++;
             return;
         }
         nuevo.setSiguiente(this.head);
@@ -76,6 +78,19 @@ public class Lista<E extends Comparable<E>>{
             maximo.setValor(temp);
             aux = aux.getSiguiente();
         }
+    }
+
+    public E get(int indice){
+        Nodo<E> aux = this.head;
+        int cont = 0;
+        while(aux != null){
+            if(cont == indice){
+                return aux.getValor();
+            }
+            cont++;
+            aux = aux.getSiguiente();
+        }
+        return null;
     }
 
 }

@@ -22,10 +22,10 @@ public class App {
         String hashedPass = BCrypt.hashpw("1234", BCrypt.gensalt(10));
         var nuevo = new Cliente(1234L,"Desquivel",hashedPass,"Derek Esquivel" ,"correo" ,"5545652008","direccion",15);
         Program.arbolClientes.insertar(1234L, nuevo);
-        // Program.loggedUser = nuevo;
-        // new ClienteG();
+        Program.loggedUser = nuevo;
+        new ClienteG();
         // new Admin();
-        new Login();
+        // new Login();
 
         // Mensajero m1 = new Mensajero();
         // m1.setNombres("1");

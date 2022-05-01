@@ -30,9 +30,9 @@ public class Lista_recorrido{
         return this.largo;
     }
 
-    public void imprimir(){
+    public String imprimir(){
+        String cadena = "";
         if (!vacia()){
-            String cadena = "";
             NodoR aux = this.head;
             while(aux != null){
                 cadena += aux + "\n";
@@ -40,6 +40,7 @@ public class Lista_recorrido{
             }
             System.out.println(cadena);
         }
+        return cadena;
     }
 
     public void insertar(int id_lugar, String nombre){
