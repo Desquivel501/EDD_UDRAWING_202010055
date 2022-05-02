@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import ABB.ArbolBinario;
 import ABB.NodoABB;
 import AVL.NodoAVL;
+import Blockchain.Bloque;
 import Cola.Cola;
 import Lector.Lector;
 import Lista.Lista;
@@ -1015,22 +1016,28 @@ public class ClienteG extends JFrame implements ActionListener{
 
         if(e.getSource() == agregarBtn){
             int inicio = Program.loggedUser.getId_municipio();
+            String inicioN = Program.grafoLugares.buscarLugar(inicio).getNombre();
+
+
             var final_ = (ComboSucursal) sucursalCB.getSelectedItem();
             int final_id = final_.getValor().getId();
-            var camino = Program.grafoLugares.dijkstra(inicio, final_id);
+            String finalN = final_.getValor().getNombre();
+            
             var mensajero = (ComboMensajero) mensajeroCB.getSelectedItem();
-            LocalDateTime fecha = LocalDateTime.now();
-            String fecha_f = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+            String mensajeroN = mensajero.getValor().getNombres() + " " + mensajero.getValor().getApellidos();
 
-            Program.lista_entregas.insertar(new Entrega(inicio, final_id, fecha_f, Program.loggedUser, mensajero.getValor(), camino));
+            LocalDateTime fecha = LocalDateTime.now();
+            String fecha_f = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy::HH:mm:ss"));
+
+            Program.grafoLugares.dijkstra(inicio, final_id);
+            
+            Program.lista_entregas.insertar(new Entrega(inicioN, finalN, fecha_f, Program.loggedUser.getName(),mensajeroN));
 
         }
 
         if(e.getSource() == ordenarBtn){
-            Program.arbolMerkle.generarArbol();
-            Program.arbolMerkle.graficar();
+            Program.crearBloque();
         }
-
 
     }
 
@@ -1124,6 +1131,8 @@ public class ClienteG extends JFrame implements ActionListener{
             aux = aux.getSiguiente();
         }
     }
+
+
 }
 
 class ComboSucursal{

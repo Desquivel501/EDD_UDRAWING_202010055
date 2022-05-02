@@ -54,6 +54,7 @@ public class NodoMerkle implements Comparable<NodoMerkle> {
     public int compareTo(NodoMerkle o) {
         return 0;
     }
+    
 
     public StringBuilder graficar(StringBuilder dot){
         int idPadre = this.hashCode();
@@ -70,4 +71,5 @@ public class NodoMerkle implements Comparable<NodoMerkle> {
         }
         return dot;
     }
+
 }

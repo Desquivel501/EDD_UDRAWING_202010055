@@ -34,7 +34,6 @@ public class ArbolMerkle {
         }
 
         Lista<NodoMerkle> padres = new Lista<>();
-
         while(nodos.getLargo() != 1){
             int contador = 0;
             int largo = nodos.getLargo();

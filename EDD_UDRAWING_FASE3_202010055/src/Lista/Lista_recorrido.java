@@ -54,4 +54,19 @@ public class Lista_recorrido{
         this.largo++;
     }
 
+    @Override
+    public String toString() {
+        String cadena = "";
+        if (!vacia()){
+            NodoR aux = this.head;
+            while(aux != null){
+                cadena += aux;
+                if(aux.getSiguiente() != null) cadena += ", ";
+                aux = aux.getSiguiente();
+            }
+            System.out.println(cadena);
+        }
+        return cadena;
+    }
+
 }

@@ -1,80 +1,73 @@
 package Models;
 
 import Lista.Lista_recorrido;
+import Program.Program;
 
 public class Entrega implements Comparable<Entrega>{
-    private int id_inicio;
-    private int id_destino;
-    private String fecha;
-    private Cliente cliente;
-    private Mensajero mensajero;
-    private Lista_recorrido camino;
+    private String sede;
+    private String destino;
+    private String datetime;
+    private String cliente;
+    private String mensajero;
 
 
-    public Entrega(int id_inicio, int id_destino, String fecha, Cliente cliente, Mensajero mensajero, Lista_recorrido camino) {
-        this.id_inicio = id_inicio;
-        this.id_destino = id_destino;
-        this.fecha = fecha;
+    public Entrega() {
+    }
+
+    public Entrega(String sede, String destino, String datetime, String cliente, String mensajero) {
+        this.sede = sede;
+        this.destino = destino;
+        this.datetime = datetime;
         this.cliente = cliente;
         this.mensajero = mensajero;
-        this.camino = camino;
     }
 
-    public int getId_inicio() {
-        return this.id_inicio;
+    public String getSede() {
+        return this.sede;
     }
 
-    public void setId_inicio(int id_inicio) {
-        this.id_inicio = id_inicio;
+    public void setSede(String sede) {
+        this.sede = sede;
     }
 
-    public int getId_destino() {
-        return this.id_destino;
+    public String getDestino() {
+        return this.destino;
     }
 
-    public void setId_destino(int id_destino) {
-        this.id_destino = id_destino;
+    public void setDestino(String destino) {
+        this.destino = destino;
     }
 
-    public String getFecha() {
-        return this.fecha;
+    public String getDatetime() {
+        return this.datetime;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
-    public Cliente getCliente() {
+    public String getCliente() {
         return this.cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(String cliente) {
         this.cliente = cliente;
     }
 
-    public Mensajero getMensajero() {
+    public String getMensajero() {
         return this.mensajero;
     }
 
-    public void setMensajero(Mensajero mensajero) {
+    public void setMensajero(String mensajero) {
         this.mensajero = mensajero;
     }
 
-    public Lista_recorrido getCamino() {
-        return this.camino;
-    }
-
-    public void setCamino(Lista_recorrido camino) {
-        this.camino = camino;
-    }
-
     public String getDatos(){
-        return id_inicio + fecha + id_destino + cliente.getDpi() + mensajero.getDpi() + camino.imprimir();
+        return sede + destino + datetime + cliente + mensajero;
     }
 
     @Override
     public int compareTo(Entrega o) {
-        // TODO Auto-generated method stub
         return 0;
     }
 

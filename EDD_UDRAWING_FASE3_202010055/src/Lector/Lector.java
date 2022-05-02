@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import ABB.*;
 import AVL.*;
+import Blockchain.Bloque;
+import Lista.Lista;
 import Matriz.*;
 import Models.*;
 import Program.*;
@@ -272,6 +274,53 @@ public class Lector {
             error = true;
         }                
         return error;
+    }
+
+    public static void leerBloques(){
+        File folder = new File("C:\\udrawing\\blockchain\\Bloques\\");
+        File[] listOfFiles = folder.listFiles();
+
+        for (File file : listOfFiles) {
+            if (file.isFile()) {
+                try {
+                    Reader reader = new FileReader(file);
+                    JSONParser parser = new JSONParser();
+                    JSONObject obj  = (JSONObject) parser.parse(reader);
+
+                    long INDEX = (long) obj.get("INDEX");
+                    String TIMESTAMP = (String) obj.get("TIMESTAMP");
+                    String ROOTMERKLE = (String) obj.get("ROOTMERKLE");
+                    String PREVIOUSHASH = (String) obj.get("PREVIOUSHASH");
+                    long NONCE = (long) obj.get("NONCE");
+                    String HASH = (String) obj.get("HASH");
+
+                    JSONArray array = (JSONArray) obj.get("DATA");
+                    Lista<Entrega> DATA  = new Lista<>();
+        
+                    for(int i = 0; i < array.size(); i++){
+
+                        JSONObject objetoData = (JSONObject) array.get(i);
+                        
+                        String cliente = (String) objetoData.get("ROOTMERKLE");
+                        String mensajero = (String) objetoData.get("mensajero");
+                        String datetime = (String) objetoData.get("datetime");
+                        String sede = (String) objetoData.get("sede");
+                        String destino = (String) objetoData.get("destino");
+
+                        DATA.insertar(new Entrega(sede, destino, datetime, cliente, mensajero));
+                    }
+                    Program.lista_bloques.insertar(new Bloque((int)INDEX, TIMESTAMP, (int)NONCE, DATA, PREVIOUSHASH, ROOTMERKLE, HASH));
+                    Program.PREVIOUSHASH = HASH;
+                    Program.INDEX = (int)INDEX +1;
+        
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }           
+            }
+        }
+
+
     }
 
 }

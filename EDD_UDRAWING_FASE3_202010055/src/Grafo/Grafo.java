@@ -149,7 +149,7 @@ public class Grafo {
             if(prev_id == null) break;
             lugar_c = buscarLugar(prev_id.prev);
         }
-        
+       String titulo = String.format("Ruta de %d -> %d",inicio,final_);
         
         var aux = camino.getHead();
         StringBuilder camino_str = new StringBuilder();
@@ -158,11 +158,13 @@ public class Grafo {
             if(aux.getSiguiente() != null) camino_str.append("->");
             aux = aux.getSiguiente();
         }
+        
+        camino_str.append(String.format("\nTiempo utilizado: %d minutos",dist.buscar(final_).dist));
         System.out.println(camino_str);
 
         JOptionPane.showMessageDialog(null,
             camino_str,
-            "Ruta Generada",
+            titulo,
             JOptionPane.INFORMATION_MESSAGE);
 
         return lista;
