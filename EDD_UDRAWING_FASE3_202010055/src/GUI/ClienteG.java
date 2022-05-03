@@ -1029,9 +1029,13 @@ public class ClienteG extends JFrame implements ActionListener{
             LocalDateTime fecha = LocalDateTime.now();
             String fecha_f = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy::HH:mm:ss"));
 
-            Program.grafoLugares.dijkstra(inicio, final_id);
+            var ruta = Program.grafoLugares.dijkstra(inicio, final_id);
+
+            Entrega nueva = new Entrega(inicioN, finalN, fecha_f, Program.loggedUser.getName(),mensajeroN);
+            nueva.setDistancia(ruta.getTiempo());
             
-            Program.lista_entregas.insertar(new Entrega(inicioN, finalN, fecha_f, Program.loggedUser.getName(),mensajeroN));
+            Program.lista_entregas.insertar(nueva);
+            Program.lista_entregas_completa.insertar(nueva);
 
         }
 

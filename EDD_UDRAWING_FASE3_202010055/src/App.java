@@ -26,6 +26,7 @@ public class App {
             System.out.println(e);
         }
         Lector.leerBloques();
+        Program.graficarBloques();
         
         String hashedPass = BCrypt.hashpw("1234", BCrypt.gensalt(10));
         var nuevo = new Cliente(1234L,"Desquivel",hashedPass,"Derek Esquivel" ,"correo" ,"5545652008","direccion",15);

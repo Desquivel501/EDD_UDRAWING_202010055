@@ -47,6 +47,17 @@ public class Grafo {
         return null;
     }
 
+    public Lugar buscarLugar(String nombre){
+        Nodo<Lugar> aux = listaLugares.getHead();
+        while(aux != null){
+            if(aux.getValor().getNombre().equals(nombre)){
+                return aux.getValor();
+            }
+            aux = aux.getSiguiente();
+        }
+        return null;
+    }
+
     public void insertarRuta(int id_inicio, int id_final, int peso){
         Lugar inicio = buscarLugar(id_inicio);
         Lugar final_ = buscarLugar(id_final);
@@ -169,7 +180,6 @@ public class Grafo {
 
         return lista;
     }
-
 
 
     public String graficarGrafo(){

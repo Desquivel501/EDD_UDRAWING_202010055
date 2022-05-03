@@ -77,112 +77,112 @@ public class Admin extends JFrame implements ActionListener{
         l1.setLayout(null); 
 
 
-        buscarLbl = new JLabel("Buscar Cliente");
-        c2.add(buscarLbl);
-        buscarLbl.setBounds(260,25,100,15);
+        // buscarLbl = new JLabel("Buscar Cliente");
+        // c2.add(buscarLbl);
+        // buscarLbl.setBounds(260,25,100,15);
 
-        barraBusqueda = new JTextField();
-        c2.add(barraBusqueda);
-        barraBusqueda.setBounds(260,40,300,40);
+        // barraBusqueda = new JTextField();
+        // c2.add(barraBusqueda);
+        // barraBusqueda.setBounds(260,40,300,40);
 
-        buscarBtn = new JButton("Buscar");
-        c2.add(buscarBtn);
-        buscarBtn.setBounds(570,40,150,40);
-        buscarBtn.addActionListener(this);
+        // buscarBtn = new JButton("Buscar");
+        // c2.add(buscarBtn);
+        // buscarBtn.setBounds(570,40,150,40);
+        // buscarBtn.addActionListener(this);
 
-        //------------------------------------------------------------------------------------------------------------------------------------
+        // //------------------------------------------------------------------------------------------------------------------------------------
 
-        dpiLbl = new JLabel("DPI");
-        c2.add(dpiLbl);
-        dpiLbl.setBounds(225,100,250,30);
+        // dpiLbl = new JLabel("DPI");
+        // c2.add(dpiLbl);
+        // dpiLbl.setBounds(225,100,250,30);
 
-        dpiJt = new JTextField();
-        c2.add(dpiJt);
-        dpiJt.setBounds(225,125,250,40);
-        dpiJt.setEditable(false);
+        // dpiJt = new JTextField();
+        // c2.add(dpiJt);
+        // dpiJt.setBounds(225,125,250,40);
+        // dpiJt.setEditable(false);
 
-        //--------------------------------------------
+        // //--------------------------------------------
 
-        nameLbl = new JLabel("Nombre Completo");
-        c2.add(nameLbl);
-        nameLbl.setBounds(500,100,250,30);
+        // nameLbl = new JLabel("Nombre Completo");
+        // c2.add(nameLbl);
+        // nameLbl.setBounds(500,100,250,30);
 
-        nameJT = new JTextField();
-        c2.add(nameJT);
-        nameJT.setBounds(500,125,250,40);
+        // nameJT = new JTextField();
+        // c2.add(nameJT);
+        // nameJT.setBounds(500,125,250,40);
 
 
-         //------------------------------------------------------------------------------------------------------------------------------------
+        //  //------------------------------------------------------------------------------------------------------------------------------------
 
-        usuarioLabel = new JLabel("Nombre de Usuario");
-        c2.add(usuarioLabel);
-        usuarioLabel.setBounds(225,175,250,30);
+        // usuarioLabel = new JLabel("Nombre de Usuario");
+        // c2.add(usuarioLabel);
+        // usuarioLabel.setBounds(225,175,250,30);
 
-        userJT = new JTextField();
-        c2.add(userJT);
-        userJT.setBounds(225,200,250,40);
+        // userJT = new JTextField();
+        // c2.add(userJT);
+        // userJT.setBounds(225,200,250,40);
 
-        //--------------------------------------------
+        // //--------------------------------------------
 
-        passLabel = new JLabel("Contraseña");
-        c2.add(passLabel);
-        passLabel.setBounds(500,175,250,30);
+        // passLabel = new JLabel("Contraseña");
+        // c2.add(passLabel);
+        // passLabel.setBounds(500,175,250,30);
 
-        passJT = new JTextField();
-        c2.add(passJT);
-        passJT.setBounds(500,200,250,40);
+        // passJT = new JTextField();
+        // c2.add(passJT);
+        // passJT.setBounds(500,200,250,40);
 
-        //------------------------------------------------------------------------------------------------------------------------------------
+        // //------------------------------------------------------------------------------------------------------------------------------------
 
         
-        correoLbl = new JLabel("Correo");
-        c2.add(correoLbl);
-        correoLbl.setBounds(225,250,250,30);
+        // correoLbl = new JLabel("Correo");
+        // c2.add(correoLbl);
+        // correoLbl.setBounds(225,250,250,30);
 
-        correoJT = new JTextField();
-        c2.add(correoJT);
-        correoJT.setBounds(225,275,250,40);
+        // correoJT = new JTextField();
+        // c2.add(correoJT);
+        // correoJT.setBounds(225,275,250,40);
 
-         //--------------------------------------------
+        //  //--------------------------------------------
 
-        telLbl = new JLabel("Telefono");
-        c2.add(telLbl);
-        telLbl.setBounds(500,250,250,30);
+        // telLbl = new JLabel("Telefono");
+        // c2.add(telLbl);
+        // telLbl.setBounds(500,250,250,30);
 
-        telJT = new JTextField();
-        c2.add(telJT);
-        telJT.setBounds(500,275,250,40);
+        // telJT = new JTextField();
+        // c2.add(telJT);
+        // telJT.setBounds(500,275,250,40);
 
-        //------------------------------------------------------------------------------------------------------------------------------------
+        // //------------------------------------------------------------------------------------------------------------------------------------
 
-        dirLbl = new JLabel("Direccion");
-        c2.add(dirLbl);
-        dirLbl.setBounds(225,325,250,30);
+        // dirLbl = new JLabel("Direccion");
+        // c2.add(dirLbl);
+        // dirLbl.setBounds(225,325,250,30);
 
-        dirJT = new JTextField();
-        c2.add(dirJT);
-        dirJT.setBounds(225,350,250,40);
+        // dirJT = new JTextField();
+        // c2.add(dirJT);
+        // dirJT.setBounds(225,350,250,40);
 
-        //--------------------------------------------
+        // //--------------------------------------------
 
-        id_munLbl = new JLabel("Id Municipio");
-        c2.add(id_munLbl);
-        id_munLbl.setBounds(500,325,250,30);
+        // id_munLbl = new JLabel("Id Municipio");
+        // c2.add(id_munLbl);
+        // id_munLbl.setBounds(500,325,250,30);
 
-        id_munJT = new JTextField();
-        c2.add(id_munJT);
-        id_munJT.setBounds(500,350,250,40);
+        // id_munJT = new JTextField();
+        // c2.add(id_munJT);
+        // id_munJT.setBounds(500,350,250,40);
 
-        //------------------------------------------------------------------------------------------------------------------------------------
+        // //------------------------------------------------------------------------------------------------------------------------------------
 
-        actualizarBtn = new JButton();
-        c2.add(actualizarBtn);
-        actualizarBtn.setText("Actualizar");
-        actualizarBtn.setBounds(350, 420, 300, 40);
-        actualizarBtn.addActionListener(this);
+        // actualizarBtn = new JButton();
+        // c2.add(actualizarBtn);
+        // actualizarBtn.setText("Actualizar");
+        // actualizarBtn.setBounds(350, 420, 300, 40);
+        // actualizarBtn.addActionListener(this);
 
-        //---------------------------------------------------------------------------------------------------------------------------------------------------------
-        //---------------------------------------------------------------------------------------------------------------------------------------------------------
+        // //---------------------------------------------------------------------------------------------------------------------------------------------------------
+        // //---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
         dpiLbl1 = new JLabel("DPI");
@@ -458,12 +458,12 @@ public class Admin extends JFrame implements ActionListener{
         //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-        tp.add("Reporte Usuarios",p1); 
-        tp.add("Nuevo Usuario",c1); 
-        tp.add("Modificar Usuario",c2); 
+        tp.add("Reporte Clientes",p1); 
+        tp.add("Nuevo Cliente",c1); 
+        // tp.add("Modificar Usuario",c2); 
         tp.add("Mensajeros",c3);  
-        tp.add("Reportes", r);   
         tp.add("Entregas", l1);  
+        tp.add("Reportes", r); 
 
     }
 
@@ -983,6 +983,7 @@ public class Admin extends JFrame implements ActionListener{
                         "Se han cargado los mensajeros.",
                         "Cargado",
                         JOptionPane.INFORMATION_MESSAGE);
+                        Program.tablaMensajeros.graficar();
                     }
                     else{
                         JOptionPane.showMessageDialog(this,

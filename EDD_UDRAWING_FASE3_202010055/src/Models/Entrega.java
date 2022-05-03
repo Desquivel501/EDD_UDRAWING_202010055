@@ -9,6 +9,7 @@ public class Entrega implements Comparable<Entrega>{
     private String datetime;
     private String cliente;
     private String mensajero;
+    private int distancia;
 
 
     public Entrega() {
@@ -20,6 +21,7 @@ public class Entrega implements Comparable<Entrega>{
         this.datetime = datetime;
         this.cliente = cliente;
         this.mensajero = mensajero;
+        this.distancia = 0;
     }
 
     public String getSede() {
@@ -66,9 +68,32 @@ public class Entrega implements Comparable<Entrega>{
         return sede + destino + datetime + cliente + mensajero;
     }
 
+
+    public int getDistancia() {
+        return this.distancia;
+    }
+
+    public void setDistancia(int distancia) {
+        this.distancia = distancia;
+    }
+
+
     @Override
     public int compareTo(Entrega o) {
         return 0;
     }
+
+
+    @Override
+    public String toString() {
+        return "\\{" +
+            "'sede':'" + getSede() + "'," +
+            " 'destino':'" + getDestino() + "'," +
+            " 'datetime':'" + getDatetime() + "'," +
+            " 'cliente':'" + getCliente() + "'," +
+            " 'mensajero':'" + getMensajero() + "'" +
+            "\\}\n";
+    }
+
 
 }

@@ -28,6 +28,7 @@ public class Bloque implements Comparable<Bloque>{
     private String PREVIOUSHASH;
     private String ROOTMERKLE;
     private String HASH;
+    private boolean valido;
 
 
     public Bloque() {
@@ -41,10 +42,11 @@ public class Bloque implements Comparable<Bloque>{
         String fecha_f = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy::HH:mm:ss"));
         this.TIMESTAMP = fecha_f;
         this.PREVIOUSHASH = Program.PREVIOUSHASH;
+        this.ROOTMERKLE = ROOTMERKLE;
         generarHash();
         this.DATA = DATA;
         
-        this.ROOTMERKLE = ROOTMERKLE;
+        
     }
 
 
@@ -175,5 +177,60 @@ public class Bloque implements Comparable<Bloque>{
     public int compareTo(Bloque o) {
         return 0;
     }
+
+
+    public boolean isValido() {
+        return this.valido;
+    }
+
+    public boolean getValido() {
+        return this.valido;
+    }
+
+    public void setValido(boolean valido) {
+        this.valido = valido;
+    }
+
+    private String color(){
+        if(valido){
+            return "#D0F0D4";
+        }else{
+            return "#F5C9CA";
+        }
+    }
+
+    public StringBuilder graficar(StringBuilder dot){
+        StringBuilder label = new StringBuilder();
+
+        StringBuilder cadena = new StringBuilder();
+        var nodo = DATA.getHead();
+        
+        if(nodo != null){
+            cadena.append("<TR>\n");
+            cadena.append("<TD style=\"text-align: center;\" rowspan = \"" + DATA.getLargo() + "\">DATA</TD>\n");
+            cadena.append("<TD style=\"text-align: center;\">"+  nodo.getValor().toString() +"</TD>\n");
+            cadena.append("</TR>\n");
+            nodo = nodo.getSiguiente();
+        }
+        while(nodo!= null){
+            cadena.append("<TR>\n");
+            cadena.append("<TD style=\"text-align: center;\">"+  nodo.getValor().toString() +"</TD>\n");
+            cadena.append("</TR>\n");
+            nodo = nodo.getSiguiente();
+        }
+
+        label.append(String.format("bloque%d[label=<<table bgcolor=\"%s\">", INDEX, color()));
+        label.append(String.format("<tr><td>INDEX</td><td>%s</td></tr>",INDEX));
+        label.append(String.format("<tr><td>TIMESTAMP</td><td>%s</td></tr>",TIMESTAMP));
+        label.append(cadena.toString());
+        label.append(String.format("<tr><td>PREVIOUSHASH</td><td>%s</td></tr>",PREVIOUSHASH));
+        label.append(String.format("<tr><td>ROOTMERKLE</td><td>%s</td></tr>",ROOTMERKLE));
+        label.append(String.format("<tr><td>HASH</td><td>%s</td></tr>",HASH));
+        label.append("</table>>]");
+        
+        dot.append(label);
+        return dot;
+    }
+
 
 }

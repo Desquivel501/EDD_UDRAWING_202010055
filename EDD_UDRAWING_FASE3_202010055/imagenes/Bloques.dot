@@ -1,0 +1,23 @@
+digraph G{
+label="Tabla Hash"
+labelloc = "t"
+node [shape=record]
+bloque0[label=<<table bgcolor="#D0F0D4"><tr><td>INDEX</td><td>0</td></tr><tr><td>TIMESTAMP</td><td>02-05-2022::17:44:32</td></tr><TR>
+<TD style="text-align: center;" rowspan = "1">DATA</TD>
+<TD style="text-align: center;">\{'sede':'Tamahú', 'destino':'San Juan Chamelco', 'datetime':'02-05-2022::17:44:30', 'cliente':'Derek Esquivel', 'mensajero':'Juliane MacDowall'\}
+</TD>
+</TR>
+<tr><td>PREVIOUSHASH</td><td>0000</td></tr><tr><td>ROOTMERKLE</td><td>c803446c71fea64974bac6d363b7393aac96ecaad6a9931110e6698d9138a63e</td></tr><tr><td>HASH</td><td>00006c643573b4bf0b80dbab8f6fbb222a727907fa0d95643d3b7f9756b0ed05</td></tr></table>>]bloque1[label=<<table bgcolor="#D0F0D4"><tr><td>INDEX</td><td>1</td></tr><tr><td>TIMESTAMP</td><td>03-05-2022::12:08:33</td></tr><TR>
+<TD style="text-align: center;" rowspan = "3">DATA</TD>
+<TD style="text-align: center;">\{'sede':'Tamahú', 'destino':'San Juan Chamelco', 'datetime':'03-05-2022::12:08:13', 'cliente':'Derek Esquivel', 'mensajero':'Juliane MacDowall'\}
+</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">\{'sede':'Tamahú', 'destino':'Nentón', 'datetime':'03-05-2022::12:08:18', 'cliente':'Derek Esquivel', 'mensajero':'Ole Robson'\}
+</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">\{'sede':'Colotenango', 'destino':'Villa Canales', 'datetime':'03-05-2022::12:08:30', 'cliente':'Fulanito', 'mensajero':'Ole Robson'\}
+</TD>
+</TR>
+<tr><td>PREVIOUSHASH</td><td>00006c643573b4bf0b80dbab8f6fbb222a727907fa0d95643d3b7f9756b0ed05</td></tr><tr><td>ROOTMERKLE</td><td>f260061536e30857855ef3eb86909c3536357036f32d16fdcb00dee33430d21b</td></tr><tr><td>HASH</td><td>0000150643e6f8fb88ac658df565a97898a531143647c4e861bdc3d327b618c7</td></tr></table>>]}

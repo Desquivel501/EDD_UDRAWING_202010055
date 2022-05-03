@@ -21,8 +21,7 @@ public class ArbolMerkle {
         return hash;
     }
 
-    public void generarArbol(){
-        Lista<Entrega> datos = Program.lista_entregas;
+    public void generarArbol(Lista<Entrega> datos){
         Lista<NodoMerkle> nodos = new Lista<>();
 
         var aux = datos.getHead();

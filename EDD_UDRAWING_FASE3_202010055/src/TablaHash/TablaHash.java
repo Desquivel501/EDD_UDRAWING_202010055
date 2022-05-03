@@ -1,5 +1,8 @@
 package TablaHash;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import Models.Mensajero;
 
 public class TablaHash {
@@ -81,5 +84,50 @@ public class TablaHash {
         }
         return null;
     }
+
+    public void graficar(){
+        StringBuilder dot = new StringBuilder();
+        dot.append("digraph G{\n");
+        dot.append(String.format("label=\"%s\"\n", "Tabla Hash"));
+        dot.append("labelloc = \"t\"\n");
+        dot.append("node [shape=record]\n");
+        dot.append("rankdir = \"TB\"\n");
+        int contLista = 0;
+        int contColumna = 0;
+        StringBuilder lista = new StringBuilder();
+        lista.append(String.format("lista%d[label=\"", contLista));
+        boolean agregada = false;
+
+        for(int i = 0; i < SIZE; i++){
+
+            if(tabla[i] != null){
+                lista.append(tabla[i].getDpi());
+            }else{
+                lista.append("             ");
+            }
+            
+            if(contColumna == 8){
+                lista.append("\"]\n");
+                dot.append(lista);
+                if(contLista != 0) dot.append(String.format("lista%d -> lista%d [style=invis]\n", contLista-1, contLista));
+                lista = new StringBuilder();
+                contLista++;
+                contColumna = 0;
+                lista.append(String.format("lista%d[label=\"", contLista));
+                agregada = true;
+            }else{
+                agregada = false;
+                lista.append("|");
+                contColumna++;
+            }
+        }
+        if(!agregada){
+            lista.append("\"]\n");
+            dot.append(lista);
+            dot.append(String.format("lista%d -> lista%d [style=invis]\n", contLista-1, contLista));
+        }
+        dot.append("}\n");
+        System.out.println(dot);
+    }   
 
 }

@@ -1,5 +1,0 @@
-digraph G{
-label="Arbol Merkle"
-labelloc = "t"
-Nodo619606263[label="df89d3628629d6b99f976bf09d090bc06c69082dba94236917025b9fd668a240" shape=ellipse];
-}

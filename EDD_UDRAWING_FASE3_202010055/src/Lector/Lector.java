@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,6 +15,7 @@ import AVL.*;
 import Blockchain.Bloque;
 import Lista.Lista;
 import Matriz.*;
+import Merkle.ArbolMerkle;
 import Models.*;
 import Program.*;
 
@@ -289,10 +291,6 @@ public class Lector {
 
                     long INDEX = (long) obj.get("INDEX");
                     String TIMESTAMP = (String) obj.get("TIMESTAMP");
-                    String ROOTMERKLE = (String) obj.get("ROOTMERKLE");
-                    String PREVIOUSHASH = (String) obj.get("PREVIOUSHASH");
-                    long NONCE = (long) obj.get("NONCE");
-                    String HASH = (String) obj.get("HASH");
 
                     JSONArray array = (JSONArray) obj.get("DATA");
                     Lista<Entrega> DATA  = new Lista<>();
@@ -301,7 +299,7 @@ public class Lector {
 
                         JSONObject objetoData = (JSONObject) array.get(i);
                         
-                        String cliente = (String) objetoData.get("ROOTMERKLE");
+                        String cliente = (String) objetoData.get("cliente");
                         String mensajero = (String) objetoData.get("mensajero");
                         String datetime = (String) objetoData.get("datetime");
                         String sede = (String) objetoData.get("sede");
@@ -309,8 +307,39 @@ public class Lector {
 
                         DATA.insertar(new Entrega(sede, destino, datetime, cliente, mensajero));
                     }
-                    Program.lista_bloques.insertar(new Bloque((int)INDEX, TIMESTAMP, (int)NONCE, DATA, PREVIOUSHASH, ROOTMERKLE, HASH));
-                    Program.PREVIOUSHASH = HASH;
+                    
+                    String ROOTMERKLE = (String) obj.get("ROOTMERKLE");
+                    String PREVIOUSHASH = (String) obj.get("PREVIOUSHASH");
+                    long NONCE = (long) obj.get("NONCE");
+                    String HASH = (String) obj.get("HASH");
+
+                    ArbolMerkle arbolMerkle = new ArbolMerkle();
+                    arbolMerkle.generarArbol(DATA);
+                    var raiz = arbolMerkle.raiz.getHash();  
+
+                    System.out.println("FILE: " + ROOTMERKLE + "\nNEW: " + raiz);
+                    System.out.println("");     
+
+
+
+                    String cadena2 = INDEX + TIMESTAMP + PREVIOUSHASH + ROOTMERKLE + NONCE;
+                    String hash2 = DigestUtils.sha256Hex(cadena2);
+
+                    System.out.println("FILE: " + HASH + "\nNEW: " + hash2);
+                    System.out.println("");
+                    
+
+                    System.out.println("----------------------------------------------------------------------------------------------");
+
+                    Bloque actual = new Bloque((int)INDEX, TIMESTAMP, (int)NONCE, DATA, PREVIOUSHASH, ROOTMERKLE, hash2);
+                    actual.setValido(true);
+
+                    if(!HASH.equals(hash2)) actual.setValido(false);
+                    if(!ROOTMERKLE.equals(raiz)) actual.setValido(false);
+                    if(!PREVIOUSHASH.equals(Program.PREVIOUSHASH)) actual.setValido(false);
+                    Program.lista_bloques.insertar(actual);
+
+                    Program.PREVIOUSHASH = hash2;
                     Program.INDEX = (int)INDEX +1;
         
                 } catch (Exception e) {
@@ -322,5 +351,6 @@ public class Lector {
 
 
     }
+
 
 }
