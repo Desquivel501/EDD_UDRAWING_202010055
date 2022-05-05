@@ -1,7 +1,6 @@
 package TablaHash;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 import Models.Mensajero;
 
@@ -41,7 +40,7 @@ public class TablaHash {
     }
 
     private void resize(){
-        SIZE = SIZE * 2;
+        SIZE = SIZE*2;
 
         Mensajero aux[] = new Mensajero[SIZE];
 
@@ -50,20 +49,24 @@ public class TablaHash {
         }
 
         for(int i = 0; i < tabla.length; i++){
-            aux[i] = tabla[i];
+            if(tabla[i] != null){
+                aux[i] = tabla[i];
+            }
+            
         }
-
         tabla = aux;
     }
 
-    private int colision(long llv, int i){
-        
-        while(tabla[i] != null){
-            System.out.println("----------------------");
-            long l = ((llv % 7) + 1) + i;
-            i = (int) l % SIZE;
+
+    private int colision(long llv, int pos){
+        long h = pos;
+        int i = 0;
+        while(tabla[(int)h] != null){
+            h = pos + ((llv % 7) + 1) * i;
+            h = h % SIZE;
+            i++;
         }
-        return i;
+        return (int)h;
     }
 
     public void imprimir(){
@@ -85,7 +88,7 @@ public class TablaHash {
         return null;
     }
 
-    public void graficar(){
+    public String graficar(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
         dot.append(String.format("label=\"%s\"\n", "Tabla Hash"));
@@ -127,7 +130,20 @@ public class TablaHash {
             dot.append(String.format("lista%d -> lista%d [style=invis]\n", contLista-1, contLista));
         }
         dot.append("}\n");
-        System.out.println(dot);
-    }   
+        
+        try{
+            FileWriter fileWriter = new FileWriter("imagenes/Tabla.dot");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(dot.toString());
+            printWriter.close();   
+
+            String[] command = {"dot", "-Tpng" ,"imagenes/Tabla.dot", "-o","imagenes/Tabla.png" };
+            new ProcessBuilder(command).start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "imagenes/Tabla.png";
+    }  
 
 }

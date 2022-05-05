@@ -434,14 +434,11 @@ public class ClienteG extends JFrame implements ActionListener{
         agregarBtn.setBounds(450, 335 , 300, 40);
         agregarBtn.addActionListener(this);
 
-        //--------------------------------------------
-
-        ordenarBtn= new JButton("Generar");
+        ordenarBtn= new JButton("arbol");
         p5.add(ordenarBtn);
-        ordenarBtn.setBounds(450, 395 , 300, 40);
+        ordenarBtn.setBounds(450, 400 , 300, 40);
         ordenarBtn.addActionListener(this);
-
-        
+  
         panelImagen3 = new JScrollPane();
 
         tp.add("Gestion Imagenes",p1); 
@@ -449,6 +446,13 @@ public class ClienteG extends JFrame implements ActionListener{
         tp.add("Carga Masiva",p2);
         tp.add("Entrega",p5);
         tp.add("Reportes",p3);
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                Program.stop();
+            }
+        });
         
     }
 
@@ -1018,7 +1022,6 @@ public class ClienteG extends JFrame implements ActionListener{
             int inicio = Program.loggedUser.getId_municipio();
             String inicioN = Program.grafoLugares.buscarLugar(inicio).getNombre();
 
-
             var final_ = (ComboSucursal) sucursalCB.getSelectedItem();
             int final_id = final_.getValor().getId();
             String finalN = final_.getValor().getNombre();
@@ -1029,18 +1032,18 @@ public class ClienteG extends JFrame implements ActionListener{
             LocalDateTime fecha = LocalDateTime.now();
             String fecha_f = fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy::HH:mm:ss"));
 
-            var ruta = Program.grafoLugares.dijkstra(inicio, final_id);
+            var ruta = Program.grafoLugares.dijkstra(final_id, inicio, true);
 
-            Entrega nueva = new Entrega(inicioN, finalN, fecha_f, Program.loggedUser.getName(),mensajeroN);
+            Entrega nueva = new Entrega(finalN, inicioN, fecha_f, Program.loggedUser.getName(),mensajeroN);
             nueva.setDistancia(ruta.getTiempo());
             
             Program.lista_entregas.insertar(nueva);
             Program.lista_entregas_completa.insertar(nueva);
-
+            Program.serializar();
         }
 
         if(e.getSource() == ordenarBtn){
-            Program.crearBloque();
+            Program.crearArbol();
         }
 
     }

@@ -25,25 +25,28 @@ public class Admin extends JFrame implements ActionListener{
     Cliente cliente;
 
     JTabbedPane tp, cp;
-    JPanel p1,p2,p3 ,c1,c2,c3,r, panelB, panelC, l1 , leerLugar, verLugar;
-    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, actualizarBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen, listaClientes, cargarLugar, cargarRuta, verGrafo, verLista, nuevoMen, cargaMen;
-    JLabel cargaMasiva, buscarLbl, usuarioLabel, passLabel, dpiLbl, buscarLbl2, usuarioLabel2, passLabel2, dpiLbl2, buscarLbl1, usuarioLabel1, passLabel1, dpiLbl1, imagen, imagen2;
+    JPanel p1,p2,p3 ,c1,c2,c3,r, panelB, panelC, l1 , leerLugar, verLugar, g;
+    JButton cargaCliente, regresar, buscarBtn, nuevoBtn, bloqueBtn, eliminarBtn, buscarBtn1, buscarBtn2, generarImagen, listaClientes, cargarLugar, cargarRuta, verGrafo, verLista, nuevoMen, cargaMen, actBtn, blockBtn, hashBtn, arbolBtn;
+    JLabel cargaMasiva, buscarLbl, usuarioLabel, passLabel, tempoLbl, buscarLbl2, usuarioLabel2, passLabel2, dpiLbl2, buscarLbl1, usuarioLabel1, passLabel1, dpiLbl1, imagen, imagen2, imagen3, imagen4;
     JTextField barraBusqueda, nameJT, passJT, dpiJt, nameJT1, passJT1, dpiJt1, nameJT2, passJT2, dpiJt2, barraBusqueda2, barraBusqueda1;
-    JScrollPane panelImagen, panelImagen2;
+    JScrollPane panelImagen, panelImagen2, panelImagen3, panelImagen4;
     JRadioButton r1,r2,r3, r4;
     ButtonGroup bg;
     JTable tablaImagenes;
+    JSpinner tiempoSpin, ceroSpin, viajeInicio, viajeFin;
+    JButton topMensajero, topViajes, reporteRuta;
 
-    JLabel correoLbl1, nameLbl1, telLbl1, id_munLbl1, dirLbl1, correoLbl2, nameLbl2, telLbl2, id_munLbl2, dirLbl2, correoLbl, nameLbl, telLbl, id_munLbl, dirLbl, dpiJLbl3,nombreLbl,apellidoLbl,licencialbl,genLbl, telLbl3,dirLbl3;
+    JLabel correoLbl1, nameLbl1, telLbl1, id_munLbl1, dirLbl1, correoLbl2, nameLbl2, telLbl2, id_munLbl2, dirLbl2, correoLbl, ceroLbl, telLbl, id_munLbl, dirLbl, dpiJLbl3,nombreLbl,apellidoLbl,licencialbl,genLbl, telLbl3,dirLbl3;
     JTextField correoJT1, userJT1, telJT1, id_munJT1, dirJT1, correoJT2, userJT2, telJT2, id_munJT2, dirJT2, correoJT, userJT, telJT, id_munJT, dirJT, dpiJT3, nombreJT, apellidoJT, genJT, dirJT3, telJT3;
     JComboBox<String> licenciaJT;
-    
+
 
     public Admin(){
         this.setTitle("Administardor");
-        this.setSize(1000,700);
+        this.setSize(1010,700);
         this.setLayout(null);
         inicializar();
+        getConfig();
         setLocationRelativeTo(null);
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -56,130 +59,66 @@ public class Admin extends JFrame implements ActionListener{
         regresar.setBounds(850,8,120,30);
         regresar.addActionListener(this);
 
-        tp = new JTabbedPane();  
-        tp.setBounds(10,10,980,780);
-        this.add(tp); 
+        tp = new JTabbedPane();
+        tp.setBounds(10,10,990,780);
+        this.add(tp);
 
-        p1 = new JPanel();  
-        p1.setLayout(null); 
+        p1 = new JPanel();
+        p1.setLayout(null);
 
-        c1 = new JPanel();  
-        c1.setLayout(null); 
-        c2 = new JPanel(); 
-        c2.setLayout(null); 
-        c3 = new JPanel();  
-        c3.setLayout(null); 
+        c1 = new JPanel();
+        c1.setLayout(null);
+        c2 = new JPanel();
+        c2.setLayout(null);
+        c3 = new JPanel();
+        c3.setLayout(null);
 
-        r = new JPanel();  
-        r.setLayout(null); 
+        r = new JPanel();
+        r.setLayout(null);
 
-        l1 = new JPanel(); 
-        l1.setLayout(null); 
+        l1 = new JPanel();
+        l1.setLayout(null);
 
+        g = new JPanel();
+        g.setLayout(null);
 
-        // buscarLbl = new JLabel("Buscar Cliente");
-        // c2.add(buscarLbl);
-        // buscarLbl.setBounds(260,25,100,15);
-
-        // barraBusqueda = new JTextField();
-        // c2.add(barraBusqueda);
-        // barraBusqueda.setBounds(260,40,300,40);
-
-        // buscarBtn = new JButton("Buscar");
-        // c2.add(buscarBtn);
-        // buscarBtn.setBounds(570,40,150,40);
-        // buscarBtn.addActionListener(this);
 
         // //------------------------------------------------------------------------------------------------------------------------------------
 
-        // dpiLbl = new JLabel("DPI");
-        // c2.add(dpiLbl);
-        // dpiLbl.setBounds(225,100,250,30);
+        tempoLbl = new JLabel("Tiempo para creacion de bloque");
+        c2.add(tempoLbl);
+        tempoLbl.setBounds(225,100,250,30);
 
-        // dpiJt = new JTextField();
-        // c2.add(dpiJt);
-        // dpiJt.setBounds(225,125,250,40);
-        // dpiJt.setEditable(false);
+        tiempoSpin = new JSpinner();
+        c2.add(tiempoSpin);
+        tiempoSpin.setBounds(225,125,250,40);
 
         // //--------------------------------------------
 
-        // nameLbl = new JLabel("Nombre Completo");
-        // c2.add(nameLbl);
-        // nameLbl.setBounds(500,100,250,30);
+        ceroLbl = new JLabel("Prueba de Trabajo");
+        c2.add(ceroLbl);
+        ceroLbl.setBounds(500,100,250,30);
 
-        // nameJT = new JTextField();
-        // c2.add(nameJT);
-        // nameJT.setBounds(500,125,250,40);
+        ceroSpin = new JSpinner();
+        c2.add(ceroSpin);
+        ceroSpin.setBounds(500,125,250,40);
+
+        //  //------------------------------------------------------------------------------------------------------------------------------------
+
+        actBtn = new JButton();
+        c2.add(actBtn);
+        actBtn.setText("Actualizar");
+        actBtn.setBounds(350, 190, 300, 40);
+        actBtn.addActionListener(this);
 
 
         //  //------------------------------------------------------------------------------------------------------------------------------------
 
-        // usuarioLabel = new JLabel("Nombre de Usuario");
-        // c2.add(usuarioLabel);
-        // usuarioLabel.setBounds(225,175,250,30);
-
-        // userJT = new JTextField();
-        // c2.add(userJT);
-        // userJT.setBounds(225,200,250,40);
-
-        // //--------------------------------------------
-
-        // passLabel = new JLabel("Contraseña");
-        // c2.add(passLabel);
-        // passLabel.setBounds(500,175,250,30);
-
-        // passJT = new JTextField();
-        // c2.add(passJT);
-        // passJT.setBounds(500,200,250,40);
-
-        // //------------------------------------------------------------------------------------------------------------------------------------
-
-        
-        // correoLbl = new JLabel("Correo");
-        // c2.add(correoLbl);
-        // correoLbl.setBounds(225,250,250,30);
-
-        // correoJT = new JTextField();
-        // c2.add(correoJT);
-        // correoJT.setBounds(225,275,250,40);
-
-        //  //--------------------------------------------
-
-        // telLbl = new JLabel("Telefono");
-        // c2.add(telLbl);
-        // telLbl.setBounds(500,250,250,30);
-
-        // telJT = new JTextField();
-        // c2.add(telJT);
-        // telJT.setBounds(500,275,250,40);
-
-        // //------------------------------------------------------------------------------------------------------------------------------------
-
-        // dirLbl = new JLabel("Direccion");
-        // c2.add(dirLbl);
-        // dirLbl.setBounds(225,325,250,30);
-
-        // dirJT = new JTextField();
-        // c2.add(dirJT);
-        // dirJT.setBounds(225,350,250,40);
-
-        // //--------------------------------------------
-
-        // id_munLbl = new JLabel("Id Municipio");
-        // c2.add(id_munLbl);
-        // id_munLbl.setBounds(500,325,250,30);
-
-        // id_munJT = new JTextField();
-        // c2.add(id_munJT);
-        // id_munJT.setBounds(500,350,250,40);
-
-        // //------------------------------------------------------------------------------------------------------------------------------------
-
-        // actualizarBtn = new JButton();
-        // c2.add(actualizarBtn);
-        // actualizarBtn.setText("Actualizar");
-        // actualizarBtn.setBounds(350, 420, 300, 40);
-        // actualizarBtn.addActionListener(this);
+        bloqueBtn = new JButton();
+        c2.add(bloqueBtn);
+        bloqueBtn.setText("Crear Bloque");
+        bloqueBtn.setBounds(350, 240, 300, 40);
+        bloqueBtn.addActionListener(this);
 
         // //---------------------------------------------------------------------------------------------------------------------------------------------------------
         // //---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -226,7 +165,7 @@ public class Admin extends JFrame implements ActionListener{
 
         //------------------------------------------------------------------------------------------------------------------------------------
 
-        
+
         correoLbl1 = new JLabel("Correo");
         c1.add(correoLbl1);
         correoLbl1.setBounds(225,225,250,30);
@@ -292,39 +231,9 @@ public class Admin extends JFrame implements ActionListener{
         panelImagen = new JScrollPane(imagen);
         p1.add(panelImagen);
         panelImagen.setBounds(10,50,950,555);
-        panelImagen.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+        panelImagen.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         //--------------------------------------------------------------------------
-
-        panelB = new JPanel();
-        panelB.setBorder(new TitledBorder("Buscar Cliente"));
-        r.add(panelB);
-        panelB.setBounds(140, 10, 330, 80);
-        panelB.setLayout(null);
-
-        barraBusqueda2 = new JTextField();
-        panelB.add(barraBusqueda2);
-        barraBusqueda2.setBounds(10,30,200,30);
-
-        buscarBtn1 = new JButton("Buscar");
-        panelB.add(buscarBtn1);
-        buscarBtn1.setBounds(220,30,100,30);
-        buscarBtn1.addActionListener(this);
-
-        //--------------------------------------------------------------------------
-
-        panelC = new JPanel();
-        panelC.setBorder(new TitledBorder("Listar Clientes"));
-        r.add(panelC);
-        panelC.setBounds(480, 10, 330, 80);
-        panelC.setLayout(null);
-
-        listaClientes = new JButton("Generar");
-        panelC.add(listaClientes);
-        listaClientes.setBounds(65, 30 , 200, 30);
-        listaClientes.addActionListener(this);
-
-        //----------------------------------------------------------------------
 
         leerLugar = new JPanel();
         leerLugar.setBorder(new TitledBorder("Carga Masiva"));
@@ -364,12 +273,12 @@ public class Admin extends JFrame implements ActionListener{
         panelImagen2 = new JScrollPane(imagen2);
         l1.add(panelImagen2);
         panelImagen2.setBounds(10,75,950,535);
-        panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+        panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         //------------------------------------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------------------------------------
 
-        
+
         dpiJLbl3 = new JLabel("DPI");
         c3.add(dpiJLbl3);
         dpiJLbl3.setBounds(370,75,250,30);
@@ -400,12 +309,12 @@ public class Admin extends JFrame implements ActionListener{
 
         //------------------------------------------------------------------------------------------------------------------------------------
 
-        
+
         licencialbl = new JLabel("Tipo Licencia");
         c3.add(licencialbl);
         licencialbl.setBounds(225,225,250,30);
 
-        String licencias[]={"A", "B", "C"};    
+        String licencias[]={"A", "B", "C"};
         licenciaJT = new JComboBox<>(licencias);
         c3.add(licenciaJT);
         licenciaJT.setBounds(225,250,250,40);
@@ -458,12 +367,124 @@ public class Admin extends JFrame implements ActionListener{
         //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-        tp.add("Reporte Clientes",p1); 
-        tp.add("Nuevo Cliente",c1); 
-        // tp.add("Modificar Usuario",c2); 
-        tp.add("Mensajeros",c3);  
-        tp.add("Entregas", l1);  
-        tp.add("Reportes", r); 
+        hashBtn = new JButton("Tabla Hash");
+        g.add(hashBtn);
+        hashBtn.setBounds(100, 10, 250, 30);
+        hashBtn.addActionListener(this);
+
+        arbolBtn = new JButton("Arbol");
+        g.add(arbolBtn);
+        arbolBtn.setBounds(360, 10, 250, 30);
+        arbolBtn.addActionListener(this);
+
+        blockBtn = new JButton("Blockchain");
+        g.add(blockBtn);
+        blockBtn.setBounds(620, 10, 250, 30);
+        blockBtn.addActionListener(this);
+
+        imagen3 = new JLabel();
+        panelImagen3 = new JScrollPane(imagen3);
+        g.add(panelImagen3);
+        panelImagen3.setBounds(10,50,950,555);
+        panelImagen3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+        
+        panelC = new JPanel();
+        panelC.setBorder(new TitledBorder("Top Clientes"));
+        r.add(panelC);
+        panelC.setBounds(740, 195, 220, 60);
+        panelC.setLayout(null);
+
+        listaClientes = new JButton("Generar");
+        panelC.add(listaClientes);
+        listaClientes.setBounds(10, 20 , 200, 30);
+        listaClientes.addActionListener(this);
+
+       //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+        panelC = new JPanel();
+        panelC.setBorder(new TitledBorder("Top Mensajeros"));
+        r.add(panelC);
+        panelC.setBounds(740, 265, 220, 60);
+        panelC.setLayout(null);
+
+        topMensajero = new JButton("Generar");
+        panelC.add(topMensajero);
+        topMensajero.setBounds(10, 20 , 200, 30);
+        topMensajero.addActionListener(this);
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+        panelC = new JPanel();
+        panelC.setBorder(new TitledBorder("Viajes mas Largos"));
+        r.add(panelC);
+        panelC.setBounds(740, 335, 220, 60);
+        panelC.setLayout(null);
+
+        topViajes = new JButton("Generar");
+        panelC.add(topViajes);
+        topViajes.setBounds(10, 20 , 200, 30);
+        topViajes.addActionListener(this);
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+        panelC = new JPanel();
+        panelC.setBorder(new TitledBorder("Simular Ruta"));
+        r.add(panelC);
+        panelC.setBounds(740, 10, 220, 175);
+        panelC.setLayout(null);
+
+
+        genLbl = new JLabel("Inicio");
+        panelC.add(genLbl);
+        genLbl.setBounds(10,20,200,30);
+
+        viajeInicio = new JSpinner();
+        panelC.add(viajeInicio);
+        viajeInicio.setBounds(10,40,200,30);
+
+
+        genLbl = new JLabel("Fin");
+        panelC.add(genLbl);
+        genLbl.setBounds(10,75,200,30);
+
+        viajeFin = new JSpinner();
+        panelC.add(viajeFin);
+        viajeFin.setBounds(10,95,200,30);
+
+        reporteRuta = new JButton("Generar");
+        panelC.add(reporteRuta);
+        reporteRuta.setBounds(10, 135 , 200, 30);
+        reporteRuta.addActionListener(this);
+
+
+        imagen4 = new JLabel();
+        panelImagen4 = new JScrollPane(imagen4);
+        r.add(panelImagen4);
+        panelImagen4.setBounds(10,10,720,600);
+        panelImagen4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+
+
+        // tp.add("Reporte Clientes",p1);
+        tp.add("Nuevo Cliente",c1);
+
+        tp.add("Mensajeros",c3);
+        tp.add("Entregas", l1);
+        tp.add("Blockchain",c2);
+        tp.add("Grafos", g);
+        tp.add("Reportes", r);
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                Program.stop();
+            }
+        });
 
     }
 
@@ -473,7 +494,7 @@ public class Admin extends JFrame implements ActionListener{
         if(e.getSource() == cargaCliente){
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setPreferredSize( new Dimension(700, 600));
-            
+
             if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
                 File archivo = fileChooser.getSelectedFile();
 
@@ -504,7 +525,7 @@ public class Admin extends JFrame implements ActionListener{
                 JOptionPane.WARNING_MESSAGE);
             }
         }
-        
+
         if(e.getSource() == regresar){
             new Login();
             setVisible(false);
@@ -537,7 +558,7 @@ public class Admin extends JFrame implements ActionListener{
                 id_munJT.setText(Integer.toString(cliente.getId_municipio()));
 
                 this.cliente = cliente;
-                
+
             }else{
                 JOptionPane.showMessageDialog(this,
                 "No se ha encontrado el cliente.",
@@ -547,63 +568,13 @@ public class Admin extends JFrame implements ActionListener{
             }
         }
 
-        if(e.getSource() == actualizarBtn){
+        if(e.getSource() == bloqueBtn){
+            Program.crearBloque();
+        }
 
-            if(Program.arbolClientes.vacio()){
-                JOptionPane.showMessageDialog(this,
-                "No hay clientes ingresados en el sistema.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if(this.cliente == null){
-                JOptionPane.showMessageDialog(this,
-                "No se ha seleccionado ningun cliente.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if(nameJT.getText().equals("")){
-                JOptionPane.showMessageDialog(this,
-                "Ingrese un nombre.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if(passJT.getText().equals("")){
-                JOptionPane.showMessageDialog(this,
-                "Ingrese una contraseña.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            int id_mun = 0;
-            try {
-                id_mun = Integer.parseInt(id_munJT.getText().toString());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this,
-                "El ID del municipio debe de ser un numero.",
-                "Completado",
-                JOptionPane.INFORMATION_MESSAGE);
-            }
-
-            this.cliente.setName(nameJT.getText().toString());
-            this.cliente.setPassword(passJT.getText().toString());
-            this.cliente.setUsername(userJT.getText().toString());
-            this.cliente.setCorreo(correoJT.getText().toString());
-            this.cliente.setPhone(telJT.getText().toString());
-            this.cliente.setAddress(dirJT.getText().toString());
-            this.cliente.setId_municipio(id_mun);
-
-            JOptionPane.showMessageDialog(this,
-                "Se ha actualizado el cliente.",
-                "Completado",
-            JOptionPane.INFORMATION_MESSAGE);
-            
+        if(e.getSource() == actBtn){
+            Program.noCero = (int)ceroSpin.getValue();
+            Program.tiempo = (int)tiempoSpin.getValue() * 60000;
         }
 
         if(e.getSource() == nuevoBtn){
@@ -675,7 +646,7 @@ public class Admin extends JFrame implements ActionListener{
             JOptionPane.INFORMATION_MESSAGE);
 
         }
-        
+
         if(e.getSource() == generarImagen){
             if(Program.arbolClientes.vacio()){
                 JOptionPane.showMessageDialog(this,
@@ -699,7 +670,7 @@ public class Admin extends JFrame implements ActionListener{
             generarImagen(nombre,1);
 
         }
-    
+
         if(e.getSource() == buscarBtn1){
             if(Program.arbolClientes.vacio()){
                 JOptionPane.showMessageDialog(this,
@@ -733,7 +704,7 @@ public class Admin extends JFrame implements ActionListener{
                 model.addRow(new Object[]{"Nombre" ,cliente.getName()});
                 model.addRow(new Object[]{"DPI" ,cliente.getDpi()});
                 model.addRow(new Object[]{"Contraseña" ,cliente.getPassword()});
-                
+
                 var albumes = cliente.getListaAlbum();
                 model.addRow(new Object[]{"Cantidad Albumes" ,albumes.getLargo()});
 
@@ -744,7 +715,7 @@ public class Admin extends JFrame implements ActionListener{
                         var album = nodoAlbum.getAlbum();
                         StringBuilder str = new StringBuilder();
                         var nodoImagen = album.getPrimero();
-                        
+
                         if(nodoImagen != null){
                             while(nodoImagen != null){
                                 str.append("Imagen " + nodoImagen.getImagen().getId() + ", ");
@@ -777,50 +748,11 @@ public class Admin extends JFrame implements ActionListener{
                 return;
             }
         }
-    
-        if(e.getSource() == listaClientes){
-
-            if(Program.arbolClientes.vacio()){
-                JOptionPane.showMessageDialog(this,
-                "No hay clientes ingresados en el sistema.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            var lista = Program.arbolClientes.recorrer();
-            var nodo = lista.getHead();
-
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("No.");
-            model.addColumn("Nombre");
-            model.addColumn("DPI");
-            model.addColumn("No. Imagenes");
-
-            tablaImagenes = new JTable(model);
-            int i = 1;
-            while(nodo != null){
-                Cliente actual = nodo.getValor();
-                model.addRow(new Object[]{i,actual.getUsername(), actual.getDpi(),actual.getArbolImagenes().noImagenes()});
-                nodo = nodo.getSiguiente();
-                i++;
-            }
-
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-            tablaImagenes.setDefaultRenderer(Object.class, centerRenderer);
-
-            panelImagen2.setSize(0, 0);
-            panelImagen2 = new JScrollPane(tablaImagenes);
-            r.add(panelImagen2);
-            panelImagen2.setBounds(200,130,580,400);
-            panelImagen2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        }
 
         if(e.getSource() == cargarLugar){
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setPreferredSize( new Dimension(700, 600));
-            
+
             if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
                 File archivo = fileChooser.getSelectedFile();
 
@@ -856,7 +788,7 @@ public class Admin extends JFrame implements ActionListener{
         if(e.getSource() == cargarRuta){
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setPreferredSize( new Dimension(700, 600));
-            
+
             if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
                 File archivo = fileChooser.getSelectedFile();
 
@@ -972,7 +904,7 @@ public class Admin extends JFrame implements ActionListener{
         if(e.getSource() == cargaMen){
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setPreferredSize( new Dimension(700, 600));
-            
+
             if(fileChooser.showOpenDialog(this) == JFileChooser.OPEN_DIALOG){
                 File archivo = fileChooser.getSelectedFile();
 
@@ -1004,6 +936,114 @@ public class Admin extends JFrame implements ActionListener{
                 JOptionPane.WARNING_MESSAGE);
             }
         }
+
+        if(e.getSource() == hashBtn){
+
+            var hash = Program.tablaMensajeros;
+
+            String nombre = hash.graficar();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarTabla(nombre);
+
+        }
+
+        if(e.getSource() == blockBtn){
+
+            String nombre = Program.graficarBloques();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 3);
+
+        }
+
+        if(e.getSource() == topViajes){
+
+            String nombre = Program.topViajes();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 4);
+
+        }
+
+        if(e.getSource() == listaClientes){
+
+            String nombre = Program.reporteClientes();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 4);
+
+        }
+
+        
+        if(e.getSource() == topMensajero){
+
+            String nombre = Program.reporteMensajero();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 4);
+
+        }
+
+        if(e.getSource() == arbolBtn){
+            String nombre = Program.crearArbol();
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 3);
+        }
+        
+        if(e.getSource() == reporteRuta){
+            int inicio = (int) viajeInicio.getValue();
+            int fin = (int) viajeFin.getValue();
+
+            String nombre = Program.simularRuta(inicio,fin);
+
+            if(nombre == null){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            generarImagen(nombre, 4);
+
+        }
     }
 
     private void generarImagen(String nombre, int id){
@@ -1031,15 +1071,23 @@ public class Admin extends JFrame implements ActionListener{
                             break;
                         case 2:
                             imagen2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                            imagen2.setIcon(new ImageIcon(imagenResize));
+                            imagen2.setIcon(new ImageIcon(imagenOr));
+                            break;
+                        case 3:
+                            imagen3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            imagen3.setIcon(new ImageIcon(imagenResize));
+                            break;
+                        case 4:
+                            imagen4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            imagen4.setIcon(new ImageIcon(imagenOr));
                             break;
                     }
-                    
+
                     found = true;
                     break;
                 }catch (Exception ex1){
 
-                }  
+                }
             }
             System.err.println("out");
             if(!found){
@@ -1049,10 +1097,57 @@ public class Admin extends JFrame implements ActionListener{
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
     }
-    
+
+
+    private void generarTabla(String nombre){
+        try{
+            boolean found = false;
+            long startTime = System.currentTimeMillis();
+
+            while(System.currentTimeMillis() < startTime + 30000) {
+                try{
+                    BufferedImage imagenOr = ImageIO.read(new File(nombre));
+                    float alto = ((float)930/imagenOr.getWidth()) * imagenOr.getHeight();
+
+                    Image imagenResize;
+                    if(imagenOr.getWidth() < 555){
+                        imagenResize = imagenOr.getScaledInstance(imagenOr.getWidth(), imagenOr.getHeight(), Image.SCALE_SMOOTH);
+                    }else{
+                        // imagenResize = imagenOr.getScaledInstance(950, Math.round(altura), Image.SCALE_SMOOTH);
+                        imagenResize = imagenOr.getScaledInstance(930, Math.round(alto), Image.SCALE_SMOOTH);
+                    }
+
+                    imagen3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                    imagen3.setIcon(new ImageIcon(imagenResize));
+
+                    found = true;
+                    break;
+                }catch (Exception ex1){
+
+                }
+            }
+            System.err.println("out");
+            if(!found){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+
+    private void getConfig(){
+        ceroSpin.setValue(Program.noCero);
+        tiempoSpin.setValue(Program.tiempo/60000);
+    }
 }

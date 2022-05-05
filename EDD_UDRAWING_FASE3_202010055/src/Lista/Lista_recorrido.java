@@ -1,13 +1,14 @@
 package Lista;
 public class Lista_recorrido{
 
-    private NodoR head;
+    private NodoR head, tail;
     private int largo;
     private int tiempo;
 
     public Lista_recorrido() {
         this.head = null;
         this.largo = 0;
+        this.tail = null;
     }
 
     public void setTiempo(int tiempo){
@@ -20,6 +21,10 @@ public class Lista_recorrido{
 
     public NodoR getHead(){
         return head;
+    }
+
+    public NodoR getTail(){
+        return tail;
     }
 
     public boolean vacia(){
@@ -47,6 +52,7 @@ public class Lista_recorrido{
         NodoR nuevo = new NodoR(id_lugar,nombre);
         if (this.head == null){
             this.head = nuevo;
+            this.tail = nuevo;
             return;
         }
         nuevo.setSiguiente(this.head);

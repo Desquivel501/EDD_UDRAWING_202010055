@@ -1,0 +1,53 @@
+digraph G{
+label="Entregas con mas distancia"
+labelloc = "t"
+node [shape=record]
+a[ label =<
+<TABLE style="border-collapse: collapse; width: 100%; height: 126px;" border="1">
+<TR>
+<TD style="text-align: center;" bgcolor="#6082b6">Viaje</TD>
+<TD style="text-align: center;" bgcolor="#6082b6">Duracion</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a Malacatancito</TD>
+<TD style="text-align: center;">836 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a Malacatancito</TD>
+<TD style="text-align: center;">836 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a Chinautla</TD>
+<TD style="text-align: center;">761 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a Chinautla</TD>
+<TD style="text-align: center;">761 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a Chinautla</TD>
+<TD style="text-align: center;">761 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a San Juan Chamelco</TD>
+<TD style="text-align: center;">682 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a San Juan Chamelco</TD>
+<TD style="text-align: center;">682 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a San Juan Chamelco</TD>
+<TD style="text-align: center;">682 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a San Juan Chamelco</TD>
+<TD style="text-align: center;">682 minutos</TD>
+</TR>
+<TR>
+<TD style="text-align: center;">Tamahú a San Juan Chamelco</TD>
+<TD style="text-align: center;">682 minutos</TD>
+</TR>
+</TABLE>
+>]
+}

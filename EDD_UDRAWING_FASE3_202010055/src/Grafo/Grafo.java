@@ -91,7 +91,7 @@ public class Grafo {
     }
 
 
-    public Lista_recorrido dijkstra(int inicio, int final_){
+    public Lista_recorrido dijkstra(int inicio, int final_, boolean mostrar){
 
         // if(buscarLugar(inicio) == null || buscarLugar(final_) == null) return;
         if(buscarLugar(inicio) == null || buscarLugar(final_) == null)  return null;
@@ -173,10 +173,12 @@ public class Grafo {
         camino_str.append(String.format("\nTiempo utilizado: %d minutos",dist.buscar(final_).dist));
         System.out.println(camino_str);
 
-        JOptionPane.showMessageDialog(null,
+       if(mostrar){
+            JOptionPane.showMessageDialog(null,
             camino_str,
             titulo,
             JOptionPane.INFORMATION_MESSAGE);
+       }
 
         return lista;
     }

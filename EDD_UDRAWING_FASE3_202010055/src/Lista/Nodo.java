@@ -1,5 +1,8 @@
 package Lista;
-public class Nodo<E> {
+
+import java.io.Serializable;
+
+public class Nodo<E> implements Serializable{
     private E valor;
     private Nodo<E> siguiente;
 

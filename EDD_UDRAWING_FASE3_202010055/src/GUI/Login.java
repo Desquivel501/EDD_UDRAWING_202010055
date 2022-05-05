@@ -70,7 +70,17 @@ public class Login extends JFrame implements ActionListener{
         registro.setBounds(280, 305, 120, 40);
         registro.addActionListener(this);
 
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                Program.stop();
+            }
+        });
+
     }
+
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {

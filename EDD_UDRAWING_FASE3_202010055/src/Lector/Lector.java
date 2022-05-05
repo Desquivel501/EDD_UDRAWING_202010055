@@ -27,13 +27,13 @@ public class Lector {
             Reader reader = new FileReader(archivo);
             JSONParser parser = new JSONParser();
             Object obj  = parser.parse(reader);
-                    
+
             JSONArray array = (JSONArray) obj;
-  
+
             for(int i = 0; i < array.size(); i++){
 
                 JSONObject objetoCliente = (JSONObject) array.get(i);
-                
+
                 String dpi = (String) objetoCliente.get("dpi");
                 String nombre = (String) objetoCliente.get("nombres");
                 String apellido = (String) objetoCliente.get("apellidos");
@@ -53,7 +53,7 @@ public class Lector {
         } catch (Exception e) {
             error = true;
             e.printStackTrace();
-        }                
+        }
         return error;
     }
 
@@ -64,9 +64,9 @@ public class Lector {
                     Reader reader = new FileReader(archivo);
                     JSONParser parser = new JSONParser();
                     Object obj  = parser.parse(reader);
-                    
+
                     JSONArray array = (JSONArray) obj;
-  
+
                     for(int i = 0; i < array.size(); i++){
 
                         JSONObject objetoCapa = (JSONObject) array.get(i);
@@ -84,14 +84,14 @@ public class Lector {
                             String valor = (String) objetoPixeles.get("color");
 
                             matrizActual.insertar((int)columna, (int)fila, valor);
-                        }   
+                        }
                         Program.loggedUser.getArbolCapas().insertar((int)id, matrizActual);
                     }
-                    
+
                 } catch (Exception e) {
                     error = true;
-                }                
-                
+                }
+
             }
         return error;
     }
@@ -103,9 +103,9 @@ public class Lector {
                 Reader reader = new FileReader(archivo);
                 JSONParser parser = new JSONParser();
                 Object obj  = parser.parse(reader);
-                    
+
                 JSONArray array = (JSONArray) obj;
-  
+
                 for(int i = 0; i < array.size(); i++){
 
                     JSONObject objetoImagen= (JSONObject) array.get(i);
@@ -126,10 +126,10 @@ public class Lector {
                     Imagen nueva = new Imagen((int)id,arbol);
                     Program.loggedUser.getArbolImagenes().insertar((int)id, nueva);
                 }
-                    
+
             } catch (Exception e) {
                 error = true;
-            }                   
+            }
         }
         return error;
     }
@@ -143,9 +143,9 @@ public class Lector {
                 Reader reader = new FileReader(archivo);
                 JSONParser parser = new JSONParser();
                 Object obj  = parser.parse(reader);
-                    
+
                 JSONArray array = (JSONArray) obj;
-  
+
                 for(int i = 0; i < array.size(); i++){
 
                     JSONObject objetoAlbum = (JSONObject) array.get(i);
@@ -162,12 +162,12 @@ public class Lector {
                     }
                     Program.loggedUser.getListaAlbum().insertar(nuevo);
                 }
-                    
+
             } catch (Exception e) {
                 // e.printStackTrace();
                 error = true;
-            }                
-                
+            }
+
         }
         return error;
     }
@@ -180,13 +180,13 @@ public class Lector {
             Reader reader = new FileReader(archivo);
             JSONParser parser = new JSONParser();
             Object obj  = parser.parse(reader);
-                    
+
             JSONArray array = (JSONArray) obj;
-  
+
             for(int i = 0; i < array.size(); i++){
 
                 JSONObject objetoCliente = (JSONObject) array.get(i);
-                
+
                 String dpi = (String) objetoCliente.get("dpi");
                 String nombre_cliente = (String) objetoCliente.get("nombre_cliente");
                 String usuario = (String) objetoCliente.get("usuario");
@@ -197,23 +197,23 @@ public class Lector {
                 long id_municipio = (long) objetoCliente.get("id_municipio");
 
                 String hashedPass = BCrypt.hashpw(password, BCrypt.gensalt(10));
-                
+
                 Cliente actual = new Cliente(Long.parseLong(dpi), usuario, hashedPass, nombre_cliente, correo, telefono, direccion, (int) id_municipio);
-                System.out.println(actual);
+                // System.out.println(actual);
 
                 if(arbolClientes.buscar(Long.parseLong(dpi)) == null){
                     arbolClientes.insertar(Long.parseLong(dpi), actual);
                     Program.hayUsuario = true;
                 }else{
                    System.out.println("Repetido - " + dpi);
-                }   
+                }
             }
-        
+
             arbolClientes.graficar();
         } catch (Exception e) {
             e.printStackTrace();
             error = true;
-        }                
+        }
         return error;
     }
 
@@ -224,13 +224,13 @@ public class Lector {
             Reader reader = new FileReader(archivo);
             JSONParser parser = new JSONParser();
             JSONObject obj  = (JSONObject) parser.parse(reader);
-                    
+
             JSONArray array = (JSONArray) obj.get("Lugares");
-  
+
             for(int i = 0; i < array.size(); i++){
 
                 JSONObject objetoLugar = (JSONObject) array.get(i);
-                
+
                 long id = (long) objetoLugar.get("id");
                 String departamento = (String) objetoLugar.get("departamento");
                 String nombre = (String) objetoLugar.get("nombre");
@@ -246,7 +246,7 @@ public class Lector {
         } catch (Exception e) {
             e.printStackTrace();
             error = true;
-        }                
+        }
         return error;
     }
 
@@ -257,13 +257,13 @@ public class Lector {
             Reader reader = new FileReader(archivo);
             JSONParser parser = new JSONParser();
             JSONObject obj  = (JSONObject) parser.parse(reader);
-                    
+
             JSONArray array = (JSONArray) obj.get("Grafo");
-  
+
             for(int i = 0; i < array.size(); i++){
 
                 JSONObject objetoLRuta = (JSONObject) array.get(i);
-                
+
                 long inicio = (long) objetoLRuta.get("inicio");
                 long final_ = (long) objetoLRuta.get("final");
                 long peso = (long) objetoLRuta.get("peso");
@@ -274,7 +274,7 @@ public class Lector {
         } catch (Exception e) {
             e.printStackTrace();
             error = true;
-        }                
+        }
         return error;
     }
 
@@ -294,11 +294,11 @@ public class Lector {
 
                     JSONArray array = (JSONArray) obj.get("DATA");
                     Lista<Entrega> DATA  = new Lista<>();
-        
+
                     for(int i = 0; i < array.size(); i++){
 
                         JSONObject objetoData = (JSONObject) array.get(i);
-                        
+
                         String cliente = (String) objetoData.get("cliente");
                         String mensajero = (String) objetoData.get("mensajero");
                         String datetime = (String) objetoData.get("datetime");
@@ -307,31 +307,38 @@ public class Lector {
 
                         DATA.insertar(new Entrega(sede, destino, datetime, cliente, mensajero));
                     }
-                    
+
                     String ROOTMERKLE = (String) obj.get("ROOTMERKLE");
                     String PREVIOUSHASH = (String) obj.get("PREVIOUSHASH");
                     long NONCE = (long) obj.get("NONCE");
                     String HASH = (String) obj.get("HASH");
 
-                    ArbolMerkle arbolMerkle = new ArbolMerkle();
-                    arbolMerkle.generarArbol(DATA);
-                    var raiz = arbolMerkle.raiz.getHash();  
+
+                    String raiz;
+                    if(DATA.vacia()){
+                        raiz = "fab4c10f3aba981b80513696a28c904ba88ebdd658acdaf2a8bb34145b85a8c4";
+                    } else{
+                        ArbolMerkle arbolMerkle = new ArbolMerkle();
+                        arbolMerkle.generarArbol(DATA);
+                        raiz = arbolMerkle.raiz.getHash();
+                    }
+
 
                     System.out.println("FILE: " + ROOTMERKLE + "\nNEW: " + raiz);
-                    System.out.println("");     
+                    System.out.println("");
 
 
 
-                    String cadena2 = INDEX + TIMESTAMP + PREVIOUSHASH + ROOTMERKLE + NONCE;
+                    String cadena2 = INDEX + TIMESTAMP + Program.PREVIOUSHASH + raiz + NONCE;
                     String hash2 = DigestUtils.sha256Hex(cadena2);
 
                     System.out.println("FILE: " + HASH + "\nNEW: " + hash2);
                     System.out.println("");
-                    
+
 
                     System.out.println("----------------------------------------------------------------------------------------------");
 
-                    Bloque actual = new Bloque((int)INDEX, TIMESTAMP, (int)NONCE, DATA, PREVIOUSHASH, ROOTMERKLE, hash2);
+                    Bloque actual = new Bloque((int)INDEX, TIMESTAMP, (int)NONCE, DATA, Program.PREVIOUSHASH, raiz, hash2);
                     actual.setValido(true);
 
                     if(!HASH.equals(hash2)) actual.setValido(false);
@@ -341,11 +348,11 @@ public class Lector {
 
                     Program.PREVIOUSHASH = hash2;
                     Program.INDEX = (int)INDEX +1;
-        
+
                 } catch (Exception e) {
                     e.printStackTrace();
 
-                }           
+                }
             }
         }
 

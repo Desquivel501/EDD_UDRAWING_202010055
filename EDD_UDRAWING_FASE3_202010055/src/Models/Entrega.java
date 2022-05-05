@@ -1,9 +1,11 @@
 package Models;
 
+import java.io.Serializable;
+
 import Lista.Lista_recorrido;
 import Program.Program;
 
-public class Entrega implements Comparable<Entrega>{
+public class Entrega implements Comparable<Entrega>, Serializable{
     private String sede;
     private String destino;
     private String datetime;
@@ -80,7 +82,7 @@ public class Entrega implements Comparable<Entrega>{
 
     @Override
     public int compareTo(Entrega o) {
-        return 0;
+        return this.distancia - o.distancia;
     }
 
 

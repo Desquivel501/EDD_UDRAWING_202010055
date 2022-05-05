@@ -139,6 +139,7 @@ public class Bloque implements Comparable<Bloque>{
         this.HASH = HASH;
     }
 
+    @SuppressWarnings("unchecked")
     public void save(){
 
         JSONObject obj = new JSONObject();
@@ -164,7 +165,15 @@ public class Bloque implements Comparable<Bloque>{
         obj.put("HASH", this.HASH);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String nombre = INDEX + "_FECHA.json";
+
+        String index = Integer.toString(INDEX);
+        String nombre;
+        String timestamp = TIMESTAMP.replace(":", "꞉");
+        if(index.length()>1){
+            nombre = INDEX + "_" + timestamp + ".json";
+        }else{
+            nombre = "0" + INDEX + "_" + timestamp + ".json";
+        }
 
         try (FileWriter writer = new FileWriter("C:\\udrawing\\blockchain\\Bloques\\" + nombre)) {
             gson.toJson(obj, writer);
@@ -223,8 +232,8 @@ public class Bloque implements Comparable<Bloque>{
         label.append(String.format("<tr><td>INDEX</td><td>%s</td></tr>",INDEX));
         label.append(String.format("<tr><td>TIMESTAMP</td><td>%s</td></tr>",TIMESTAMP));
         label.append(cadena.toString());
-        label.append(String.format("<tr><td>PREVIOUSHASH</td><td>%s</td></tr>",PREVIOUSHASH));
         label.append(String.format("<tr><td>ROOTMERKLE</td><td>%s</td></tr>",ROOTMERKLE));
+        label.append(String.format("<tr><td>PREVIOUSHASH</td><td>%s</td></tr>",PREVIOUSHASH));
         label.append(String.format("<tr><td>HASH</td><td>%s</td></tr>",HASH));
         label.append("</table>>]");
         

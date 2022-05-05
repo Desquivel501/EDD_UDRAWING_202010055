@@ -1,5 +1,8 @@
 package Lista;
-public class Lista<E extends Comparable<E>>{
+
+import java.io.Serializable;
+
+public class Lista<E extends Comparable<E>>  implements Serializable{ 
 
     private Nodo<E> head;
     private int largo;
