@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import ArbolB.NodoB;
 import Models.Cliente;
 import java.awt.event.ActionEvent;
@@ -159,7 +161,9 @@ public class Registro extends JFrame implements ActionListener{
                     JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            Cliente nuevo = new Cliente(dpi, userJT.getText(), new String(password.getPassword()), nombreJT.getText(), correoJT.getText() ,teleJT.getText(), dirJT.getText(), Integer.parseInt(munJT.getText()));
+            String hashedPass = BCrypt.hashpw(new String(password.getPassword()), BCrypt.gensalt(10));
+
+            Cliente nuevo = new Cliente(dpi, userJT.getText(),hashedPass, nombreJT.getText(), correoJT.getText() ,teleJT.getText(), dirJT.getText(), Integer.parseInt(munJT.getText()));
             NodoB nodo = Program.arbolClientes.buscar(dpi);
             if(nodo == null){
 
@@ -169,10 +173,10 @@ public class Registro extends JFrame implements ActionListener{
                     JOptionPane.INFORMATION_MESSAGE);
 
                 Program.arbolClientes.insertar(dpi, nuevo);
-                // Program.loggedUser =  nuevo;
-                // new ClienteG();
-                // setVisible(false);
-                // dispose();
+                Program.loggedUser =  nuevo;
+                new ClienteG();
+                setVisible(false);
+                dispose();
                 return;
 
             }else{

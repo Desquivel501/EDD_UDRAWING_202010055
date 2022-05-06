@@ -565,7 +565,20 @@ public class Admin extends JFrame implements ActionListener{
         }
 
         if(e.getSource() == bloqueBtn){
-            Program.crearBloque();
+            try {
+                Program.crearBloque();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Ha ocurrido un error al generar el bloque.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+                return;
+            }
+            JOptionPane.showMessageDialog(this,
+            "Se ha creado el bloque.",
+            "Completado",
+            JOptionPane.INFORMATION_MESSAGE);
         }
 
         if(e.getSource() == actBtn){
@@ -840,7 +853,7 @@ public class Admin extends JFrame implements ActionListener{
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            generarImagen(nombre, 2);
+            generarGrafo(nombre);
 
         }
 
@@ -1143,6 +1156,47 @@ public class Admin extends JFrame implements ActionListener{
         }
     }
 
+
+    private void generarGrafo(String nombre){
+        try{
+            boolean found = false;
+            long startTime = System.currentTimeMillis();
+
+            while(System.currentTimeMillis() < startTime + 30000) {
+                try{
+                    BufferedImage imagenOr = ImageIO.read(new File(nombre));
+                    float alto = ((float)930/imagenOr.getWidth()) * imagenOr.getHeight();
+
+                    Image imagenResize;
+                    if(imagenOr.getWidth() < 555){
+                        imagenResize = imagenOr.getScaledInstance(imagenOr.getWidth(), imagenOr.getHeight(), Image.SCALE_SMOOTH);
+                    }else{
+                        // imagenResize = imagenOr.getScaledInstance(950, Math.round(altura), Image.SCALE_SMOOTH);
+                        imagenResize = imagenOr.getScaledInstance(930, Math.round(alto), Image.SCALE_SMOOTH);
+                    }
+
+                    imagen2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                    imagen2.setIcon(new ImageIcon(imagenResize));
+
+                    found = true;
+                    break;
+                }catch (Exception ex1){
+
+                }
+            }
+            System.err.println("out");
+            if(!found){
+                JOptionPane.showMessageDialog(this,
+                "Ha ocurrrido un error al generar la imagen.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 
     private void getConfig(){
         ceroSpin.setValue(Program.noCero);
