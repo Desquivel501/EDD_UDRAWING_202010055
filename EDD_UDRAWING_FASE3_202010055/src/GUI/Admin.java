@@ -392,7 +392,7 @@ public class Admin extends JFrame implements ActionListener{
         //------------------------------------------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-        
+
         panelC = new JPanel();
         panelC.setBorder(new TitledBorder("Top Clientes"));
         r.add(panelC);
@@ -469,16 +469,13 @@ public class Admin extends JFrame implements ActionListener{
         panelImagen4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 
-
-        // tp.add("Reporte Clientes",p1);
         tp.add("Nuevo Cliente",c1);
-
         tp.add("Mensajeros",c3);
         tp.add("Entregas", l1);
         tp.add("Blockchain",c2);
-        tp.add("Grafos", g);
-        tp.add("Reportes", r);
-
+        tp.add("Reportes 1", r);
+        tp.add("Reportes 2", g);
+       
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -487,7 +484,6 @@ public class Admin extends JFrame implements ActionListener{
         });
 
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -574,7 +570,10 @@ public class Admin extends JFrame implements ActionListener{
 
         if(e.getSource() == actBtn){
             Program.noCero = (int)ceroSpin.getValue();
-            Program.tiempo = (int)tiempoSpin.getValue() * 60000;
+            Program.tiempo =(int)((int)tiempoSpin.getValue() * 60000);
+
+            Program.stop();
+            Program.start();
         }
 
         if(e.getSource() == nuevoBtn){
@@ -955,7 +954,7 @@ public class Admin extends JFrame implements ActionListener{
         }
 
         if(e.getSource() == blockBtn){
-
+            Program.recargarBloques();
             String nombre = Program.graficarBloques();
 
             if(nombre == null){
@@ -999,7 +998,6 @@ public class Admin extends JFrame implements ActionListener{
 
         }
 
-        
         if(e.getSource() == topMensajero){
 
             String nombre = Program.reporteMensajero();
@@ -1027,7 +1025,7 @@ public class Admin extends JFrame implements ActionListener{
             }
             generarImagen(nombre, 3);
         }
-        
+
         if(e.getSource() == reporteRuta){
             int inicio = (int) viajeInicio.getValue();
             int fin = (int) viajeFin.getValue();

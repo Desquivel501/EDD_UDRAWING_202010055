@@ -36,7 +36,6 @@ public class ArbolB {
 
     public NodoB buscar(Long id){
         if(raiz == null) return null;
-        System.out.println("Buscando");
         return raiz.buscar(id);
     }
 
@@ -197,7 +196,6 @@ public class ArbolB {
             while(nodo != null){
                 System.out.println(nodo.cliente.getUsername() + " - " + nombre);
                 if(nodo.cliente.getUsername().equals(nombre)){
-                    System.out.println("Here");
                     return nodo;
                 }
                 

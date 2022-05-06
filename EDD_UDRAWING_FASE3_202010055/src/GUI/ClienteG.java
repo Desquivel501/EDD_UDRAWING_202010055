@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.imageio.ImageIO;
@@ -22,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
 import ABB.ArbolBinario;
 import ABB.NodoABB;
 import AVL.NodoAVL;
-import Blockchain.Bloque;
 import Cola.Cola;
 import Lector.Lector;
 import Lista.Lista;
@@ -264,7 +262,6 @@ public class ClienteG extends JFrame implements ActionListener{
         panelImagen.setBounds(10,145,1150,760);
         panelImagen.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
 
-
         //------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------
 
@@ -433,11 +430,6 @@ public class ClienteG extends JFrame implements ActionListener{
         p5.add(agregarBtn);
         agregarBtn.setBounds(450, 335 , 300, 40);
         agregarBtn.addActionListener(this);
-
-        ordenarBtn= new JButton("arbol");
-        p5.add(ordenarBtn);
-        ordenarBtn.setBounds(450, 400 , 300, 40);
-        ordenarBtn.addActionListener(this);
   
         panelImagen3 = new JScrollPane();
 
@@ -1034,6 +1026,16 @@ public class ClienteG extends JFrame implements ActionListener{
 
             var ruta = Program.grafoLugares.dijkstra(final_id, inicio, true);
 
+            if(ruta == null){
+                
+                JOptionPane.showMessageDialog(this,
+                    "La ruta no es posible",
+                    "Error",
+                    JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                
+            }
+
             Entrega nueva = new Entrega(finalN, inicioN, fecha_f, Program.loggedUser.getName(),mensajeroN);
             nueva.setDistancia(ruta.getTiempo());
             
@@ -1042,9 +1044,6 @@ public class ClienteG extends JFrame implements ActionListener{
             Program.serializar();
         }
 
-        if(e.getSource() == ordenarBtn){
-            Program.crearArbol();
-        }
 
     }
 
@@ -1138,7 +1137,6 @@ public class ClienteG extends JFrame implements ActionListener{
             aux = aux.getSiguiente();
         }
     }
-
 
 }
 

@@ -62,9 +62,7 @@ public class Grafo {
         Lugar inicio = buscarLugar(id_inicio);
         Lugar final_ = buscarLugar(id_final);
 
-        if(inicio == null){
-            return;
-        } else if(final_ == null){
+        if(inicio == null || final_ == null){
             return;
         }
         if(buscarRuta(id_inicio, id_final) != null) {
@@ -74,7 +72,6 @@ public class Grafo {
         listaRutas.insertar(ruta);
     }
 
-    
     public Ruta buscarRuta(int id_inicio, int id_final){
         Nodo<Ruta> aux = listaRutas.getHead();
         while(aux != null){
@@ -90,10 +87,8 @@ public class Grafo {
         return null;
     }
 
-
     public Lista_recorrido dijkstra(int inicio, int final_, boolean mostrar){
 
-        // if(buscarLugar(inicio) == null || buscarLugar(final_) == null) return;
         if(buscarLugar(inicio) == null || buscarLugar(final_) == null)  return null;
 
         Dist_ dist = new Dist_();
@@ -113,9 +108,7 @@ public class Grafo {
         while(!cola.vacia()){
             
             var actual = cola.dequeue().getValor();
-
             var lugar_sig = listaLugares.getHead();
-            // System.out.println(actual.id);
             while(lugar_sig != null){
                 
                 var ruta_posible = buscarRuta(actual.id, lugar_sig.getValor().getId());
@@ -123,13 +116,9 @@ public class Grafo {
                     
                     int dist_alt = actual.dist + ruta_posible.getPeso();
                     if(dist_alt < 0) dist_alt = Integer.MAX_VALUE;
-
                     int dist_anterior = dist.buscar(lugar_sig.getValor().getId()).dist;
 
-
-
                     if(dist_alt < dist_anterior){
-                        // System.out.println("Actualizado: " + dist_anterior + " -> " + dist_alt);
                         dist.actualizar(lugar_sig.getValor().getId(), dist_alt);
                         cola.actualizar(lugar_sig.getValor().getId(), dist_alt);
                         prev.actualizar(lugar_sig.getValor().getId(), actual.id);
@@ -137,7 +126,6 @@ public class Grafo {
                 }
                 lugar_sig = lugar_sig.getSiguiente();
             }
-            
         }  
 
         if(dist.buscar(final_).dist == Integer.MAX_VALUE || prev.buscar(final_).prev == Integer.MIN_VALUE){
@@ -182,7 +170,6 @@ public class Grafo {
 
         return lista;
     }
-
 
     public String graficarGrafo(){
         StringBuilder dot = new StringBuilder();
@@ -289,7 +276,6 @@ public class Grafo {
         return nombre_return;
     }
 }
-
 
 
 class Prev {

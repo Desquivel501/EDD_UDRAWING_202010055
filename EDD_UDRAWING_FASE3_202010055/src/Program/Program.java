@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.util.Random;
+
+import javax.swing.JOptionPane;
+
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 
@@ -33,9 +39,10 @@ public class Program {
     public static int INDEX = 0;
     public static String PREVIOUSHASH = "0000";
     public static int noCero = 4;
-    public static int tiempo = 10000000;
+    public static int tiempo = 180000;
     private static Thread timer;
     private static boolean running = true;
+    static Random rand = new Random();
 
     public Program(){
     }
@@ -62,36 +69,29 @@ public class Program {
         System.out.println("here");
         lista_entregas.imprimir();
 
+        String raiz;
         if(lista_entregas.vacia()){
-            System.out.println("vacio");
-            Bloque nuevoBloque = new Bloque(lista_entregas,"fab4c10f3aba981b80513696a28c904ba88ebdd658acdaf2a8bb34145b85a8c4");
-            nuevoBloque.save();
-            lista_bloques.insertar(nuevoBloque);
-
-            lista_entregas = new Lista<Entrega>();
-            arbolMerkle = new ArbolMerkle();
-            serializar();
+            raiz = DigestUtils.sha256Hex("-1");
         }else{
             arbolMerkle.generarArbol(lista_entregas);
-            // arbolMerkle.graficar();
-            var raiz = arbolMerkle.raiz.getHash();
-            System.out.println("i -> " + arbolMerkle.raiz.getHash());
-
-            Bloque nuevoBloque = new Bloque(lista_entregas,raiz);
-            nuevoBloque.save();
-            lista_bloques.insertar(nuevoBloque);
-
-            lista_entregas = new Lista<Entrega>();
-            arbolMerkle = new ArbolMerkle();
-            serializar();
+            raiz = arbolMerkle.raiz.getHash();
         }
 
+        Bloque nuevoBloque = new Bloque(lista_entregas,raiz);
+        nuevoBloque.setValido(true);
+        nuevoBloque.save();
+        lista_bloques.insertar(nuevoBloque);
+
+        lista_entregas = new Lista<Entrega>();
+        arbolMerkle = new ArbolMerkle();
+        serializar();
+        
     }
 
     public static String graficarBloques(){
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
-        dot.append(String.format("label=\"%s\"\n", "Tabla Hash"));
+        dot.append(String.format("label=\"%s\"\n", "Blockchain"));
         dot.append("labelloc = \"t\"\n");
         dot.append("node [shape=record]\n");
 
@@ -101,34 +101,39 @@ public class Program {
             bloque = bloque.getSiguiente();
         }
         dot.append("}");
+        
+        int num = rand.nextInt();
 
         try{
-            FileWriter fileWriter = new FileWriter("imagenes/Bloques.dot");
+            FileWriter fileWriter = new FileWriter("imagenes/Bloques"+num+".dot");
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print(dot.toString());
             printWriter.close();   
 
-            String[] command = {"dot", "-Tpng" ,"imagenes/Bloques.dot", "-o","imagenes/Bloques.png" };
+            String[] command = {"dot", "-Tpng" ,"imagenes/Bloques"+num+".dot", "-o","imagenes/Bloques"+num+".png" };
             new ProcessBuilder(command).start();
         }catch (Exception e){
             e.printStackTrace();
             return "";
         }
-        return "imagenes/Bloques.png";
+        return "imagenes/Bloques"+num+".png";
     }
 
     public static void start(){
+        running = true;
         timer = new Thread(new Runnable() {
             @Override
             public void run() {
+                
                 while(running){
                     try {
+                        System.out.println(tiempo);
                         Thread.sleep(tiempo);
                         crearBloque();
                     }
                     catch (InterruptedException e) {
                         running = false;
-                        serializar();
+                        serializar();    
                     }
                     catch (Exception ex) {
                         ex.printStackTrace();
@@ -141,6 +146,13 @@ public class Program {
 
     public static void stop(){
         timer.interrupt();
+    }
+
+    public static void recargarBloques(){
+        INDEX = 0;
+        PREVIOUSHASH = "0000";
+        lista_bloques = new Lista<Bloque>();
+        Lector.leerBloques();
     }
 
     public static String reporteClientes(){
@@ -165,7 +177,6 @@ public class Program {
         dot.append("<TD style=\"text-align: center;\" bgcolor=\"#6082b6\">No. Pedidos</TD>\n");
         dot.append("</TR>\n");
 
-        
         var aux = lista.getHead();
         int i= 0;
         while(aux != null && i < 10){
@@ -314,7 +325,13 @@ public class Program {
 
     public static String simularRuta(int inicio, int destino){
         Lista_recorrido lista = grafoLugares.dijkstra(inicio, destino, false);
-        if(lista == null) return null;
+        if(lista == null){
+            JOptionPane.showMessageDialog(null,
+                    "La ruta no es posible",
+                    "Error",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return null;
+        } 
 
         StringBuilder dot = new StringBuilder();
         dot.append("digraph G{\n");
@@ -382,11 +399,10 @@ public class Program {
         } 
         catch (IOException ioe) 
         {
-           ioe.printStackTrace();
+        //    ioe.printStackTrace();
         } 
         catch (ClassNotFoundException c) 
         {
-//            System.out.println("Class not found");
            c.printStackTrace();
         }
     }

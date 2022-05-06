@@ -27,7 +27,6 @@ public class TablaHash {
     }
 
     public void insertar(Mensajero valor){
-        System.out.println(".");
         int pos = indice(valor.getDpi());
         if(tabla[pos] != null){
             pos = colision(valor.getDpi(), pos);
@@ -41,7 +40,6 @@ public class TablaHash {
 
     private void resize(){
         SIZE = SIZE*2;
-
         Mensajero aux[] = new Mensajero[SIZE];
 
         for(int i = 0; i < SIZE; i++){
@@ -52,7 +50,6 @@ public class TablaHash {
             if(tabla[i] != null){
                 aux[i] = tabla[i];
             }
-            
         }
         tabla = aux;
     }
@@ -97,16 +94,17 @@ public class TablaHash {
         dot.append("rankdir = \"TB\"\n");
         int contLista = 0;
         int contColumna = 0;
-        StringBuilder lista = new StringBuilder();
-        lista.append(String.format("lista%d[label=\"", contLista));
         boolean agregada = false;
 
+        StringBuilder lista = new StringBuilder();
+        lista.append(String.format("lista%d[label=\"", contLista));
+        
         for(int i = 0; i < SIZE; i++){
 
             if(tabla[i] != null){
                 lista.append(tabla[i].getDpi());
             }else{
-                lista.append("             ");
+                lista.append(" ");
             }
             
             if(contColumna == 8){

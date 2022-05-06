@@ -33,7 +33,7 @@ public class App {
         }
 
         Lector.leerBloques();
-        Program.graficarBloques();
+        // Program.graficarBloques();
         Program.start();
         
         String hashedPass = BCrypt.hashpw("1234", BCrypt.gensalt(10));

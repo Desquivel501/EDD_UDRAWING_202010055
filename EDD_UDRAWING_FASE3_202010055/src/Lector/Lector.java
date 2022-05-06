@@ -33,20 +33,16 @@ public class Lector {
             for(int i = 0; i < array.size(); i++){
 
                 JSONObject objetoCliente = (JSONObject) array.get(i);
-
                 String dpi = (String) objetoCliente.get("dpi");
                 String nombre = (String) objetoCliente.get("nombres");
                 String apellido = (String) objetoCliente.get("apellidos");
                 String licencia = (String) objetoCliente.get("tipo_licencia");
                 String genero = (String) objetoCliente.get("genero");
                 String direccion = (String) objetoCliente.get("direccion");
+                String telefono = (String) objetoCliente.get("telefono");
 
-                System.out.println(nombre);
-
-                Mensajero nuevo = new Mensajero(Long.parseLong(dpi), nombre, apellido, licencia, genero, "0", direccion);
-
+                Mensajero nuevo = new Mensajero(Long.parseLong(dpi), nombre, apellido, licencia, genero, telefono, direccion);
                 Program.tablaMensajeros.insertar(nuevo);
-
 
             }
 
@@ -230,7 +226,6 @@ public class Lector {
             for(int i = 0; i < array.size(); i++){
 
                 JSONObject objetoLugar = (JSONObject) array.get(i);
-
                 long id = (long) objetoLugar.get("id");
                 String departamento = (String) objetoLugar.get("departamento");
                 String nombre = (String) objetoLugar.get("nombre");
@@ -240,7 +235,6 @@ public class Lector {
 
                 Lugar nuevo = new Lugar((int) id, departamento, nombre, sucursal);
                 Program.grafoLugares.insertarLugar(nuevo);
-
             }
 
         } catch (Exception e) {
@@ -313,30 +307,16 @@ public class Lector {
                     long NONCE = (long) obj.get("NONCE");
                     String HASH = (String) obj.get("HASH");
 
-
                     String raiz;
                     if(DATA.vacia()){
-                        raiz = "fab4c10f3aba981b80513696a28c904ba88ebdd658acdaf2a8bb34145b85a8c4";
+                        raiz = DigestUtils.sha256Hex("-1");
                     } else{
                         ArbolMerkle arbolMerkle = new ArbolMerkle();
                         arbolMerkle.generarArbol(DATA);
                         raiz = arbolMerkle.raiz.getHash();
                     }
-
-
-                    System.out.println("FILE: " + ROOTMERKLE + "\nNEW: " + raiz);
-                    System.out.println("");
-
-
-
                     String cadena2 = INDEX + TIMESTAMP + Program.PREVIOUSHASH + raiz + NONCE;
                     String hash2 = DigestUtils.sha256Hex(cadena2);
-
-                    System.out.println("FILE: " + HASH + "\nNEW: " + hash2);
-                    System.out.println("");
-
-
-                    System.out.println("----------------------------------------------------------------------------------------------");
 
                     Bloque actual = new Bloque((int)INDEX, TIMESTAMP, (int)NONCE, DATA, Program.PREVIOUSHASH, raiz, hash2);
                     actual.setValido(true);
@@ -351,12 +331,9 @@ public class Lector {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-
                 }
             }
         }
-
-
     }
 
 

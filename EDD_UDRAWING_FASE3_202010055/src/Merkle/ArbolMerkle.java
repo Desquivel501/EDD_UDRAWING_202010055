@@ -32,7 +32,12 @@ public class ArbolMerkle {
             nodos.insertar(new NodoMerkle(null, null, hash, valor));
             aux = aux.getSiguiente();
         }
-        int nivel = 0;
+        double res = potencia(nodos.getLargo());
+        for(int i = 0; i < res; i++){
+            nodos.insertar( new NodoMerkle(null, null, "-1", null));
+        }
+
+
         Lista<NodoMerkle> padres = new Lista<>();
         while(nodos.getLargo() != 1){
             int contador = 0;
@@ -40,40 +45,33 @@ public class ArbolMerkle {
 
             while(contador < largo){
                 NodoMerkle izquierdo = nodos.get(contador);
-                NodoMerkle derecho = null;
+                NodoMerkle derecho =  nodos.get(contador + 1);
 
-                if((contador + 1) < largo){
-                    derecho = nodos.get(contador + 1);
+                String hashPadre;
+                if(izquierdo.getHash() == "-1" && derecho.getHash() == "-1"){
+                    hashPadre = "-1";
                 }else{
-                    derecho = new NodoMerkle(null, null, "-1", null);
-
-                    int i = (nivel%2 == 0) ? nivel+1:nivel;
-                    
-                    Cola<NodoMerkle> cola = new Cola<>();
-                    cola.enqueue(derecho);
-
-                    while(!cola.vacia()){
-                        var nodo = cola.dequeue();
-                        if(i > 0){
-                            System.out.println(i);
-                            nodo.getValor().setDerecha(new NodoMerkle(null, null, "-1", null));
-                            nodo.getValor().setIzquierda(new NodoMerkle(null, null, "-1", null));
-                            cola.enqueue(nodo.getValor().getIzquierda());
-                            cola.enqueue(nodo.getValor().getDerecha());
-                        }
-                        i--;
-                    }
+                    hashPadre = funcionHash(izquierdo.getHash() + derecho.getHash());
                 }
-                String hashPadre = funcionHash(izquierdo.getHash() + derecho.getHash());
+
                 NodoMerkle nodoPadre = new NodoMerkle(izquierdo,derecho,hashPadre,null);
                 padres.insertar(nodoPadre);
                 contador += 2;
             }
             nodos = padres;
             padres = new Lista<NodoMerkle>();
-            nivel++;
         }
         raiz = nodos.get(0);
+    }
+
+    public double potencia(int num){
+        int i = 0;
+        while(true){
+            if(Math.pow(2,i) >= num){
+                return Math.pow(2,i) - num;
+            }
+            i++;
+        }
     }
 
     public String graficar(){

@@ -45,8 +45,6 @@ public class Bloque implements Comparable<Bloque>{
         this.ROOTMERKLE = ROOTMERKLE;
         generarHash();
         this.DATA = DATA;
-        
-        
     }
 
 
@@ -231,6 +229,7 @@ public class Bloque implements Comparable<Bloque>{
         label.append(String.format("bloque%d[label=<<table bgcolor=\"%s\">", INDEX, color()));
         label.append(String.format("<tr><td>INDEX</td><td>%s</td></tr>",INDEX));
         label.append(String.format("<tr><td>TIMESTAMP</td><td>%s</td></tr>",TIMESTAMP));
+        label.append(String.format("<tr><td>NONCE</td><td>%s</td></tr>",NONCE));
         label.append(cadena.toString());
         label.append(String.format("<tr><td>ROOTMERKLE</td><td>%s</td></tr>",ROOTMERKLE));
         label.append(String.format("<tr><td>PREVIOUSHASH</td><td>%s</td></tr>",PREVIOUSHASH));
